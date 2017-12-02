@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	 <!-- 作业 -->
+     <bean id="checkDevStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <property name="targetObject" ref="checkDevStatusJob" />  
+        <property name="targetMethod" value="execSyncDevStatus" />  
+     </bean>  
+     
+     <!-- 触发器 -->
+     <bean id="checkDevStatusTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+	    <property name="jobDetail" ref="checkDevStatusJobDetail" />  
+	     <!--  每5min执行一次 -->  
+	    <property name="cronExpression" value="0 0/5 * * * ?" />  
+	 </bean> 
+	  
+	 <!-- 管理触发器的总设置,管理我们的触发器列表,可以在bean的list中放置多个触发器    -->
+	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	 	 <property name="jobDetails">
+	 	 	<list>            
+	             <ref bean="checkDevStatusJobDetail" />   
+            </list>
+	 	 </property> 
+	     <property name="triggers">
+	         <list>            
+	             <ref bean="checkDevStatusTrigger" /> 
+	         </list>
+	     </property>
+	     <property name="quartzProperties">
+	         <props>
+	             <prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+	         </props>
+	     </property>
+	 </bean>
+</beans>

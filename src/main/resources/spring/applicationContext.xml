@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 注解支持 -->
+	<context:annotation-config />
+	<!-- 扫描注解 Bean 排除 Controller -->
+	<context:component-scan base-package="com.jiantong">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	<!-- 属性文件位置 -->
+	<bean id="annotationPropertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:properties/jdbc.properties</value>
+				<value>classpath:properties/log4j.properties</value>
+				<value>classpath:properties/application.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 数据源 druid  -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+      	<property name="url" value="${jdbc.url}" />
+      	<property name="username" value="${jdbc.username}" />
+      	<property name="password" value="${jdbc.password}" />
+      	<property name="driverClassName" value="${jdbc.driverClassName}" />  
+      	<!-- 配置初始化大小、最小、最大 -->
+      	<property name="initialSize" value="${druid.initialSize}" />
+      	<property name="minIdle" value="${druid.minIdle}" /> 
+      	<property name="maxActive" value="${druid.maxActive}" />
+      	<!-- 配置获取连接等待超时的时间 -->
+      	<property name="maxWait" value="${druid.maxWait}" />
+      	
+      	<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+      	<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+      	<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+      	<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+      	
+      	<property name="validationQuery" value="${druid.validationQuery}" />
+      	<property name="testWhileIdle" value="${druid.testWhileIdle}" />
+      	<property name="testOnBorrow" value="${druid.testWhileIdle}" />
+      	<property name="testOnReturn" value="${druid.testWhileIdle}" />
+		<!-- mysql 不支持 poolPreparedStatements-->  
+      	<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+      	<!--<property name="poolPreparedStatements" value="true" />-->
+      	<!--<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />-->
+      	<!-- 配置监控统计拦截的filters -->
+      	<property name="filters" value="${druid.filters}" /> 
+    </bean>  
+    
+    <!-- sqlSessionFactory spring和myBatis整合 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/jiantong/mapper/*.xml"></property>
+		<!-- mybatis配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"/>
+	</bean>
+	
+	<!-- 
+	MapperScannerConfigurer：mapper的扫描器，将包下边的mapper接口自动创建代理对象，
+	自动创建到spring容器中，bean的id是mapper的类名（首字母小写）
+	 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 配置扫描包的路径
+		如果要扫描多个包，中间使用半角逗号分隔
+		如果没有配置mapperLocations要求mapper.xml和mapper.java同名且在同一个目录 
+		 -->
+		<property name="basePackage" value="com.jiantong.dao"/>
+		<!-- 使用sqlSessionFactoryBeanName -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+	
+ 	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<!-- <aop:aspectj-autoproxy expose-proxy="true"/> -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+  	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 通知 -->	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="view*" read-only="true" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" /><!-- 防止漏网之鱼 -->
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 切面 -->
+	<aop:config>
+		<!-- 切点 管理所有Service的方法 -->
+		<aop:pointcut expression="execution(* org.hqu.production_ms.service.*.*(..))" id="transactionPointCut"/>
+		<!-- 增强，进行事务控制 Advisor -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointCut"/>
+	</aop:config>
+	
+    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+    <!-- Spring提供的基于的Ehcache实现的缓存管理器 --> 
+	
+    <!-- 如果有多个ehcacheManager要在bean加上p:shared="true" -->
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache/ehcache.xml"/>
+    </bean>
+    
+    <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"/>
+    </bean>
+    
+	<cache:annotation-driven cache-manager="springCacheManager" mode="proxy" />
+	
+    <import resource="classpath:spring/spring-shiro-config.xml"/>
+    <!-- <import resource="classpath:spring/spring-task-config.xml"/> -->
+    
+</beans>
