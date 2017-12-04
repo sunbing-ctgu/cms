@@ -116,7 +116,7 @@
 		<!-- <property name="failureKeyAttribute" value="shiroLoginFailure" /> 
 			failureKeyAttribute指定登录失败时的 request属性 key（默认 shiroLoginFailure） -->
 		<!-- 指定身份验证的登录表单 -->
-		<property name="loginUrl" value="/login" />
+		<property name="loginUrl" value="/admin/login" />
 	</bean>
 
 	<!-- 验证码 -->
@@ -140,12 +140,12 @@
 		<!-- 比如 2 的意思是同一个用户允许最多同时两个人登录 -->
 		<property name="maxSession" value="1" />
 		<!-- 被踢出后重定向到的地址 -->
-		<property name="kickoutUrl" value="/login?kickout=1" />
+		<property name="kickoutUrl" value="/admin/login?kickout=1" />
 	</bean>
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" />
+		<property name="loginUrl" value="/admin/login" />
 		<property name="filters">
 			<util:map>
 				<entry key="authc" value-ref="formAuthenticationFilter" />

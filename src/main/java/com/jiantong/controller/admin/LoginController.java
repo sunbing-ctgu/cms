@@ -36,7 +36,7 @@ public class LoginController {
 		if (request.getParameter("kickout") != null) {
 			model.addAttribute("msg", "您的帐号在另一个地点登录，您已被踢出！");
 		}
-		return "login";
+		return "admin/login";
 	}
 
 	@RequestMapping("/logout")
