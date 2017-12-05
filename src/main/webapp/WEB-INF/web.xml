@@ -64,7 +64,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>JCaptchaFilter</filter-name>
-		<url-pattern>/jcaptcha.jpg</url-pattern>
+		<url-pattern>/admin/jcaptcha.jpg</url-pattern>
 	</filter-mapping>
 
 	<!-- post乱码处理 -->
