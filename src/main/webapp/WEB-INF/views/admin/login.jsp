@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -42,10 +43,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 
 							<div class="space-6"></div>
-
 							<div class="position-relative">
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
+										<c:if test="${not empty msg}">
+										<div id="alertMessage" class="alert alert-danger">${msg}</div>
+										</c:if>
 										<div class="widget-main">
 											<h4 class="header blue lighter bigger">
 												<i class="ace-icon fa fa-coffee green"></i>
@@ -54,25 +57,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 											<div class="space-6"></div>
 
-											<form>
+											<form id="formLogin" name="formLogin" action="admin/login" method="post">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input id="username" name="username" type="text" class="form-control" placeholder="用户名" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input id="password" name="password" type="password" class="form-control" placeholder="密码" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
 													
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="验证码" />
+															<input id="jcaptchaCode" name="jcaptchaCode" type="text" class="form-control" placeholder="验证码" />
 															<i class="ace-icon fa fa-refresh"></i>
 															
 														</span>
@@ -88,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<span class="lbl"> Remember Me</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<button id="loginButton" type="button" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">登录</span>
 														</button>
@@ -259,6 +262,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var target = $(this).data('target');
 				$('.widget-box.visible').removeClass('visible');//hide others
 				$(target).addClass('visible');//show target
+			 });
+			 
+			 $(document).on('click', '#loginButton', function(e) {
+				 $('#formLogin').submit();
 			 });
 			});
 		</script>

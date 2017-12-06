@@ -2,6 +2,7 @@ package com.jiantong.controller.admin;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -10,6 +11,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,12 +38,12 @@ public class LoginController {
 		if (request.getParameter("kickout") != null) {
 			model.addAttribute("msg", "您的帐号在另一个地点登录，您已被踢出！");
 		}
-		return "admin/login";
+		return "/admin/login";
 	}
 
-	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request) {
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
 		SecurityUtils.getSubject().logout();
-		return "redirect:/login";
+		return "redirect:admin/login";
 	}
 }
