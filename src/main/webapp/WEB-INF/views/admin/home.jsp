@@ -6,6 +6,8 @@
 <jsp:include page="common/head.jsp"></jsp:include>
 </head>
 <body class="no-skin">
-hello world
+<div class="main-container" id="main-container">
+<jsp:include page="common/menu.jsp"></jsp:include>
+</div>
 </body>
 </html>
