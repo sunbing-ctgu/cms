@@ -8,19 +8,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <div id="sidebar" class="sidebar responsive">
+<script type="text/javascript">
+	try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+</script>
 <ul class="nav nav-list">
 	<li class="">
 		<a href="index.html">
-			<i class="menu-icon fa fa-tachometer"></i>
-			<span class="menu-text"> Dashboard </span>
+			<i class="menu-icon fa fa-home"></i>
+			<span class="menu-text"> 管理首页</span>
 		</a>
 
 		<b class="arrow"></b>
 	</li>
 	<li class="active open">
 		<a href="#" class="dropdown-toggle">
-			<i class="menu-icon fa fa-list"></i>
-			<span class="menu-text"> Tables </span>
+			<i class="menu-icon fa fa-book"></i>
+			<span class="menu-text"> 内容管理 </span>
 
 			<b class="arrow fa fa-angle-down"></b>
 		</a>
@@ -31,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="active">
 				<a href="tables.html">
 					<i class="menu-icon fa fa-caret-right"></i>
-					Simple &amp; Dynamic
+					简介管理
 				</a>
 
 				<b class="arrow"></b>
@@ -40,7 +43,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="">
 				<a href="jqgrid.html">
 					<i class="menu-icon fa fa-caret-right"></i>
-					jqGrid plugin
+					新闻管理
+				</a>
+
+				<b class="arrow"></b>
+			</li>
+			
+			<li class="">
+				<a href="jqgrid.html">
+					<i class="menu-icon fa fa-caret-right"></i>
+					栏目管理
 				</a>
 
 				<b class="arrow"></b>
@@ -49,8 +61,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</li>
 	<li class="">
 		<a href="#" class="dropdown-toggle">
-			<i class="menu-icon fa fa-pencil-square-o"></i>
-			<span class="menu-text"> Forms </span>
+			<i class="menu-icon fa fa-desktop"></i>
+			<span class="menu-text"> 界面风格 </span>
 
 			<b class="arrow fa fa-angle-down"></b>
 		</a>
@@ -61,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="">
 				<a href="form-elements.html">
 					<i class="menu-icon fa fa-caret-right"></i>
-					Form Elements
+					导航管理
 				</a>
 
 				<b class="arrow"></b>
@@ -70,31 +82,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="">
 				<a href="form-wizard.html">
 					<i class="menu-icon fa fa-caret-right"></i>
-					Wizard &amp; Validation
-				</a>
-
-				<b class="arrow"></b>
-			</li>
-
-			<li class="">
-				<a href="wysiwyg.html">
-					<i class="menu-icon fa fa-caret-right"></i>
-					Wysiwyg &amp; Markdown
-				</a>
-
-				<b class="arrow"></b>
-			</li>
-
-			<li class="">
-				<a href="dropzone.html">
-					<i class="menu-icon fa fa-caret-right"></i>
-					Dropzone File Upload
+					图片管理
 				</a>
 
 				<b class="arrow"></b>
 			</li>
 		</ul>
-	</li>		
+	</li>	
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-cogs"></i>
+			<span class="menu-text"> 系统管理 </span>
+
+			<b class="arrow fa fa-angle-down"></b>
+		</a>
+
+		<b class="arrow"></b>
+
+		<ul class="submenu">
+			<li class="">
+				<a href="form-elements.html">
+					<i class="menu-icon fa fa-caret-right"></i>
+					用户管理
+				</a>
+
+				<b class="arrow"></b>
+			</li>
+
+			<li class="">
+				<a href="form-wizard.html">
+					<i class="menu-icon fa fa-caret-right"></i>
+					站点设置
+				</a>
+
+				<b class="arrow"></b>
+			</li>
+		</ul>
+	</li>	
 </ul>					
+<!-- #section:basics/sidebar.layout.minimize -->
+<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+	<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+</div>
+<!-- /section:basics/sidebar.layout.minimize -->
+<script type="text/javascript">
+	try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+</script>
 </div>
 </html>
