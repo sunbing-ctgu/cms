@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</li>
 
 						<li>
-							<a href="#">
+							<a href="admin/setLanguage?lang=zh_CN">
 								<div class="clearfix">
 									<span class="pull-left">中文简体</span>
 								</div>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</li>
 
 						<li>
-							<a href="#">
+							<a href="admin/setLanguage?lang=en_US">
 								<div class="clearfix">
 									<span class="pull-left">English</span>
 								</div>
