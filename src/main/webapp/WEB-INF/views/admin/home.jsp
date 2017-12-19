@@ -38,7 +38,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script id="container" name="content" type="text/plain">
         这里写你的初始化内容
 </script>
-<div id="tree"></div>
+<div class="col-sm-3">
+<div class="widget-box widget-color-green2">
+<div class="widget-header">
+<h4 class="widget-title lighter smaller">栏目</h4>
+</div>
+<div class="widget-body">
+<div class="widget-main padding-8">
+<div id="tree" class="treeview"></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -83,6 +94,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	  return tree;
     	}
 
-   	$('#tree').treeview({data: getTree()});
+   	$('#tree').treeview({
+   		color: "#428bca",
+   		expandIcon: 'glyphicon glyphicon-chevron-right',
+        collapseIcon: 'glyphicon glyphicon-chevron-down',
+   		data: getTree()
+   		
+   	});
+   	$('#tree').treeview('collapseAll', { silent: true });
 </script>
 </html>
