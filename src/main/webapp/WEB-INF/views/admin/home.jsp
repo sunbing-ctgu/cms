@@ -12,6 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="js/treeview/bootstrap-treeview.js"></script>
 </head>
 <body class="no-skin">
 <div class="main-container" id="main-container">
@@ -37,11 +38,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script id="container" name="content" type="text/plain">
         这里写你的初始化内容
 </script>
+<div id="tree"></div>
 </div>
 </div>
 </div>
 </body>
 <script type="text/javascript">
     var ue = UE.getEditor('container');
+    var tree = [
+    	  {
+    	    text: "Parent 1",
+    	    nodes: [
+    	      {
+    	        text: "Child 1",
+    	        nodes: [
+    	          {
+    	            text: "Grandchild 1"
+    	          },
+    	          {
+    	            text: "Grandchild 2"
+    	          }
+    	        ]
+    	      },
+    	      {
+    	        text: "Child 2"
+    	      }
+    	    ]
+    	  },
+    	  {
+    	    text: "Parent 2"
+    	  },
+    	  {
+    	    text: "Parent 3"
+    	  },
+    	  {
+    	    text: "Parent 4"
+    	  },
+    	  {
+    	    text: "Parent 5"
+    	  }
+    	];
+    function getTree() {
+    	  // Some logic to retrieve, or generate tree structure
+    	  return tree;
+    	}
+
+   	$('#tree').treeview({data: getTree()});
 </script>
 </html>

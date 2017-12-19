@@ -8,7 +8,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.jiantong.entity.User;
+
+/**
+ * 基础Controller
+ * @author sunbing
+ *
+ */
 public class BaseController {
+	public final static String USER_SESSION = "user";
 
 	/**
 	 * 获取Session
@@ -32,5 +40,16 @@ public class BaseController {
 		}else {
 			return LocaleContextHolder.getLocale().getLanguage();
 		}
+	}
+	
+	/**
+	 * 获取登录用户信息
+	 * @param request
+	 * @return
+	 */
+	protected User getUser(HttpServletRequest request) {
+		HttpSession session = getSession(request);
+		User user = (User)session.getAttribute(USER_SESSION);
+		return user;
 	}
 }
