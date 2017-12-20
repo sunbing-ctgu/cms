@@ -5,17 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jiantong.bean.UserBean;
 import com.jiantong.dao.UserDao;
 import com.jiantong.entity.User;
 import com.jiantong.service.UserService;
-import com.jiantong.vo.UserManageVo;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
 
+	@Override
+	public List<User> getUserList(UserBean userSearchVo) {
+		// TODO Auto-generated method stub
+		List<User> userList = userDao.getUserList(userSearchVo);
+		return userList;
+	}
+	
 	@Override
 	public User getUserByName(String username) {
 		// TODO Auto-generated method stub
@@ -27,40 +34,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findUserByParam(UserManageVo userSearchVo) {
+	public Integer addUser(User user) {
 		// TODO Auto-generated method stub
-		List<User> userList = userDao.findUserByParam(userSearchVo);
-		return userList;
+		return userDao.addUser(user);
+	}
+	
+	@Override
+	public Integer updateUser(User user) {
+		// TODO Auto-generated method stub
+		return userDao.updateUser(user);
 	}
 
 	@Override
-	public Integer insertUser(User user) {
+	public Integer deleteUser(List<Integer> ids) {
 		// TODO Auto-generated method stub
-		return userDao.insertUser(user);
-	}
-
-	@Override
-	public Integer updateUser(UserManageVo userSearchVo) {
-		// TODO Auto-generated method stub
-		return userDao.updateUser(userSearchVo);
-	}
-
-	@Override
-	public Integer deleteUser(Integer id) {
-		// TODO Auto-generated method stub
-		return userDao.deleteUser(id);
-	}
-
-	@Override
-	public Integer isHaveUser(String username) {
-		// TODO Auto-generated method stub
-		return userDao.isHaveUser(username);
-	}
-
-	@Override
-	public Integer deleteUserList(List<Integer> userList) {
-		// TODO Auto-generated method stub
-		return userDao.deleteUserList(userList);
+		return userDao.deleteUserList(ids);
 	}
 
 }

@@ -2,22 +2,49 @@ package com.jiantong.service;
 
 import java.util.List;
 
+import com.jiantong.bean.UserBean;
 import com.jiantong.entity.User;
-import com.jiantong.vo.UserManageVo;
 
+/**
+ * 用户管理逻辑层接口
+ * @author sunbing
+ *
+ */
 public interface UserService {
+	
+	/**
+	 * 获取用户列表
+	 * @param userSearchVo
+	 * @return
+	 */
+	public List<User> getUserList(UserBean userSearchVo);
 
+	/**
+	 * 通过用户名获取用户信息
+	 * @param username
+	 * @return
+	 */
 	public User getUserByName(String username);
 	
-	public List<User> findUserByParam(UserManageVo userSearchVo);
+	/**
+	 * 添加用户
+	 * @param user
+	 * @return
+	 */
+	public Integer addUser(User user);
 	
-	public Integer insertUser(User user);
+	/**
+	 * 更新用户
+	 * @param userSearchVo
+	 * @return
+	 */
+	public Integer updateUser(User userSearchVo);
 	
-	public Integer updateUser(UserManageVo userSearchVo);
+	/**
+	 * 删除用户
+	 * @param ids
+	 * @return
+	 */
+	public Integer deleteUser(List<Integer> ids);
 	
-	public Integer deleteUser(Integer id);
-	
-	public Integer isHaveUser(String username);
-	
-	public Integer deleteUserList(List<Integer> userList);
 }
