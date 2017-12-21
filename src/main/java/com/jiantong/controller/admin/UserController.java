@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.jiantong.bean.UserBean;
+import com.jiantong.common.PasswordHelper;
 import com.jiantong.common.ResponseJsonData;
 import com.jiantong.controller.admin.base.BaseController;
 import com.jiantong.entity.User;
 import com.jiantong.service.UserService;
+import com.jiantong.vo.UserVo;
 
 /**
  * 用户管理控制层
@@ -31,6 +33,9 @@ public class UserController extends BaseController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordHelper passwordHelper;
 
 	@RequestMapping("")
 	public String userManage(HttpServletRequest request, Model model) {
@@ -60,6 +65,13 @@ public class UserController extends BaseController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonData addUser(HttpServletRequest request, @RequestBody UserVo data) {
+		ResponseJsonData result = new ResponseJsonData();
+		passwordHelper.encryptPassword(data);
+		return result;
+	}
 	
 	
 }

@@ -11,26 +11,20 @@ import javax.validation.constraints.Size;
  */
 public class UserVo {
 	
-	@Size(max=36, message="用户编号过长！")
-	private String id;
-
 	@Size(max=64, message="用户名过长！")
     private String username;
 
 	@Size(max=32, message="密码过长！")
     private String password;
 	
-	private String locked;
-	
 	private String salt;
 	
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	@Size(max=64, message="真实姓名过长！")
+	private String realname;
+	
+	private Integer sex;
+	
+	private String tel;
 
 	public String getUsername() {
 		return username;
@@ -48,14 +42,6 @@ public class UserVo {
 		this.password = password;
 	}
 
-	public String getLocked() {
-		return locked;
-	}
-
-	public void setLocked(String locked) {
-		this.locked = locked;
-	}
-
 	public String getSalt() {
 		return salt;
 	}
@@ -63,9 +49,32 @@ public class UserVo {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 	
 	public String getCredentialsSalt() {
         return username + salt;
     }
-    
 }
