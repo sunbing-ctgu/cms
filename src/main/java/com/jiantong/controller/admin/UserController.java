@@ -1,5 +1,7 @@
 package com.jiantong.controller.admin;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -53,7 +55,7 @@ public class UserController extends BaseController {
 			flag = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("getUserList exception {}", e.getMessage());
+			logger.error("getUserList Exception", e);
 		}
 		if (flag) {
 			result.setRetcode(SUCCESS);
@@ -69,9 +71,54 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseJsonData addUser(HttpServletRequest request, @RequestBody UserVo data) {
 		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
 		passwordHelper.encryptPassword(data);
+		User hasUser = userService.getUserByName(data.getUsername());
+		if(null != hasUser) {
+			result.setRetcode(FAIL);
+			result.setMsg("用户名已经存在！");
+			return result;
+		}
+		try {
+			data.setLocked(0);
+			data.setStatus(1);
+			data.setCreateTime(new Date());
+			userService.addUser(data);
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("addUser Exception", e);
+		}
+		if(flag) {
+			result.setRetcode(SUCCESS);
+			result.setMsg("添加用户成功！");
+		}else {
+			result.setRetcode(FAIL);
+			result.setMsg("添加用户失败！");
+		}
 		return result;
 	}
 	
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonData updateUser(HttpServletRequest request, @RequestBody UserVo data) {
+		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
+		try {
+			userService.updateUser(data);
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("updateUser Exception", e);
+		}
+		if(flag) {
+			result.setRetcode(SUCCESS);
+			result.setMsg("更新用户成功！");
+		}else {
+			result.setRetcode(FAIL);
+			result.setMsg("更新用户失败！");
+		}
+		return result;
+	}
 	
 }

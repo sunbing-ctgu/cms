@@ -8,17 +8,14 @@ public class User {
 	
     /**账号 */
     private String username;
-
-    /**密码 */
-    private String password;
-
-    /**账号是否锁定，1：锁定，0未锁定 */
-    private Integer locked;
-    
-    private String salt;
     
     /**真实姓名 */
     private String realname;
+
+    /**密码 */
+    private String password;
+    
+    private String salt;
 
     /**性别   0：男     1：女*/
     private Integer sex;
@@ -26,19 +23,22 @@ public class User {
     /**手机号 */
     private String tel;
     
-    /**创建时间 */
-    private Date createtime;
-    
     /**最后登录IP */
-    private String lasthost;
+    private String lastHost;
     
     /**最后登录时间 */
-    private Date lastlogintime;
+    private Date lastLoginTime;
+    
+    /**账号是否锁定，1：锁定，0未锁定 */
+    private Integer locked;
     
     /**状态  0:已删除    1：正常*/
     private Integer status;
     
-    public Integer getId() {
+    /**创建时间 */
+    private Date createTime;
+
+	public Integer getId() {
 		return id;
 	}
 
@@ -47,39 +47,12 @@ public class User {
 	}
 
 	public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-    
-	public String getSalt() {
-		return salt;
+		return username;
 	}
 
-	public Integer getLocked() {
-		return locked;
+	public void setUsername(String username) {
+		this.username = username == null ? null : username.trim();
 	}
-
-	public void setLocked(Integer locked) {
-		this.locked = locked;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-	public String getCredentialsSalt() {
-        return username + salt;
-    }
 
 	public String getRealname() {
 		return realname;
@@ -87,6 +60,22 @@ public class User {
 
 	public void setRealname(String realname) {
 		this.realname = realname;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	public Integer getSex() {
@@ -105,30 +94,30 @@ public class User {
 		this.tel = tel;
 	}
 
-	public String getLasthost() {
-		return lasthost;
+	public String getLastHost() {
+		return lastHost;
 	}
 
-	public void setLasthost(String lasthost) {
-		this.lasthost = lasthost;
+	public void setLastHost(String lastHost) {
+		this.lastHost = lastHost;
 	}
 
-	public Date getCreatetime() {
-		return createtime;
+	public Date getLastLoginTime() {
+		return lastLoginTime;
 	}
 
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 
-	public Date getLastlogintime() {
-		return lastlogintime;
+	public Integer getLocked() {
+		return locked;
 	}
 
-	public void setLastlogintime(Date lastlogintime) {
-		this.lastlogintime = lastlogintime;
+	public void setLocked(Integer locked) {
+		this.locked = locked;
 	}
-	
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -137,10 +126,23 @@ public class User {
 		this.status = status;
 	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	
+	public String getCredentialsSalt() {
+        return username + salt;
+    }
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", locked=" + locked + ", salt="
-				+ salt + ", realname=" + realname + ", sex=" + sex + ", tel=" + tel + ", createtime=" + createtime
-				+ ", lasthost=" + lasthost + ", lastlogintime=" + lastlogintime + ", status=" + status + "]";
+		return "User [id=" + id + ", username=" + username + ", realname=" + realname + ", password=" + password
+				+ ", salt=" + salt + ", sex=" + sex + ", tel=" + tel + ", lastHost=" + lastHost + ", lastLoginTime="
+				+ lastLoginTime + ", locked=" + locked + ", status=" + status + ", createTime=" + createTime + "]";
 	}
+    
 }

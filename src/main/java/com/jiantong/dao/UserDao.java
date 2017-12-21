@@ -12,9 +12,9 @@ public interface UserDao {
 	
 	public List<User> getUserByUsername(String username);
 	
-	public Integer addUser(User user);
+	public Integer addUser(UserVo user);
 	
-	public Integer updateUser(User user);
+	public Integer updateUser(UserVo user);
 	
 	public Integer deleteUserList(List<Integer> userList);
 }

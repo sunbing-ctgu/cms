@@ -11,6 +11,7 @@ import com.jiantong.bean.UserBean;
 import com.jiantong.dao.UserDao;
 import com.jiantong.entity.User;
 import com.jiantong.service.UserService;
+import com.jiantong.vo.UserVo;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -41,13 +42,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Integer addUser(User user) {
+	public Integer addUser(UserVo user) {
 		// TODO Auto-generated method stub
 		return userDao.addUser(user);
 	}
 	
 	@Override
-	public Integer updateUser(User user) {
+	public Integer updateUser(UserVo user) {
 		// TODO Auto-generated method stub
 		return userDao.updateUser(user);
 	}

@@ -45,23 +45,21 @@
 		#{userName} AND status <> 0
 	</select>
 
-	<insert id="addUser" parameterType="com.jiantong.entity.User">
+	<insert id="addUser" parameterType="com.jiantong.vo.UserVo">
 		INSERT INTO sys_user(
 		username, realname, password, salt,
-		sex, tel, last_login_ip,
-		last_login_time, locked, create_time, status)
+		sex, tel, locked, create_time, status)
 		VALUES
 		(
-		#{username},
-		#{realname}, #{password}, #{salt},
-		#{sex},
-		#{tel},
-		#{lasthost}, #{lastlogintime}, #{locked}, #{createtime}, #{status})
+		#{username},#{realname}, #{password}, #{salt},
+		#{sex},	#{tel}, #{locked}, #{createTime}, #{status})
 	</insert>
 
-	<update id="updateUser" parameterType="com.jiantong.entity.User">
+	<update id="updateUser" parameterType="com.jiantong.vo.UserVo">
 		UPDATE sys_user SET
 		realname = #{realname},
+		password = #{password},
+		salt = #{salt},
 		sex = #{sex},
 		tel = #{tel},
 		locked = #{locked}

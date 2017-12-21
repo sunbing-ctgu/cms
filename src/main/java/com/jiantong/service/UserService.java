@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.jiantong.bean.UserBean;
 import com.jiantong.entity.User;
+import com.jiantong.vo.UserVo;
 
 /**
  * 用户管理逻辑层接口
@@ -18,7 +19,7 @@ public interface UserService {
 	 * @param userSearchVo
 	 * @return
 	 */
-	public PageInfo<User> getUserList(UserBean userSearchVo);
+	public PageInfo<User> getUserList(UserBean data);
 
 	/**
 	 * 通过用户名获取用户信息
@@ -32,14 +33,14 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	public Integer addUser(User user);
+	public Integer addUser(UserVo user);
 	
 	/**
 	 * 更新用户
 	 * @param userSearchVo
 	 * @return
 	 */
-	public Integer updateUser(User userSearchVo);
+	public Integer updateUser(UserVo user);
 	
 	/**
 	 * 删除用户
