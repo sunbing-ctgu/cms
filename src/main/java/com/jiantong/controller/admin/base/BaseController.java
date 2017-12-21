@@ -16,6 +16,11 @@ import com.jiantong.entity.User;
  *
  */
 public class BaseController {
+	
+	public final static int SUCCESS = 1;
+	
+	public final static int FAIL = -1;
+	
 	public final static String USER_SESSION = "user";
 
 	/**

@@ -2,6 +2,7 @@ package com.jiantong.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.jiantong.bean.UserBean;
 import com.jiantong.entity.User;
 
@@ -17,7 +18,7 @@ public interface UserService {
 	 * @param userSearchVo
 	 * @return
 	 */
-	public List<User> getUserList(UserBean userSearchVo);
+	public PageInfo<User> getUserList(UserBean userSearchVo);
 
 	/**
 	 * 通过用户名获取用户信息

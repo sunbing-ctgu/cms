@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jiantong.bean.UserBean;
 import com.jiantong.dao.UserDao;
 import com.jiantong.entity.User;
@@ -17,10 +19,15 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public List<User> getUserList(UserBean userSearchVo) {
+	public PageInfo<User> getUserList(UserBean data) {
 		// TODO Auto-generated method stub
-		List<User> userList = userDao.getUserList(userSearchVo);
-		return userList;
+		PageHelper.startPage(data.getPageNum(), data.getPageSize());
+		List<User> userList = userDao.getUserList(data);
+		PageInfo<User> result = null;
+		if (null != userList) {
+			result = new PageInfo<User>(userList);
+		}
+		return result;
 	}
 	
 	@Override

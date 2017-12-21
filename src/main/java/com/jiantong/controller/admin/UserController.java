@@ -1,9 +1,9 @@
 package com.jiantong.controller.admin;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.support.RequestContext;
-
+import com.github.pagehelper.PageInfo;
 import com.jiantong.bean.UserBean;
+import com.jiantong.common.ResponseJsonData;
 import com.jiantong.controller.admin.base.BaseController;
 import com.jiantong.entity.User;
 import com.jiantong.service.UserService;
@@ -27,6 +27,8 @@ import com.jiantong.service.UserService;
 @RequestMapping("/admin/userManage")
 public class UserController extends BaseController {
 	
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
 	private UserService userService;
 
@@ -37,9 +39,25 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value="/getUserList", method=RequestMethod.POST)
 	@ResponseBody
-	public List<User> getUserList(HttpServletRequest request, @RequestBody UserBean data) {
-		List<User> userList = userService.getUserList(data);
-		return userList;
+	public ResponseJsonData getUserList(HttpServletRequest request, @RequestBody UserBean data) {
+		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
+		PageInfo<User> userList = null;
+		try {
+			userList = userService.getUserList(data);
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("getUserList exception {}", e.getMessage());
+		}
+		if (flag) {
+			result.setRetcode(SUCCESS);
+			result.setPageInfo(userList);
+		} else {
+			result.setRetcode(FAIL);
+			result.setMsg("获取用户列表失败");
+		}
+		return result;
 	}
 	
 	

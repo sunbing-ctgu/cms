@@ -2,7 +2,9 @@ package com.jiantong.bean;
 
 import java.util.Date;
 
-public class UserBean {
+import com.jiantong.bean.base.PageBean;
+
+public class UserBean extends PageBean{
 
     /**账号 */
     private String username;
