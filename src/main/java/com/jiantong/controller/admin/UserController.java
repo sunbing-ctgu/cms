@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ import com.jiantong.vo.UserVo;
  *
  */
 @Controller
-@RequestMapping("/admin/userManage")
+@RequestMapping("/admin/systemManage")
 public class UserController extends BaseController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -40,9 +41,11 @@ public class UserController extends BaseController {
 	@Autowired
 	private PasswordHelper passwordHelper;
 
-	@RequestMapping("")
+	@RequestMapping("userManage")
 	public String userManage(HttpServletRequest request, Model model) {
-		return "admin/userManage";
+		HttpSession session = getSession(request);
+		session.setAttribute(INDEX_SESSION, "systemManage/userManage");
+		return "admin/user/userManage";
 	}
 	
 	@RequestMapping(value="/getUserList", method=RequestMethod.POST)

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jiantong.dao.UserDao">
 	<resultMap id="BaseResultMap" type="com.jiantong.entity.User">
-		<id column="id" property="id" jdbcType="VARCHAR" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="realname" property="realname" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
 	<!-- 扩展的sql -->
 	<select id="getUserList" parameterType="com.jiantong.bean.UserBean"
 		resultMap="BaseResultMap">
-		SELECT * FROM sys_user WHERE status <> 0
+		SELECT * FROM sys_user WHERE <![CDATA[ status <> 0 ]]>
 		<if test="username !=null and username != ''">
 			AND username = #{username}
 		</if>
@@ -43,7 +43,8 @@
 		salt
 		FROM
 		sys_user WHERE username =
-		#{userName} AND status <> 0
+		#{userName} 
+		<![CDATA[ AND status <> 0 ]]>
 	</select>
 
 	<insert id="addUser" parameterType="com.jiantong.vo.UserVo">
@@ -70,8 +71,8 @@
 	
 	<update id="deleteUserList" parameterType="java.util.List">
 		UPDATE sys_user set status = 0 where id in
-		<foreach collection="list" index="index" item="item" pen="("separator=","close=")">    
-            #{item}    
-        </foreach> 
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach> 
 	</update>
 </mapper>

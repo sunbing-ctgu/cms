@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,16 +12,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 </script>
+
 <ul class="nav nav-list">
-	<li class="">
-		<a href="index.html">
+	<li class="<c:if test="${fn:contains(sessionScope.index, 'home')}">active open</c:if>">
+		<a href="admin/home">
 			<i class="menu-icon fa fa-home"></i>
 			<span class="menu-text"> 管理首页</span>
 		</a>
 
 		<b class="arrow"></b>
 	</li>
-	<li class="active open">
+	<li class="<c:if test="${fn:contains(sessionScope.index, 'contentManage')}">active open</c:if>">
 		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-book"></i>
 			<span class="menu-text"> 内容管理 </span>
@@ -31,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<b class="arrow"></b>
 
 		<ul class="submenu">
-			<li class="active">
+			<li class="<c:if test="${fn:contains(sessionScope.index, 'introduceManage')}">active</c:if>">
 				<a href="tables.html">
 					<i class="menu-icon fa fa-caret-right"></i>
 					简介管理
@@ -40,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b class="arrow"></b>
 			</li>
 
-			<li class="">
+			<li class="<c:if test="${fn:contains(sessionScope.index, 'newsManage')}">active</c:if>">
 				<a href="jqgrid.html">
 					<i class="menu-icon fa fa-caret-right"></i>
 					新闻管理
@@ -49,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b class="arrow"></b>
 			</li>
 			
-			<li class="">
+			<li class="<c:if test="${fn:contains(sessionScope.index, 'columnManage')}">active</c:if>">
 				<a href="jqgrid.html">
 					<i class="menu-icon fa fa-caret-right"></i>
 					栏目管理
@@ -63,7 +65,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-desktop"></i>
 			<span class="menu-text"> 界面风格 </span>
-
 			<b class="arrow fa fa-angle-down"></b>
 		</a>
 
@@ -89,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</li>
 		</ul>
 	</li>	
-	<li class="">
+	<li class="<c:if test="${fn:contains(sessionScope.index, 'systemManage')}">active open</c:if>">
 		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-cogs"></i>
 			<span class="menu-text"> 系统管理 </span>
@@ -100,8 +101,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<b class="arrow"></b>
 
 		<ul class="submenu">
-			<li class="">
-				<a href="form-elements.html">
+			<li class="<c:if test="${fn:contains(sessionScope.index, 'userManage')}">active</c:if>">
+				<a href="admin/userManage">
 					<i class="menu-icon fa fa-caret-right"></i>
 					用户管理
 				</a>

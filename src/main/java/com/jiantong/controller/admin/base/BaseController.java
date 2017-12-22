@@ -22,6 +22,8 @@ public class BaseController {
 	public final static int FAIL = -1;
 	
 	public final static String USER_SESSION = "user";
+	
+	public final static String INDEX_SESSION = "index";
 
 	/**
 	 * 获取Session
