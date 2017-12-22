@@ -1,6 +1,7 @@
 package com.jiantong.controller.admin;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -121,4 +122,31 @@ public class UserController extends BaseController {
 		return result;
 	}
 	
+	@RequestMapping(value="/deleteUser", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonData deleteUser(HttpServletRequest request, @RequestBody List<Integer> ids) {
+		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
+		User user = getUser(request);
+		if(ids.contains(user.getId())) {
+			result.setRetcode(FAIL);
+			result.setMsg("删除失败，用户不能删除自身！");
+			return result;
+		}
+		try {
+			userService.deleteUser(ids);
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("deleteUser Exception", e);
+		}
+		if(flag) {
+			result.setRetcode(SUCCESS);
+			result.setMsg("删除用户成功！");
+		}else {
+			result.setRetcode(FAIL);
+			result.setMsg("删除用户失败！");
+		}
+		return result;
+	}
 }

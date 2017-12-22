@@ -4,16 +4,17 @@
 	<resultMap id="BaseResultMap" type="com.jiantong.entity.User">
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
-		<result column="password" property="password" jdbcType="VARCHAR" />
-		<result column="locked" property="locked" jdbcType="INTEGER" />
-		<result column="salt" property="salt" jdbcType="VARCHAR" />
 		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
 		<result column="sex" property="sex" jdbcType="INTEGER" />
 		<result column="tel" property="tel" jdbcType="VARCHAR" />
-		<result column="create_time" property="createtime" jdbcType="TIMESTAMP" />
-		<result column="last_login_ip" property="lasthost" jdbcType="VARCHAR" />
-		<result column="last_login_time" property="lastlogintime" jdbcType="TIMESTAMP" />
+		<result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+		<result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+		<result column="locked" property="locked" jdbcType="INTEGER" />
 		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="isadmin" property="isAdmin" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<!-- 扩展的sql -->
 	<select id="getUserList" parameterType="com.jiantong.bean.UserBean"

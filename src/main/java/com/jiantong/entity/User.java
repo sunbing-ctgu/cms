@@ -24,7 +24,7 @@ public class User {
     private String tel;
     
     /**最后登录IP */
-    private String lastHost;
+    private String lastLoginIp;
     
     /**最后登录时间 */
     private Date lastLoginTime;
@@ -34,6 +34,9 @@ public class User {
     
     /**状态  0:已删除    1：正常*/
     private Integer status;
+    
+    /**是否为管理员用户*/
+    private Integer isAdmin;
     
     /**创建时间 */
     private Date createTime;
@@ -94,12 +97,12 @@ public class User {
 		this.tel = tel;
 	}
 
-	public String getLastHost() {
-		return lastHost;
+	public String getLastLoginIp() {
+		return lastLoginIp;
 	}
 
-	public void setLastHost(String lastHost) {
-		this.lastHost = lastHost;
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
 	}
 
 	public Date getLastLoginTime() {
@@ -126,6 +129,14 @@ public class User {
 		this.status = status;
 	}
 
+	public Integer getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Integer isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -141,8 +152,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", realname=" + realname + ", password=" + password
-				+ ", salt=" + salt + ", sex=" + sex + ", tel=" + tel + ", lastHost=" + lastHost + ", lastLoginTime="
-				+ lastLoginTime + ", locked=" + locked + ", status=" + status + ", createTime=" + createTime + "]";
+				+ ", salt=" + salt + ", sex=" + sex + ", tel=" + tel + ", lastLoginIp=" + lastLoginIp
+				+ ", lastLoginTime=" + lastLoginTime + ", locked=" + locked + ", status=" + status + ", isAdmin="
+				+ isAdmin + ", createTime=" + createTime + "]";
 	}
     
 }
