@@ -3,6 +3,7 @@ package com.jiantong.controller.admin;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ public class HomeController extends BaseController{
 	
 	@RequestMapping("/home")
 	public String home(HttpServletRequest request, Model model) {
+		HttpSession session = getSession(request);
+		session.setAttribute(INDEX_SESSION, "home");
 		//后台获取国际化的信息  
 		RequestContext requestContext = new RequestContext(request);  
 		String message = requestContext.getMessage("message.title.welcome");

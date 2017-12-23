@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,28 +12,152 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <jsp:include page="../common/head.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='js/user/userManage.js'></script>
 <title>用户管理</title>
 </head>
 <body class="no-skin">
-<div class="main-container" id="main-container">
-<jsp:include page="../common/menu.jsp"></jsp:include>
-<div class="main-content">
-<div class="breadcrumbs" id="breadcrumbs">
-	<script type="text/javascript">
-		try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-	</script>
+	<div class="main-container" id="main-container">
+		<jsp:include page="../common/menu.jsp"></jsp:include>
+		<div class="main-content">
+			<div class="breadcrumbs" id="breadcrumbs">
+				<script type="text/javascript">
+					try {
+						ace.settings.check('breadcrumbs', 'fixed')
+					} catch (e) {
+					}
+				</script>
 
-	<ul class="breadcrumb">
-		<li>
-			<i class="ace-icon fa fa-home home-icon"></i>
-			<a href="#">首页</a>
-		</li>
-		<li class="active">用户管理</li>
-	</ul><!-- /.breadcrumb -->
-</div>
-<div class="page-content">
-</div>
-</div>
-</div>
+				<ul class="breadcrumb">
+					<li><i class="ace-icon fa fa-home home-icon"></i> <a
+						href="admin/home">首页</a></li>
+					<li><a href="admin/systemManage/userManage">系统管理</a></li>
+					<li class="active">用户管理</li>
+				</ul>
+				<!-- /.breadcrumb -->
+			</div>
+			<div class="page-content">
+				<div class="page-header">
+					<h1>
+						系统管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+							用户管理
+						</small>
+					</h1>
+				</div>
+				<div class="">
+					<div class="col-xs-10">
+						<div class="row form-horizontal cms-form-horizontal">
+							<div class="col-xs-6 form-group">
+								<label class="col-sm-3  control-label">用户名:</label>
+								<div class="col-sm-9">
+									<input class="input-sm" type="text"
+										aria-controls="sample-table-2" />
+								</div>
+								<!-- <label>用户名: <input class="input-sm" type="text" aria-controls="sample-table-2" /></label> -->
+							</div>
+							<div class="col-xs-6 form-group">
+								<label class="col-sm-3  control-label">姓名:</label>
+								<div class="col-sm-9">
+									<input class="input-sm" type="text"
+										aria-controls="sample-table-2" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-2">
+						<button class="btn btn-sm btn-primary" ng-click="onSearch()">搜索</button>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 64px">
+					<div class="col-xs-12">
+						<div>
+							<h5 class="bigger lighter">
+								<a class="btn btn-xs btn-primary"><i
+									class="glyphicon glyphicon-plus"></i>新增</a> <a
+									class="btn btn-xs btn-danger"><i
+									class="glyphicon glyphicon-trash"></i>删除</a>
+							</h5>
+						</div>
+						<div>
+							<div id="sample-table-2_wrapper"
+								class="dataTables_wrapper form-inline" role="grid">
+								<table id="sample-table-2"
+									class="table table-striped table-bordered table-hover dataTable"
+									aria-describedby="sample-table-2_info">
+									<thead>
+										<tr>
+											<th class="center"><label class="position-relative">
+													<input type="checkbox" class="ace" /> <span class="lbl"></span>
+											</label></th>
+											<th>用户名</th>
+											<th>姓名</th>
+											<th>性别</th>
+											<th>手机号</th>
+											<th>是否锁定</th>
+											<th>是状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody id="table-tbody">
+										<tr>
+											<td class="center"><label class="position-relative">
+													<input type="checkbox" class="ace" /> <span class="lbl"></span>
+											</label></td>
+
+											<td>admin</td>
+											<td>admin</td>
+											<td>男</td>
+											<td>15717159217</td>
+											<td>否</td>
+											<td>正常</td>
+											<td>
+												<div class="hidden-sm hidden-xs action-buttons">
+													<button class="btn btn-minier btn-yellow">停用</button>
+													<button class="btn btn-minier btn-primary">修改</button>
+													<button class="btn btn-minier btn-danger">删除</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="row" id="pagination">
+									<div class="col-xs-5">
+										<div class="dataTables_info" id="sample-table-2_info">
+											<label for="mySelect">每页:</label> 
+											<select	style="width: 80px;" id="total-count-selector" name="totalCount">
+												<option value="10" selected="selected" label="10条">10条</option>
+												<option value="20" label="20条">20条</option>
+												<option value="30" label="30条">30条</option>
+												<option value="40" label="40条">40条</option>
+												<option value="50" label="50条">50条</option>
+											</select> 总共 <span id="total-count"></span>条
+										</div>
+									</div>
+									<div class="col-xs-7" id="paginationBox">
+										<div class="dataTables_paginate paging_bootstrap">
+											<ul class="pagination pull-right no-margin" id="page">
+											</ul>
+											<!-- <ul class="pagination pull-right no-margin">
+												<li class="prev disabled"><a href="#">&nbsp;<i
+														class="fa fa-angle-double-left"></i></a></li>
+												<li class="prev disabled"><a href="#">&nbsp;<i
+														class="fa fa-angle-left"></i></a></li>
+												<li class="active"><a href="#">1</a></li>
+												<li><a href="#">2</a></li>
+												<li><a href="#">3</a></li>
+												<li class="next"><a href="#">&nbsp;<i
+														class="fa fa-angle-right"></i></a></li>
+												<li class="next"><a href="#">&nbsp;<i
+														class="fa fa-angle-double-right"></i></a></li>
+											</ul> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

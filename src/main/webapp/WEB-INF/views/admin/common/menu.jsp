@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<ul class="submenu">
 			<li class="<c:if test="${fn:contains(sessionScope.index, 'userManage')}">active</c:if>">
-				<a href="admin/userManage">
+				<a href="admin/systemManage/userManage">
 					<i class="menu-icon fa fa-caret-right"></i>
 					用户管理
 				</a>

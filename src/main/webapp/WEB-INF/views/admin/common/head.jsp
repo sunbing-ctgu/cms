@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="assets/css/ace-skins.min.css"/>
 <link rel="stylesheet" href="assets/css/ace-rtl.min.css"/>
 <link rel="stylesheet" href="assets/css/ace.onpage-help.css" />
+<link rel="stylesheet" href="css/style.css" />
 
 <script src='assets/js/jquery.min.js'></script>
 <script src='assets/js/jquery.mobile.custom.min.js'></script>	
@@ -30,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="assets/js/jquery.sparkline.min.js"></script>
 <script src="assets/js/ace-extra.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="js/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 
 <!-- page specific plugin scripts -->
 
