@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="assets/js/jquery.sparkline.min.js"></script>
 <script src="assets/js/ace-extra.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/spin.min.js"></script>
 <script src="js/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 
 <!-- page specific plugin scripts -->
