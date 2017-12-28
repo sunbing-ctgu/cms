@@ -165,9 +165,12 @@
 				/admin/logout = logout
 				<!-- /admin/logout = anon -->
 				/admin/jcaptcha* = anon
-				/css/** = anon
-				/img/** = anon
-				/js/** = anon
+				/admin/css/** = anon
+				/admin/img/** = anon
+				/admin/js/** = anon
+				/admin/assets/** = anon
+				/admin/components/** = anon 
+				/admin/ueditor/** = anon
 				/admin/** = user,kickout
 			</value>
 		</property>

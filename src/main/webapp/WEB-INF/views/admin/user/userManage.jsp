@@ -12,7 +12,7 @@
 <base href="<%=basePath%>">
 <jsp:include page="../common/head.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src='js/user/userManage.js'></script>
+<script src='admin/js/user/userManage.js'></script>
 <title>用户管理</title>
 </head>
 <body class="no-skin">

@@ -14,25 +14,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>CMS后台管理平台</title>
 <meta name="description" content="overview &amp; stats"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
-<link rel="stylesheet" href="assets/css/ace-fonts.css"/>
-<link rel="stylesheet" href="assets/css/ace.min.css"/>
-<link rel="stylesheet" href="assets/css/ace-skins.min.css"/>
-<link rel="stylesheet" href="assets/css/ace-rtl.min.css"/>
-<link rel="stylesheet" href="assets/css/ace.onpage-help.css" />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="admin/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="admin/assets/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="admin/assets/css/ace-fonts.css"/>
+<link rel="stylesheet" href="admin/assets/css/ace.min.css"/>
+<link rel="stylesheet" href="admin/assets/css/ace-skins.min.css"/>
+<link rel="stylesheet" href="admin/assets/css/ace-rtl.min.css"/>
+<link rel="stylesheet" href="admin/assets/css/ace.onpage-help.css" />
+<link rel="stylesheet" href="admin/css/style.css" />
 
-<script src='assets/js/jquery.min.js'></script>
-<script src='assets/js/jquery.mobile.custom.min.js'></script>	
-<script src="assets/js/jquery-ui.custom.min.js"></script>
-<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-<script src="assets/js/jquery.easypiechart.min.js"></script>
-<script src="assets/js/jquery.sparkline.min.js"></script>
-<script src="assets/js/ace-extra.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/spin.min.js"></script>
-<script src="js/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+<script src='admin/assets/js/jquery.min.js'></script>
+<script src='admin/assets/js/jquery.mobile.custom.min.js'></script>	
+<script src="admin/assets/js/jquery-ui.custom.min.js"></script>
+<script src="admin/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="admin/assets/js/jquery.easypiechart.min.js"></script>
+<script src="admin/assets/js/jquery.sparkline.min.js"></script>
+<script src="admin/assets/js/ace-extra.min.js"></script>
+<script src="admin/assets/js/bootstrap.min.js"></script>
+<script src="admin/assets/js/spin.min.js"></script>
+<script src="admin/js/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 
 <!-- page specific plugin scripts -->
 
@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script src="assets/js/excanvas.min.js"></script>
 <![endif]-->
 
-<script src="assets/js/flot/jquery.flot.min.js"></script>
-<script src="assets/js/flot/jquery.flot.pie.min.js"></script>
-<script src="assets/js/flot/jquery.flot.resize.min.js"></script>
+<script src="admin/assets/js/flot/jquery.flot.min.js"></script>
+<script src="admin/assets/js/flot/jquery.flot.pie.min.js"></script>
+<script src="admin/assets/js/flot/jquery.flot.resize.min.js"></script>
 
 
 </head>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- #section:basics/navbar.user_menu -->
 				<li class="light-blue">
 					<a data-toggle="dropdown" href="javascript:void(0);" class="dropdown-toggle">
-						<img class="nav-user-photo" src="assets/avatars/user.png" alt="Jason's Photo" />
+						<img class="nav-user-photo" src="admin/assets/avatars/user.png" alt="Jason's Photo" />
 						<span class="user-info">
 							<small>Welcome,</small>
 							Jason
@@ -143,9 +143,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- /.navbar-container -->
 </div>
 <!-- ace scripts -->
-<script src="assets/js/ace-elements.min.js"></script>
-<script src="assets/js/ace.min.js"></script>
+<script src="admin/assets/js/ace-elements.min.js"></script>
+<script src="admin/assets/js/ace.min.js"></script>
 <script type="text/javascript"> ace.vars['base'] = '..'; </script>
-<script src="assets/js/ace/ace.onpage-help.js"></script>
+<script src="admin/assets/js/ace/ace.onpage-help.js"></script>
 </body>
 </html>
