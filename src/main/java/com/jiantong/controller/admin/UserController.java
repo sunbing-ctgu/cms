@@ -1,7 +1,9 @@
 package com.jiantong.controller.admin;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -127,9 +129,10 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value="/deleteUser", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonData deleteUser(HttpServletRequest request, @RequestBody List<Integer> ids) {
+	public ResponseJsonData deleteUser(HttpServletRequest request, @RequestBody  Map<String, Integer[]> data) {
 		ResponseJsonData result = new ResponseJsonData();
 		boolean flag = false;
+		List<Integer> ids = Arrays.asList(data.get("ids"));
 		User user = getUser(request);
 		if(ids.contains(user.getId())) {
 			result.setRetcode(FAIL);

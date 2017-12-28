@@ -71,10 +71,12 @@
 					<div class="col-xs-12">
 						<div>
 							<h5 class="bigger lighter">
-								<a class="btn btn-xs btn-primary"><i
-									class="glyphicon glyphicon-plus"></i>新增</a> <a
-									class="btn btn-xs btn-danger"><i
-									class="glyphicon glyphicon-trash"></i>删除</a>
+								<a id="add-user-btn" class="btn btn-xs btn-primary">
+									<i class="glyphicon glyphicon-plus"></i>新增
+								</a> 
+								<a id="del-user-btn" class="btn btn-xs btn-danger">
+									<i class="glyphicon glyphicon-trash"></i>删除
+								</a>
 							</h5>
 						</div>
 						<div>
@@ -86,7 +88,7 @@
 									<thead>
 										<tr>
 											<th class="center"><label class="position-relative">
-													<input type="checkbox" class="ace" /> <span class="lbl"></span>
+													<input type="checkbox" class="ace checkbox-user-all" /> <span class="lbl"></span>
 											</label></th>
 											<th>用户名</th>
 											<th>姓名</th>
@@ -100,7 +102,7 @@
 									<tbody id="table-tbody">
 										<tr>
 											<td class="center"><label class="position-relative">
-													<input type="checkbox" class="ace" /> <span class="lbl"></span>
+													<input type="checkbox" class="ace checkbox-user" /> <span class="lbl"></span>
 											</label></td>
 
 											<td>admin</td>
@@ -158,6 +160,76 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="user-modal" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" data-backdrop="static">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="user-modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="username">账号</label>
+							<div class="col-sm-9">
+								<input type="text" id="username" placeholder="账号" class="col-xs-10 col-sm-8">
+							</div> 
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="password">密码</label>
+							<div class="col-sm-9">
+								<input type="password" class="col-xs-10 col-sm-8" id="password" aria-describedby="basic-addon3">
+							</div> 
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="repassword">确认密码</label>
+							<div class="col-sm-9">
+								<input type="password" class="col-xs-10 col-sm-8" id="repassword">
+							</div> 
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="realname">真实姓名</label>
+							<div class="col-sm-9">
+								<input type="text" id="realname" placeholder="真实姓名" class="col-xs-10 col-sm-8">
+							</div> 
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="tel">手机号</label>
+							<div class="col-sm-9">
+								<input type="text" id="tel" placeholder="手机号" class="col-xs-10 col-sm-8">
+							</div> 
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="tel">性别</label>
+							<div class="col-sm-9 radio">
+								<label>
+									<input name="sex" type="radio" value="0" class="ace" checked="checked"/>
+									<span class="lbl">男</span>
+								</label>
+								<label>
+									<input name="sex" type="radio" value="1" class="ace"/>
+									<span class="lbl">女</span>
+								</label>
+							</div> 
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary user-modal-submit"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="submit-loading">
+		<img class="loading-gif" src="admin/img/loading.gif"> <span
+			class="loading-word">正在提交...</span>
 	</div>
 </body>
 </html>
