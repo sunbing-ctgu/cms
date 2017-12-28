@@ -2,3 +2,30 @@
     position: relative;
     border-right: 1px solid #e6e6e6;
 }
+.submit-loading {
+	width: 180px;
+	height: 50px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -90px;
+	margin-top: -30px;
+	background: #333333;
+	border-radius: 5px;
+	line-height: 50px;
+	display: none;
+}
+.loading-gif {
+	width: 36px;
+	height: 36px;
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	margin-top: -18px;
+}
+
+.loading-word {
+	color: #000000;
+	font-size: 18px;
+	margin-left: 60px;
+}

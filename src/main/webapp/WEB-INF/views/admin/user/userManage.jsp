@@ -156,6 +156,10 @@
 								</div>
 							</div>
 						</div>
+						<div class="submit-loading">
+							<img class="loading-gif" src="admin/img/loading.gif"> <span
+								class="loading-word">正在提交...</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -227,9 +231,6 @@
 		</div>
 	</div>
 
-	<div class="submit-loading">
-		<img class="loading-gif" src="admin/img/loading.gif"> <span
-			class="loading-word">正在提交...</span>
-	</div>
+	
 </body>
 </html>
