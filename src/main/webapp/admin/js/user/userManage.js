@@ -75,16 +75,16 @@ class DrawTable {
 						<input type="checkbox" class="ace checkbox-user" data-id=${result[i].id}/> <span class="lbl"></span>
 				</label></td>
 
-				<td>${result[i].username}</td>
-				<td>${result[i].realname}</td>
-				<td>${result[i].sex}</td>
-				<td>${result[i].tel}</td>
-				<td>${result[i].locked}</td>
-				<td>${result[i].status}</td>
+				<td data-username="${result[i].username}">${result[i].username}</td>
+				<td data-realname="${result[i].realname}">${result[i].realname}</td>
+				<td data-sex="${result[i].sex}">${result[i].sex}</td>
+				<td data-tel="${result[i].tel}">${result[i].tel}</td>
+				<td data-locked="${result[i].locked}">${result[i].locked}</td>
+				<td data-status="${result[i].status}">${result[i].status}</td>
 				<td>
 					<div class="hidden-sm hidden-xs action-buttons">
 						<button class="btn btn-minier btn-yellow stop-user">停用</button>
-						<button class="btn btn-minier btn-primary update-user">修改</button>
+						<button class="btn btn-minier btn-primary update-user" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
 						<button class="btn btn-minier btn-danger delete-user">删除</button>
 					</div>
 				</td>
@@ -240,7 +240,6 @@ function openUserModal(userInfo, type) {
         $('.user-modal-submit').html('确认修改');
         userModalSubmitType = 2;
     }
-    $('#user-modal').modal('show');
 }
 
 $(document).on('change', '.checkbox-user-all', function(){
@@ -288,14 +287,22 @@ $(function(){
 	        updateUser();
 	    }
 	});
+	
+	$('#user-modal').on('show.bs.modal', function (event) {
+		let btn = $(event.relatedTarget);
+		let index = btn.data("id"); 
+		let userInfo = resultCache[index];
+	    currentUpdateUser = userInfo;
+	    openUserModal(userInfo, 2);
+	});
 });
 /* 修改*/
-$(document).on('click', '.update-user', function () {
+/*$(document).on('click', '.update-user', function () {
 	let divIndex = $($($($(this).parent()).parent())).parent().index();
     let userInfo = resultCache[divIndex];
     currentUpdateUser = userInfo;
     openUserModal(userInfo, 2);
-});
+});*/
 /* 停用*/
 $(document).on('click', '.stop-user', function () {
 	let divIndex = $($($($(this).parent()).parent())).parent().index();
