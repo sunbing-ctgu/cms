@@ -65,7 +65,6 @@ class OperationUser {
 
 class DrawTable {
 	static fillData(result) {
-		$('#table-tbody').html('');
         let htmlValue = '';
         function getSex(val) {
             if (val == 0) {
@@ -149,7 +148,10 @@ class PageInfo {
 }
 
 function query(data) {
+	$('#table-tbody').html('');
+	$('.loading').css('display', 'block');
 	QueryUser.query(data).then((result) => {
+		$('.loading').css('display', 'none');
         console.log(result.pageInfo);
         selectedArr = new Array();
         if (result.pageInfo.list.length > 0) {
