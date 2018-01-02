@@ -21,10 +21,10 @@
 		resultMap="BaseResultMap">
 		SELECT * FROM sys_user WHERE <![CDATA[ status <> 0 ]]>
 		<if test="username !=null and username != ''">
-			AND username = #{username}
+			AND username like CONCAT('%', #{username}, '%')
 		</if>
 		<if test="realname !=null and realname != ''">
-			AND realname = #{realname}
+			AND realname like CONCAT('%', #{realname}, '%')
 		</if>
 		<if test="startTime != null and startTime != ''">
        		<![CDATA[ AND create_time >= #{startTime} ]]>

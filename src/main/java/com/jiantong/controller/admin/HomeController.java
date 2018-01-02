@@ -20,6 +20,11 @@ import com.jiantong.controller.admin.base.BaseController;
 @RequestMapping("/admin")
 public class HomeController extends BaseController{
 	
+	@RequestMapping("")
+	public String index(HttpServletRequest request, Model model) {
+		return "redirect:/admin/home";
+	}
+	
 	@RequestMapping("/home")
 	public String home(HttpServletRequest request, Model model) {
 		HttpSession session = getSession(request);

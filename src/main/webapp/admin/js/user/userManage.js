@@ -67,25 +67,45 @@ class DrawTable {
 	static fillData(result) {
 		$('#table-tbody').html('');
         let htmlValue = '';
+        function getSex(val) {
+            if (val == 0) {
+                return '男';
+            } else {
+                return '女';
+            }
+        }
+        function getLocked(val) {
+            if (val == 0) {
+                return '<span class="text-green">已启用</span>';
+            } else {
+                return '<span class="text-red">已停用</span>';
+            }
+        }
+        function getLockedBtn(val, index) {
+            if (val == 0) {
+                return `<button class="btn btn-minier btn-yellow lock-user" data-id="${index}">停用</button>`;
+            } else {
+                return `<button class="btn btn-minier btn-green lock-user" data-id="${index}">启用</button>`;
+            }
+        }
         for (let i = 0; i < result.length; i++) {
         	
         	htmlValue +=
         	`<tr>
 				<td class="center"><label class="position-relative">
-						<input type="checkbox" class="ace checkbox-user" data-id=${result[i].id}/> <span class="lbl"></span>
+						<input type="checkbox" class="ace checkbox-user" data-id="${result[i].id}"/> <span class="lbl"></span>
 				</label></td>
 
-				<td data-username="${result[i].username}">${result[i].username}</td>
-				<td data-realname="${result[i].realname}">${result[i].realname}</td>
-				<td data-sex="${result[i].sex}">${result[i].sex}</td>
-				<td data-tel="${result[i].tel}">${result[i].tel}</td>
-				<td data-locked="${result[i].locked}">${result[i].locked}</td>
-				<td data-status="${result[i].status}">${result[i].status}</td>
+				<td>${result[i].username}</td>
+				<td>${result[i].realname}</td>
+				<td>${getSex(result[i].sex)}</td>
+				<td>${result[i].tel}</td>
+				<td>${getLocked(result[i].locked)}</td>
 				<td>
 					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-yellow stop-user">停用</button>
+						${getLockedBtn(result[i].locked, i)}
 						<button class="btn btn-minier btn-primary update-user" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
-						<button class="btn btn-minier btn-danger delete-user">删除</button>
+						<button class="btn btn-minier btn-danger delete-user" data-id="${result[i].id}">删除</button>
 					</div>
 				</td>
 			</tr>`;
@@ -120,9 +140,7 @@ class PageInfo {
             },
             onPageClicked: function (event, originalEvent, type, page) {
             	param.pageNum = page;
-                QueryUser.query(param).then((result) => {
-                    DrawTable.fillData(result);
-                });
+            	query(param);
             }
         }
         $('#page').bootstrapPaginator(options);
@@ -139,8 +157,6 @@ function query(data) {
         	DrawTable.fillData(resultCache);
         	PageInfo.drawPageController(result);
         	$('#total-count').html(result.pageInfo.total);
-        } else {
-
         }
     });
 }
@@ -173,6 +189,13 @@ function doOperation(userInfo, type) {
     });
 }
 
+function onSearch() {
+	param.pageNum = 1;
+	param.username = $('#userNameSearch').val();
+	param.realname = $('#realNameSearch').val();
+	query(param);
+}
+
 function batchDel() {
 	let ids = {ids:[]}
 	if(selectedArr.length > 0){
@@ -199,11 +222,30 @@ function addUser() {
 
 function updateUser() {//currentUpdateUser
     let userInfo = currentUpdateUser;
-    userInfo.realname = $('#realname-input').val().replace(/(^\s*)|(\s*$)/g, "");
+    userInfo.realname = $('#realname').val().replace(/(^\s*)|(\s*$)/g, "");
     userInfo.password = $('#password').val();
-    userInfo.tel = $('#tel-input').val().replace(/(^\s*)|(\s*$)/g, "");
+    userInfo.tel = $('#tel').val().replace(/(^\s*)|(\s*$)/g, "");
     userInfo.sex = $("input[name='sex']:checked").val();
     doOperation(userInfo, 'updateUser', '修改');
+}
+
+function confirmModal(type, content, data) {
+	$('#modal-alert-content').html(content);
+    $('#confirm-modal').modal('show');
+    $('#confirm-modal-submit').unbind("click");
+    $('#confirm-modal-submit').click(function () {
+        $('#confirm-modal').modal('hide');
+        switch (type) {
+            case 'deleteUser':
+                doOperation(data, 'deleteUser');
+                break;
+            case 'lockUser':
+            	doOperation(data, 'updateUser');
+            default:
+                break;
+        }
+        $('#confirm-modal-submit').unbind("click");
+    });
 }
 
 /* 选择每页显示数量*/
@@ -271,10 +313,6 @@ $(document).on('change', '.checkbox-user', function () {
 	}
 });
 $(function(){
-	/* 新增*/
-	$('#add-user-btn').click(function () {
-	    openUserModal(null, 1);
-	});
 	/* 批量删除*/
 	$('#del-user-btn').click(function () {
 		batchDel();
@@ -291,10 +329,15 @@ $(function(){
 	$('#user-modal').on('show.bs.modal', function (event) {
 		let btn = $(event.relatedTarget);
 		let index = btn.data("id"); 
-		let userInfo = resultCache[index];
-	    currentUpdateUser = userInfo;
-	    openUserModal(userInfo, 2);
+		if(index != -1) {
+			let userInfo = resultCache[index];
+			currentUpdateUser = userInfo;
+			openUserModal(userInfo, 2);
+		}else {
+			openUserModal(null, 1);
+		}
 	});
+	
 });
 /* 修改*/
 /*$(document).on('click', '.update-user', function () {
@@ -304,24 +347,24 @@ $(function(){
     openUserModal(userInfo, 2);
 });*/
 /* 停用*/
-$(document).on('click', '.stop-user', function () {
-	let divIndex = $($($($(this).parent()).parent())).parent().index();
-    let userInfo = resultCache[divIndex];
+$(document).on('click', '.lock-user', function () {
+	let index = $(this).data('id');
+    let userInfo = resultCache[index];
     if (userInfo.locked == 0) {
         userInfo.locked = 1;
+        confirmModal('lockUser', '是否停用', userInfo);
     } else {
         userInfo.locked = 0;
+        confirmModal('lockUser', '是否启用', userInfo);
     }
-    doOperation(userInfo, 'updateUser');
 });
 
 $(document).on('click', '.delete-user', function () {
-	let divIndex = $($($($(this).parent()).parent())).parent().index();
-    let userInfo = resultCache[divIndex];
+	let userId = $(this).data('id');
     let ids = {
-    	ids:[userInfo.id]
+    	ids:[userId]
     }
-    doOperation(ids, 'deleteUser');
+    confirmModal('deleteUser', '是否删除', ids);
 });
 
 

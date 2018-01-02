@@ -49,29 +49,27 @@
 							<div class="col-xs-6 form-group">
 								<label class="col-sm-3  control-label">用户名:</label>
 								<div class="col-sm-9">
-									<input class="input-sm" type="text"
-										aria-controls="sample-table-2" />
+									<input id="userNameSearch" class="input-sm" type="text"	aria-controls="sample-table-2" />
 								</div>
 								<!-- <label>用户名: <input class="input-sm" type="text" aria-controls="sample-table-2" /></label> -->
 							</div>
 							<div class="col-xs-6 form-group">
 								<label class="col-sm-3  control-label">姓名:</label>
 								<div class="col-sm-9">
-									<input class="input-sm" type="text"
-										aria-controls="sample-table-2" />
+									<input id="realNameSearch" class="input-sm" type="text"	aria-controls="sample-table-2" />
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-xs-2">
-						<button class="btn btn-sm btn-primary" ng-click="onSearch()">搜索</button>
+						<button class="btn btn-sm btn-primary" onclick="onSearch()">搜索</button>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 64px">
 					<div class="col-xs-12">
 						<div>
 							<h5 class="bigger lighter">
-								<a id="add-user-btn" class="btn btn-xs btn-primary">
+								<a id="add-user-btn" class="btn btn-xs btn-primary" data-toggle="modal" data-id="-1" data-target="#user-modal">
 									<i class="glyphicon glyphicon-plus"></i>新增
 								</a> 
 								<a id="del-user-btn" class="btn btn-xs btn-danger">
@@ -87,38 +85,18 @@
 									aria-describedby="sample-table-2_info">
 									<thead>
 										<tr>
-											<th class="center"><label class="position-relative">
+											<th class="center col-md-1"><label class="position-relative">
 													<input type="checkbox" class="ace checkbox-user-all" /> <span class="lbl"></span>
 											</label></th>
-											<th>用户名</th>
-											<th>姓名</th>
-											<th>性别</th>
-											<th>手机号</th>
-											<th>是否锁定</th>
-											<th>是状态</th>
-											<th>操作</th>
+											<th class="col-md-2">用户名</th>
+											<th class="col-md-2">姓名</th>
+											<th class="col-md-1">性别</th>
+											<th class="col-md-2">手机号</th>
+											<th class="col-md-2">是否锁定</th>
+											<th class="col-md-2">操作</th>
 										</tr>
 									</thead>
 									<tbody id="table-tbody">
-										<tr>
-											<td class="center"><label class="position-relative">
-													<input type="checkbox" class="ace checkbox-user" /> <span class="lbl"></span>
-											</label></td>
-
-											<td>admin</td>
-											<td>admin</td>
-											<td>男</td>
-											<td>15717159217</td>
-											<td>否</td>
-											<td>正常</td>
-											<td>
-												<div class="hidden-sm hidden-xs action-buttons">
-													<button class="btn btn-minier btn-yellow">停用</button>
-													<button class="btn btn-minier btn-primary">修改</button>
-													<button class="btn btn-minier btn-danger">删除</button>
-												</div>
-											</td>
-										</tr>
 									</tbody>
 								</table>
 								<div class="row" id="pagination">
@@ -181,7 +159,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="username">账号</label>
 							<div class="col-sm-9">
-								<input type="text" id="username" placeholder="账号" class="col-xs-10 col-sm-8">
+								<input type="text" id="username" class="col-xs-10 col-sm-8">
 							</div> 
 						</div>
 						<div class="form-group">
@@ -199,13 +177,13 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="realname">真实姓名</label>
 							<div class="col-sm-9">
-								<input type="text" id="realname" placeholder="真实姓名" class="col-xs-10 col-sm-8">
+								<input type="text" id="realname" class="col-xs-10 col-sm-8">
 							</div> 
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="tel">手机号</label>
 							<div class="col-sm-9">
-								<input type="text" id="tel" placeholder="手机号" class="col-xs-10 col-sm-8">
+								<input type="text" id="tel" class="col-xs-10 col-sm-8">
 							</div> 
 						</div>
 						<div class="form-group">
@@ -230,7 +208,25 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- Modal确认框 -->
+	<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog"	aria-labelledby="confirmLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="confirmLabel">确认</h4>
+				</div>
+				<div class="modal-body" id="modal-alert-content"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        			<button type="button" class="btn btn-primary" id="confirm-modal-submit">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 </body>
 </html>
