@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiantong.dao.ColumnDao">
+	<resultMap type="com.jiantong.entity.Column" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="rename" property="rename" jdbcType="VARCHAR"/>
+		<result column="path" property="path" jdbcType="VARCHAR"/>
+		<result column="img" property="img" jdbcType="VARCHAR"/>
+		<result column="level" property="level" jdbcType="INTEGER"/>
+		<result column="channel" property="channel" jdbcType="INTEGER"/>
+		<result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+		<result column="sort" property="sort" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<select id="getRootColumn" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM cms_column WHERE level = -1 AND channel = #{channel} 
+	</select>
+	
+	<select id="getTopChildren" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM cms_column WHERE parent_id = #{parentId}
+	</select>
+	
+</mapper>
