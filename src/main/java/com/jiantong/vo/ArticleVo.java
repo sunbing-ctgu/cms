@@ -1,71 +1,38 @@
-package com.jiantong.entity;
+package com.jiantong.vo;
 
 import java.util.Date;
 
-/**
- * 文章信息表
- * <p>Title:Article</p>
- * <p>Company: jiantong</p>
- * @author sunbing
- * @date 2018年1月3日 上午10:02:06
- */
-public class Article {
+public class ArticleVo {
 
-	/**主键*/
-	private Integer id;
-	
-	/**所属栏目ID*/
 	private Integer columnId;
 	
-	/**所属根栏目ID*/
 	private Integer rootColumnId;
 	
-	/**标题*/
 	private String title;
 	
-	/**标题图片*/
 	private String titleImg;
 	
-	/**内容*/
 	private String content;
 	
-	/**摘要*/
 	private String summary;
 	
-	/**关键词*/
 	private String keyWord;
 	
-	/**发布者ID*/
 	private Integer publisherId;
 	
-	/**发布时间*/
 	private Date publishTime;
 	
-	/**置顶属性(0:默认1:置顶2:推荐)*/
 	private Integer topType;
 	
-	/**排序*/
 	private Integer sort;
 	
-	/**阅读数*/
 	private Integer viewCount;
 	
-	/**状态  0:已删除    1：正常*/
-    private Integer status;
+	private Integer status;
 	
-	/**创建时间*/
 	private Date createTime;
 	
-	/**更新时间*/
 	private Date updateTime;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Integer getColumnId() {
 		return columnId;
