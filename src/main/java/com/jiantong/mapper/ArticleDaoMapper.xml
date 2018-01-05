@@ -34,6 +34,43 @@
 		ORDER BY top_type desc, sort asc
 	</select>
 	
+	<select id="getArticleByKey" parameterType="Integer" resultMap="DetailResultMap">
+		SELECT * FROM cms_article WHERE id = #{id}
+	</select>
 	
+	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
+		INSERT INTO cms_article(column_id, root_column_id, title, title_img, 
+		content, summary, key_words, publisher_id, publish_time, top_type, 
+		sort, view_count, status, create_time, update_time ) 
+		VALUES(#{columnId}, #{rootColumnId}, #{title}, #{titleImg}, 
+		#{content}, #{summary}, #{keyWord}, #{publisherId}, 
+		#{publishTime}, #{topType}, #{sort}, #{viewCount}, 
+		#{status}, #{createTime}, #{updateTime})
+	</insert>
 	
+	<update id="updateArticle" parameterType="com.jiantong.vo.ArticleVo">
+		UPDATE cms_article
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="null != columnId and '' != columnId">column_id=#{columnId},</if>
+			<if test="null != rootColumnId and '' != rootColumnId">root_column_id=#{rootColumnId},</if>
+			<if test="null != title and '' != title">title=#{title},</if>
+			<if test="null != titleImg and '' != titleImg">title_img=#{titleImg},</if>
+			<if test="null != content and '' != content">content=#{content},</if>
+			<if test="null != summary and '' != summary">summary=#{summary},</if>
+			<if test="null != keyWord and '' != keyWord">key_word=#{keyWord},</if>
+			<if test="null != publishTime and '' != publishTime">publish_time=#{publishTime},</if>
+			<if test="null != topType and '' != topType">top_type=#{topType},</if>
+			<if test="null != sort and '' != sort">sort=#{sort},</if>
+			<if test="null != updateTime and '' != updateTime">update_time=#{updateTime},</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateArticleViewCount" parameterType="Integer">
+		UPDATE cms_article SET view_count = view_count + 1 WHERE  id = #{id}
+	</update>
+	
+	<update id="deleteArticle" parameterType="Integer">
+		UPDATE cms_article SET status = 0 WHERE  id = #{id}
+	</update>
 </mapper>

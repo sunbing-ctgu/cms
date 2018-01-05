@@ -3,6 +3,8 @@ package com.jiantong.vo;
 import java.util.Date;
 
 public class ArticleVo {
+	
+	private Integer id;
 
 	private Integer columnId;
 	

@@ -50,8 +50,15 @@ public interface ArticleDao {
 	public Integer updateArticle(ArticleVo article);
 	
 	/**
+	 * 更新阅读次数
+	 * @param id
+	 * @return
+	 */
+	public Integer updateArticleViewCount(Integer id);
+	
+	/**
 	 * 删除
 	 * @return
 	 */
-	public Integer deleteArticle();
+	public Integer deleteArticle(Integer id);
 }
