@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</li>
 			
 			<li class="<c:if test="${fn:contains(sessionScope.index, 'columnManage')}">active</c:if>">
-				<a href="jqgrid.html">
+				<a href="admin/columnManage">
 					<i class="menu-icon fa fa-caret-right"></i>
 					栏目管理
 				</a>
@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<ul class="submenu">
 			<li class="<c:if test="${fn:contains(sessionScope.index, 'userManage')}">active</c:if>">
-				<a href="admin/systemManage/userManage">
+				<a href="admin/userManage">
 					<i class="menu-icon fa fa-caret-right"></i>
 					用户管理
 				</a>

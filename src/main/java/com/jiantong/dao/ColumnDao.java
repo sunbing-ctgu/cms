@@ -2,6 +2,7 @@ package com.jiantong.dao;
 
 import java.util.List;
 
+import com.jiantong.bean.ColumnTree;
 import com.jiantong.entity.Column;
 
 /**
@@ -26,5 +27,19 @@ public interface ColumnDao {
 	 * @return
 	 */
 	public List<Column> getTopChildren(Integer parentId);
+	
+	/**
+	 * 根据所属频道查询跟栏目(Tree使用)
+	 * @param channel
+	 * @return
+	 */
+	public List<ColumnTree> getRootColumnForTree(Integer channel);
+
+	/**
+	 * 查询父级栏目的直接子栏目(Tree使用)
+	 * @param parentId
+	 * @return
+	 */
+	public List<ColumnTree> getTopChildrenForTree(Integer parentId);
 	
 }

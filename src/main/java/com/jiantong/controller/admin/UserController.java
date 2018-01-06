@@ -32,7 +32,7 @@ import com.jiantong.vo.UserVo;
  *
  */
 @Controller
-@RequestMapping("/admin/systemManage")
+@RequestMapping("/admin/userManage")
 public class UserController extends BaseController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -43,7 +43,7 @@ public class UserController extends BaseController {
 	@Autowired
 	private PasswordHelper passwordHelper;
 
-	@RequestMapping("userManage")
+	@RequestMapping("")
 	public String userManage(HttpServletRequest request, Model model) {
 		HttpSession session = getSession(request);
 		session.setAttribute(INDEX_SESSION, "systemManage/userManage");

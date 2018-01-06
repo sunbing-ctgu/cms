@@ -32,7 +32,7 @@ class QueryUser {
 	static query(data) {
 	    return new Promise((resolve) => {
 	        $.ajax({
-	            url: 'admin/systemManage/getUserList',
+	            url: 'admin/userManage/getUserList',
 	            type: 'POST',
 	            async: true,
 	            contentType: "application/json; charset=utf-8",
@@ -47,7 +47,7 @@ class QueryUser {
 
 class OperationUser {
 	static operation(data, type) {
-		let url = "admin/systemManage/" + type;
+		let url = "admin/userManage/" + type;
 		return new Promise((resolve) => {
             $.ajax({
                 url: url,

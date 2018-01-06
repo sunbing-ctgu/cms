@@ -14,12 +14,25 @@
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
 	</resultMap>
+	<resultMap type="com.jiantong.bean.ColumnTree" id="TreeResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="text" jdbcType="VARCHAR"/>
+		<result column="level" property="level" jdbcType="INTEGER"/>
+	</resultMap>
 	<select id="getRootColumn" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT * FROM cms_column WHERE level = -1 AND channel = #{channel} 
+		SELECT * FROM cms_column WHERE level = -1 AND channel = #{channel} ORDER BY sort
 	</select>
 	
 	<select id="getTopChildren" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT * FROM cms_column WHERE parent_id = #{parentId}
+		SELECT * FROM cms_column WHERE parent_id = #{parentId}  ORDER BY sort
+	</select>
+	
+	<select id="getRootColumnForTree" parameterType="Integer" resultMap="TreeResultMap">
+		SELECT id, name, level FROM cms_column WHERE level = -1 AND channel = #{channel}  ORDER BY sort 
+	</select>
+	
+	<select id="getTopChildrenForTree" parameterType="Integer" resultMap="TreeResultMap">
+		SELECT id, name, level FROM cms_column WHERE parent_id = #{parentId}  ORDER BY sort
 	</select>
 	
 </mapper>
