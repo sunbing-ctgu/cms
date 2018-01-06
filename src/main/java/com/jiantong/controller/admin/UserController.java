@@ -47,7 +47,7 @@ public class UserController extends BaseController {
 	public String userManage(HttpServletRequest request, Model model) {
 		HttpSession session = getSession(request);
 		session.setAttribute(INDEX_SESSION, "systemManage/userManage");
-		return "admin/user/userManage";
+		return "admin/systemManage/userManage";
 	}
 	
 	@RequestMapping(value="/getUserList", method=RequestMethod.POST)
