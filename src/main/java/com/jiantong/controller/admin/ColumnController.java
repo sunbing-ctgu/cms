@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jiantong.bean.ColumnTree;
@@ -41,7 +42,7 @@ public class ColumnController extends BaseController {
 		return "/admin/contentManage/columnManage";
 	}
 	
-	@RequestMapping("/getColumnTree")
+	@RequestMapping(value="/getColumnTree", method=RequestMethod.GET)
 	@ResponseBody
 	public List<ColumnTree> getColumnTree(HttpServletRequest request) {
 		Integer channel = getChannel(request);

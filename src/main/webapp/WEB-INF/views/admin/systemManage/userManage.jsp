@@ -30,7 +30,7 @@
 				<ul class="breadcrumb">
 					<li><i class="ace-icon fa fa-home home-icon"></i> <a
 						href="admin/home">首页</a></li>
-					<li><a href="admin/systemManage/userManage">系统管理</a></li>
+					<li><a href="admin/userManage">系统管理</a></li>
 					<li class="active">用户管理</li>
 				</ul>
 				<!-- /.breadcrumb -->

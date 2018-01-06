@@ -28,9 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<ul class="breadcrumb">
 		<li>
 			<i class="ace-icon fa fa-home home-icon"></i>
-			<a href="#">Home</a>
+			<a href="admin/home">首页</a>
 		</li>
-		<li class="active">Dashboard</li>
+		<li><a href="admin/columnManage">内容管理</a></li>
+		<li class="active">栏目管理</li>
 	</ul><!-- /.breadcrumb -->
 </div>
 <div class="page-content">
