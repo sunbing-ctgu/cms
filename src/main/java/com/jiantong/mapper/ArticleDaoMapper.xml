@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespase="com.jiantong.dao.ArticleDao">
+<mapper namespace="com.jiantong.dao.ArticleDao">
 	<resultMap id="BaseResultMap" type="com.jiantong.entity.Article">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="column_id" property="columnId" jdbcType="INTEGER" />
@@ -24,13 +24,13 @@
 	</resultMap>
 	<select id="getArticleByRootColumnId" parameterType="Integer" resultMap="BaseResultMap">
 		SELECT id, column_id, root_column_id, title, title_img, publish_time
-		FROM cms_article WHERE root_column_id = #{rootColumnId} AND status <> 0
+		FROM cms_article WHERE root_column_id = #{rootColumnId} <![CDATA[ AND status <> 0 ]]>
 		ORDER BY top_type desc, sort asc
 	</select>
 	
 	<select id="getArticleByColumnId" parameterType="Integer" resultMap="BaseResultMap">
 		SELECT id, column_id, root_column_id, title, title_img, publish_time
-		FROM cms_article WHERE column_id = #{columnId} AND status <> 0
+		FROM cms_article WHERE column_id = #{columnId} AND <![CDATA[ status <> 0 ]]>
 		ORDER BY top_type desc, sort asc
 	</select>
 	
