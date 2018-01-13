@@ -1,13 +1,11 @@
 package com.jiantong.shiro.jcaptcha;
 
 import com.octo.captcha.service.CaptchaServiceException;
-import com.octo.captcha.service.captchastore.FastHashMapCaptchaStore;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class JCaptcha {
-	public static final MyManageableImageCaptchaService captchaService = new MyManageableImageCaptchaService(
-			new FastHashMapCaptchaStore(), new GMailEngine(), 180, 100000, 75000);
+	
+	public static final CustomManageableImageCaptchaService captchaService = CustomManageableImageCaptchaService.getInstance();
 
 	public static boolean validateResponse(HttpServletRequest request, String userCaptchaResponse) {
 		if (request.getSession(false) == null) {
