@@ -2,8 +2,10 @@ package com.jiantong.dao;
 
 import java.util.List;
 
+import com.jiantong.bean.ColumnBean;
 import com.jiantong.bean.ColumnTree;
 import com.jiantong.entity.Column;
+import com.jiantong.vo.ColumnVo;
 
 /**
  * 栏目信息Dao层接口
@@ -41,5 +43,13 @@ public interface ColumnDao {
 	 * @return
 	 */
 	public List<ColumnTree> getTopChildrenForTree(Integer parentId);
+	
+	public List<Column> getColumnList(ColumnBean data);
+	
+	public Integer addColumn(ColumnVo column);
+	
+	public Integer updateColumn(ColumnVo column);
+	
+	public Integer deleteColumnList(List<Integer> columnList);
 	
 }

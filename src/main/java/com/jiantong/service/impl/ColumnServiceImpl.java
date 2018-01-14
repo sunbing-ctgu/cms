@@ -6,10 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jiantong.bean.ColumnBean;
 import com.jiantong.bean.ColumnTree;
 import com.jiantong.dao.ColumnDao;
 import com.jiantong.entity.Column;
 import com.jiantong.service.ColumnService;
+import com.jiantong.vo.ColumnVo;
 
 @Service("columnService")
 public class ColumnServiceImpl implements ColumnService {
@@ -71,6 +75,36 @@ public class ColumnServiceImpl implements ColumnService {
 			}
 		}
 		return column;
+	}
+
+	@Override
+	public PageInfo<Column> getColumnList(ColumnBean data) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(data.getPageNum(), data.getPageSize());
+		List<Column> columnList = columnDao.getColumnList(data);
+		PageInfo<Column> result = null;
+		if (null != columnList) {
+			result = new PageInfo<Column>(columnList);
+		}
+		return result;
+	}
+
+	@Override
+	public Integer addColumn(ColumnVo data) {
+		// TODO Auto-generated method stub
+		return columnDao.addColumn(data);
+	}
+
+	@Override
+	public Integer updateColumn(ColumnVo data) {
+		// TODO Auto-generated method stub
+		return columnDao.updateColumn(data);
+	}
+
+	@Override
+	public Integer deleteColumn(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		return columnDao.deleteColumnList(ids);
 	}
 	
 }

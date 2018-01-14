@@ -48,6 +48,9 @@ public class Column {
 	/**排序*/
 	private Integer sort;
 	
+	/**状态  0:已删除    1：正常*/
+    private Integer status;
+	
 	/**创建时间*/
 	private Date createTime;
 	
@@ -119,6 +122,14 @@ public class Column {
 
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Integer getSort() {

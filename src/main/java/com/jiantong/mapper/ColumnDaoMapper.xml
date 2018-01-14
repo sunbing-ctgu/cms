@@ -11,6 +11,7 @@
 		<result column="channel" property="channel" jdbcType="INTEGER"/>
 		<result column="parent_id" property="parentId" jdbcType="INTEGER"/>
 		<result column="sort" property="sort" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
 	</resultMap>
@@ -20,19 +21,82 @@
 		<result column="level" property="level" jdbcType="INTEGER"/>
 	</resultMap>
 	<select id="getRootColumn" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT * FROM cms_column WHERE level = -1 AND channel = #{channel} ORDER BY sort
+		SELECT * FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} ORDER BY sort
 	</select>
 	
 	<select id="getTopChildren" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT * FROM cms_column WHERE parent_id = #{parentId}  ORDER BY sort
+		SELECT * FROM cms_column WHERE parent_id = #{parentId}  <![CDATA[ AND status <> 0 ]]> ORDER BY sort
 	</select>
 	
 	<select id="getRootColumnForTree" parameterType="Integer" resultMap="TreeResultMap">
-		SELECT id, name, level FROM cms_column WHERE level = -1 AND channel = #{channel}  ORDER BY sort 
+		SELECT id, name, level FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel}  ORDER BY sort 
 	</select>
 	
 	<select id="getTopChildrenForTree" parameterType="Integer" resultMap="TreeResultMap">
-		SELECT id, name, level FROM cms_column WHERE parent_id = #{parentId}  ORDER BY sort
+		SELECT id, name, level FROM cms_column WHERE parent_id = #{parentId} <![CDATA[ AND status <> 0 ]]> ORDER BY sort
 	</select>
+	
+	<seletct id="getColumnList" parameterType="com.jiantong.bean.ColumnBean" resultMap="BaseResultMap">
+		SELECT * FROM cms_column WHERE <![CDATA[ status <> 0 ]]>
+		<if test="parentId !=null and parentId != ''">
+			AND parent_id like CONCAT('%', #{parentId}, '%')
+		</if>
+		<if test="name !=null and name != ''">
+			AND name like CONCAT('%', #{name}, '%')
+		</if>
+	</seletct>
+	
+	<insert id="addColumn" parameterType="com.jiantong.vo.ColumnVo">
+		INSERT INTO cms_column(
+		name, rename, path, img, 
+		level, channel, parent_id, sort, 
+		status, create_time, update_time) 
+		VALUES
+		(#{name},#{rename},#{path},#{img}
+		,#{level},#{channel},#{parentId},#{sort}
+		,#{status},#{createTime},#{updateTime});
+	</insert>
+	
+	<update id="updateColumn" parameterType="com.jiantong.vo.ColumnVo">
+		UPDATE cms_column SET 
+		<if test="name !=null and name != ''">
+			name = #{name}
+		</if>
+		<if test="rename !=null and rename != ''">
+			, rename = #{rename}
+		</if>
+		<if test="path !=null and path != ''">
+			, path = #{path}
+		</if>
+		<if test="img !=null and img != ''">
+			, img = #{img}
+		</if>
+		<if test="level !=null and level != ''">
+			, level = #{level}
+		</if>
+		<if test="channel !=null and channel != ''">
+			, channel = #{channel}
+		</if>
+		<if test="parentId !=null and parentId != ''">
+			, parent_id = #{parentId}
+		</if>
+		<if test="sort !=null and sort != ''">
+			, sort = #{sort}
+		</if>
+		<if test="status !=null and status != ''">
+			, status = #{status}
+		</if>
+		<if test="updateTime !=null and updateTime != ''">
+			, update_time = #{updateTime}
+		</if>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deleteColumnList" parameterType="java.util.List">
+		UPDATE cms_column set status = 0 where id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach> 
+	</update>
 	
 </mapper>

@@ -2,8 +2,11 @@ package com.jiantong.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
+import com.jiantong.bean.ColumnBean;
 import com.jiantong.bean.ColumnTree;
 import com.jiantong.entity.Column;
+import com.jiantong.vo.ColumnVo;
 
 /**
  * 栏目信息Service层
@@ -27,4 +30,31 @@ public interface ColumnService {
 	 * @return
 	 */
 	public List<ColumnTree> getColumnTree(Integer channel);
+	
+	/**
+	 * 获取栏目列表
+	 * @param data
+	 * @return
+	 */
+	public PageInfo<Column> getColumnList(ColumnBean data);
+	
+	/**
+	 * 添加栏目
+	 * @param data
+	 * @return
+	 */
+	public Integer addColumn(ColumnVo data);
+	
+	/**
+	 * 更新栏目
+	 * @param data
+	 * @return
+	 */
+	public Integer updateColumn(ColumnVo data);
+	
+	/**
+	 * 删除栏目
+	 * @return
+	 */
+	public Integer deleteColumn(List<Integer> ids);
 }
