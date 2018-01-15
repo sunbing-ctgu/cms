@@ -67,7 +67,7 @@ public class ColumnController extends BaseController {
 		boolean flag = false;
 		PageInfo<Column> columnList = null;
 		try {
-			columnService.getColumnList(data);
+			columnList = columnService.getColumnList(data);
 			flag = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
