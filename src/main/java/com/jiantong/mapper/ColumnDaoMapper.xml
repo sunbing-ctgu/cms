@@ -58,37 +58,39 @@
 	</insert>
 	
 	<update id="updateColumn" parameterType="com.jiantong.vo.ColumnVo">
-		UPDATE cms_column SET 
-		<if test="name !=null and name != ''">
-			name = #{name}
-		</if>
-		<if test="rename !=null and rename != ''">
-			, rename = #{rename}
-		</if>
-		<if test="path !=null and path != ''">
-			, path = #{path}
-		</if>
-		<if test="img !=null and img != ''">
-			, img = #{img}
-		</if>
-		<if test="level !=null and level != ''">
-			, level = #{level}
-		</if>
-		<if test="channel !=null and channel != ''">
-			, channel = #{channel}
-		</if>
-		<if test="parentId !=null and parentId != ''">
-			, parent_id = #{parentId}
-		</if>
-		<if test="sort !=null and sort != ''">
-			, sort = #{sort}
-		</if>
-		<if test="status !=null and status != ''">
-			, status = #{status}
-		</if>
-		<if test="updateTime !=null and updateTime != ''">
-			, update_time = #{updateTime}
-		</if>
+		UPDATE cms_column 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="name !=null and name != ''">
+				name = #{name},
+			</if>
+			<if test="rename !=null and rename != ''">
+				rename = #{rename}, 
+			</if>
+			<if test="path !=null and path != ''">
+				path = #{path}, 
+			</if>
+			<if test="img !=null and img != ''">
+				img = #{img}, 
+			</if>
+			<if test="level !=null and level != ''">
+				level = #{level}, 
+			</if>
+			<if test="channel !=null and channel != ''">
+				channel = #{channel}, 
+			</if>
+			<if test="parentId !=null and parentId != ''">
+				parent_id = #{parentId}, 
+			</if>
+			<if test="sort !=null and sort != ''">
+				sort = #{sort}, 
+			</if>
+			<if test="status !=null and status != ''">
+				status = #{status}, 
+			</if>
+			<if test="updateTime !=null and updateTime != ''">
+				update_time = #{updateTime}, 
+			</if>
+		</trim> 
 		WHERE id = #{id}
 	</update>
 	

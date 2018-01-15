@@ -4,7 +4,6 @@
 	<resultMap id="BaseResultMap" type="com.jiantong.entity.Article">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="column_id" property="columnId" jdbcType="INTEGER" />
-		<result column="root_column_id" property="rootColumnId" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="title_img" property="titleImg" jdbcType="VARCHAR" />
 		<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
@@ -12,7 +11,6 @@
 	<resultMap id="DetailResultMap" type="com.jiantong.entity.Article">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="column_id" property="columnId" jdbcType="INTEGER" />
-		<result column="root_column_id" property="rootColumnId" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="title_img" property="titleImg" jdbcType="VARCHAR" />
 		<result column="content" property="content" jdbcType="VARCHAR" />
@@ -22,15 +20,19 @@
 		<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
 		<result column="view_count" property="viewCount" jdbcType="INTEGER" />
 	</resultMap>
-	<select id="getArticleByRootColumnId" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT id, column_id, root_column_id, title, title_img, publish_time
-		FROM cms_article WHERE root_column_id = #{rootColumnId} <![CDATA[ AND status <> 0 ]]>
-		ORDER BY top_type desc, sort asc
-	</select>
 	
-	<select id="getArticleByColumnId" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT id, column_id, root_column_id, title, title_img, publish_time
-		FROM cms_article WHERE column_id = #{columnId} AND <![CDATA[ status <> 0 ]]>
+	<select id="getArticleList" parameterType="com.jiantong.bean.ArticleBean" resultMap="BaseResultMap">
+		SELECT id, column_id, title, title_img, publish_time
+		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
+		<if test="title !=null and title != ''">
+			AND title like CONCAT('%', #{title}, '%')
+		</if>
+		<if test="columnIds != null and columnIds.size > 0">
+			AND	column_id in
+			<foreach collection="columnIds" index="index" item="columnId" open="(" separator="," close=")">
+				#{columnId}
+			</foreach> 	
+		</if>
 		ORDER BY top_type desc, sort asc
 	</select>
 	
@@ -70,7 +72,10 @@
 		UPDATE cms_article SET view_count = view_count + 1 WHERE  id = #{id}
 	</update>
 	
-	<update id="deleteArticle" parameterType="Integer">
-		UPDATE cms_article SET status = 0 WHERE  id = #{id}
+	<update id="deleteArticle" parameterType="java.util.List">
+		UPDATE cms_article set status = 0 where id in
+		<foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach> 
 	</update>
 </mapper>

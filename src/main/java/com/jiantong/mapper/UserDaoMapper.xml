@@ -58,25 +58,27 @@
 	</insert>
 
 	<update id="updateUser" parameterType="com.jiantong.vo.UserVo">
-		UPDATE sys_user SET
-		<if test="realname !=null and realname != ''">
-			realname = #{realname}
-		</if>
-		<if test="password !=null and password != ''">
-			, password = #{password}
-		</if>
-		<if test="salt !=null and salt != ''">
-			,  salt = #{salt}
-		</if>
-		<if test="sex !=null and sex != ''">
-			, sex = #{sex}
-		</if>
-		<if test="tel !=null and tel != ''">
-			, tel = #{tel}
-		</if>
-		<if test="locked !=null and locked != ''">
-			, locked = #{locked}
-		</if>
+		UPDATE sys_user
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="realname !=null and realname != ''">
+				realname = #{realname}, 
+			</if>
+			<if test="password !=null and password != ''">
+				password = #{password}, 
+			</if>
+			<if test="salt !=null and salt != ''">
+				salt = #{salt}, 
+			</if>
+			<if test="sex !=null and sex != ''">
+				sex = #{sex}, 
+			</if>
+			<if test="tel !=null and tel != ''">
+				tel = #{tel}, 
+			</if>
+			<if test="locked !=null and locked != ''">
+				locked = #{locked}, 
+			</if>
+		</trim>
 		WHERE
 		id = #{id}
 	</update>

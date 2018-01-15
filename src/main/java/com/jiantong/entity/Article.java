@@ -17,9 +17,6 @@ public class Article {
 	/**所属栏目ID*/
 	private Integer columnId;
 	
-	/**所属根栏目ID*/
-	private Integer rootColumnId;
-	
 	/**标题*/
 	private String title;
 	
@@ -73,14 +70,6 @@ public class Article {
 
 	public void setColumnId(Integer columnId) {
 		this.columnId = columnId;
-	}
-
-	public Integer getRootColumnId() {
-		return rootColumnId;
-	}
-
-	public void setRootColumnId(Integer rootColumnId) {
-		this.rootColumnId = rootColumnId;
 	}
 
 	public String getTitle() {
