@@ -72,6 +72,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div class="col-xs-9" style="padding-left:1px;">
+		<div style="margin-top: -10px">
+			<h5 class="bigger lighter">
+				<a id="add-user-btn" class="btn btn-xs btn-primary" data-toggle="modal" data-id="-1" data-target="#user-modal">
+					<i class="glyphicon glyphicon-plus"></i>新增
+				</a> 
+				<a id="del-user-btn" class="btn btn-xs btn-danger">
+					<i class="glyphicon glyphicon-trash"></i>删除
+				</a>
+			</h5>
+		</div>
 		<div>
 			<div id="sample-table-2_wrapper"
 				class="dataTables_wrapper form-inline" role="grid">
