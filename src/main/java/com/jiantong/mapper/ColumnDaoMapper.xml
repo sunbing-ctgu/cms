@@ -36,7 +36,7 @@
 		SELECT id, name, level FROM cms_column WHERE parent_id = #{parentId} <![CDATA[ AND status <> 0 ]]> ORDER BY sort
 	</select>
 	
-	<seletct id="getColumnList" parameterType="com.jiantong.bean.ColumnBean" resultMap="BaseResultMap">
+	<select id="getColumnList" parameterType="com.jiantong.bean.ColumnBean" resultMap="BaseResultMap">
 		SELECT * FROM cms_column WHERE <![CDATA[ status <> 0 ]]>
 		<if test="parentId !=null and parentId != ''">
 			AND parent_id like CONCAT('%', #{parentId}, '%')
@@ -44,7 +44,7 @@
 		<if test="name !=null and name != ''">
 			AND name like CONCAT('%', #{name}, '%')
 		</if>
-	</seletct>
+	</select>
 	
 	<insert id="addColumn" parameterType="com.jiantong.vo.ColumnVo">
 		INSERT INTO cms_column(
