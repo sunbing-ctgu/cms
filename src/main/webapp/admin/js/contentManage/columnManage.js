@@ -21,7 +21,10 @@ $(function(){
 	QueryTree.getColumnTree().then((result) => {
 		treeCache = result;
 		$('#tree').treeview({
-	   		data: treeCache
+	   		data: treeCache,
+	   		onNodeSelected: function(event, node) {
+	   			console.log(node.text + 'was selected');
+	   		}
 	   	});
 	});
 });
