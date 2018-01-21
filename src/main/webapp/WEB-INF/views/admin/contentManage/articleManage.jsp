@@ -11,8 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../common/head.jsp"></jsp:include>
 <script type="text/javascript" src="admin/js/treeview/bootstrap-treeview.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src='admin/js/contentManage/columnManage.js'></script>
-<title>栏目管理</title>
+<script src='admin/js/contentManage/articleManage.js'></script>
+<title>新闻管理</title>
 </head>
 <body class="no-skin">
 <div class="main-container" id="main-container">
@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="admin/home">首页</a>
 		</li>
 		<li><a href="admin/columnManage">内容管理</a></li>
-		<li class="active">栏目管理</li>
+		<li class="active">新闻管理</li>
 	</ul><!-- /.breadcrumb -->
 </div>
 <div class="page-content">
@@ -93,11 +93,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<th class="center col-md-1"><label class="position-relative">
 									<input type="checkbox" class="ace checkbox-user-all" /> <span class="lbl"></span>
 							</label></th>
-							<th class="col-md-2">栏目名</th>
-							<th class="col-md-2">别名</th>
-							<th class="col-md-1">频道</th>
+							<th class="col-md-2">标题</th>
+							<th class="col-md-2">推荐</th>
+							<th class="col-md-1">置顶</th>
+							<th class="col-md-1">点击数</th>
 							<th class="col-md-1">排序</th>
-							<th class="col-md-3">创建时间</th>
+							<th class="col-md-2">更新时间</th>
 							<th class="col-md-2">操作</th>
 						</tr>
 					</thead>
@@ -145,6 +146,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		expandIcon: 'glyphicon glyphicon-chevron-right',
         collapseIcon: 'glyphicon glyphicon-chevron-down',
    	});
-   	//$('#tree').treeview('collapseAll', { silent: true });
+   	$('#tree').treeview('collapseAll', { silent: false });
 </script>
 </html>

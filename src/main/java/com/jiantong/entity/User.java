@@ -2,6 +2,8 @@ package com.jiantong.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class User {
 	
 	private Integer id;
@@ -27,6 +29,7 @@ public class User {
     private String lastLoginIp;
     
     /**最后登录时间 */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastLoginTime;
     
     /**账号是否锁定，1：锁定，0未锁定 */
@@ -39,6 +42,7 @@ public class User {
     private Integer isAdmin;
     
     /**创建时间 */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
 	public Integer getId() {

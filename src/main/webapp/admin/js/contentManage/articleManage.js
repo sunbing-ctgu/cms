@@ -11,7 +11,7 @@ class QueryParam {
 		this.pageNum = 1;
 	}
 }
-class Column {
+class Article {
 	constructor() {
 		this.name;
 		this.rename;
@@ -23,18 +23,18 @@ class Column {
 
 let param = new QueryParam();
 
-let column = new Column();
+let article = new Article();
 /**缓存结果集*/
 let resultCache;
-let currentUpdateColumn;
+let currentUpdateArticle;
 let selectedArr = new Array();
-let columnModalSubmitType;
+let articleModalSubmitType;
 
-class QueryColumn {
+class QueryArticle {
 	static query(data) {
 		return new Promise((resolve) => {
 			$.ajax({
-				url: 'admin/columnManage/getColumnList',
+				url: 'admin/articleManage/getArticleList',
 				type: 'POST',
 				async: true,
 				contentType: "application/json; charset=utf-8",
@@ -47,9 +47,9 @@ class QueryColumn {
 	}
 }
 
-class OperationUser {
+class OperationArticle {
 	static operation(data, type) {
-		let url = "admin/columnManage/" + type;
+		let url = "admin/articleManage/" + type;
 		return new Promise((resolve) => {
             $.ajax({
                 url: url,
@@ -68,11 +68,19 @@ class OperationUser {
 class DrawTable {
 	static fillData(result) {
 		let htmlValue = '';
-		function getChannel(val) {
-            if (val == 0) {
-                return '中文版';
+		function getRecommend(val) {
+            if (val == 2) {
+                return '是';
             } else {
-                return '英文版';
+                return '否';
+            }
+        }
+		
+		function getTop(val) {
+            if (val == 1) {
+                return '是';
+            } else {
+                return '否';
             }
         }
 		for (let i = 0; i < result.length; i++) {
@@ -83,9 +91,9 @@ class DrawTable {
 						<input type="checkbox" class="ace checkbox-user" data-id="${result[i].id}"/> <span class="lbl"></span>
 				</label></td>
 
-				<td>${result[i].name}</td>
-				<td>${result[i].rename}</td>
-				<td>${getChannel(result[i].channel)}</td>
+				<td>${getRecommend(result[i].topType)}</td>
+				<td>${getTop(result[i].topType)}</td>
+				<td>${result[i].viewCount}</td>
 				<td>${result[i].sort}</td>
 				<td>${result[i].createTime}</td>
 				<td>
@@ -137,7 +145,7 @@ class PageInfo {
 function query(data) {
 	$('#table-tbody').html('');
 	$('.loading').css('display', 'block');
-	QueryColumn.query(data).then((result) => {
+	QueryArticle.query(data).then((result) => {
 		$('.loading').css('display', 'none');
         console.log(result.pageInfo);
         selectedArr = new Array();
@@ -195,34 +203,34 @@ function batchDel() {
 	
 }
 
-function addColumn() {
-    let column = new Column();//
-    column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.level = $("input[name='sex']:checked").val();
-    column.channel = $("input[name='channel']:checked").val();
-    column.parentId =  $('#parentId').val()
-    column.sort = $('#sort').val()
-    if (column.name != '' && column.path != '' && column.level != '' && column.channel != '' && column.parentId != '') {
+function addArticle() {
+    let article = new Article();//
+    article.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.level = $("input[name='sex']:checked").val();
+    article.channel = $("input[name='channel']:checked").val();
+    article.parentId =  $('#parentId').val()
+    article.sort = $('#sort').val()
+    if (article.name != '' && article.path != '' && article.level != '' && article.channel != '' && article.parentId != '') {
     	doOperation(column, 'addColumn', '添加');
     } else {
         alert('信息未输入完整');
     }
 }
 
-function updateColumn() {//currentUpdateUser
-    let column = currentUpdateColumn;
-    column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.level = $("input[name='sex']:checked").val();
-    column.channel = $("input[name='channel']:checked").val();
-    column.parentId =  $('#parentId').val()
-    column.sort = $('#sort').val()
-    doOperation(column, 'updateColumn', '修改');
+function updateArticle() {//currentUpdateUser
+    let article = currentUpdateArticle;
+    article.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.level = $("input[name='sex']:checked").val();
+    article.channel = $("input[name='channel']:checked").val();
+    article.parentId =  $('#parentId').val()
+    article.sort = $('#sort').val()
+    doOperation(article, 'updateArticle', '修改');
 }
 
 function confirmModal(type, content, data) {
@@ -254,17 +262,17 @@ $(function(){
 });
 function openUserModal(columnInfo, type) {
     if (type == 1) {
-        $('#column-modal-title').html('新增栏目');
+        $('#article-modal-title').html('新增新闻');
         $('#name').val('');
         $('#rename').val('');
         $('#path').val('');
         $('#img').html('&nbsp;');
         $('#password').css('display', '');
         $('#username-input').removeAttr('disabled');
-        $('.column-modal-submit').html('确认添加');
+        $('.article-modal-submit').html('确认添加');
         columnModalSubmitType = 1;
     } else {
-        $('#column-modal-title').html('修改信息');
+        $('#article-modal-title').html('修改信息');
         $('#name').val(columnInfo.name);
         $('#rename').val(columnInfo.rename);
         $('#path').val(columnInfo.path);
@@ -274,7 +282,7 @@ function openUserModal(columnInfo, type) {
         } else {
         	$("input:radio[value=1]").attr('checked','true');
         }
-        $('.column-modal-submit').html('确认修改');
+        $('.article-modal-submit').html('确认修改');
         columnModalSubmitType = 2;
     }
 }
@@ -296,11 +304,11 @@ $(document).on('change', '.checkbox-user', function () {
 
 $(function(){
 	/* 批量删除*/
-	$('#del-column-btn').click(function () {
+	$('#del-article-btn').click(function () {
 		batchDel();
 	});
 	/* Modal提交*/
-	$('.column-modal-submit').click(function () {
+	$('.article-modal-submit').click(function () {
 	    if (columnModalSubmitType == 1) {
 	        addColumn();
 	    } else {
@@ -308,15 +316,15 @@ $(function(){
 	    }
 	});
 	
-	$('#column-modal').on('show.bs.modal', function (event) {
+	$('#article-modal').on('show.bs.modal', function (event) {
 		let btn = $(event.relatedTarget);
 		let index = btn.data("id"); 
 		if(index != -1) {
 			let columnInfo = resultCache[index];
 			currentUpdateColumn = columnInfo;
-			openColumnModal(columnInfo, 2);
+			openArticleModal(columnInfo, 2);
 		}else {
-			openColumnModal(null, 1);
+			openArticleModal(null, 1);
 		}
 	});
 	

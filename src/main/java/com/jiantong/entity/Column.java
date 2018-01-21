@@ -3,6 +3,10 @@ package com.jiantong.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 栏目信息表
  * <p>Title:Column</p>
@@ -52,9 +56,11 @@ public class Column {
     private Integer status;
 	
 	/**创建时间*/
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date createTime;
 	
 	/**更新时间*/
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date updateTime;
 	
 	/**下属栏目*/

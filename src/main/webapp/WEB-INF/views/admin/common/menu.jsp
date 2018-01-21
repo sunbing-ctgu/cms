@@ -42,8 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b class="arrow"></b>
 			</li>
 
-			<li class="<c:if test="${fn:contains(sessionScope.index, 'newsManage')}">active</c:if>">
-				<a href="jqgrid.html">
+			<li class="<c:if test="${fn:contains(sessionScope.index, 'articleManage')}">active</c:if>">
+				<a href="admin/articleManage">
 					<i class="menu-icon fa fa-caret-right"></i>
 					新闻管理
 				</a>
