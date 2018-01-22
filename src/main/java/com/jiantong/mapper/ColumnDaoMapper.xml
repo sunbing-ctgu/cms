@@ -7,6 +7,7 @@
 		<result column="rename" property="rename" jdbcType="VARCHAR"/>
 		<result column="path" property="path" jdbcType="VARCHAR"/>
 		<result column="img" property="img" jdbcType="VARCHAR"/>
+		<result column="type" property="type" jdbcType="INTEGER"/>
 		<result column="level" property="level" jdbcType="INTEGER"/>
 		<result column="channel" property="channel" jdbcType="INTEGER"/>
 		<result column="parent_id" property="parentId" jdbcType="INTEGER"/>
@@ -19,6 +20,7 @@
 		<id column="id" property="id" jdbcType="INTEGER"/>
 		<result column="name" property="text" jdbcType="VARCHAR"/>
 		<result column="level" property="level" jdbcType="INTEGER"/>
+		<result column="path" property="path" jdbcType="VARCHAR"/>
 	</resultMap>
 	<select id="getRootColumn" parameterType="Integer" resultMap="BaseResultMap">
 		SELECT * FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} ORDER BY sort
@@ -29,11 +31,11 @@
 	</select>
 	
 	<select id="getRootColumnForTree" parameterType="Integer" resultMap="TreeResultMap">
-		SELECT id, name, level FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel}  ORDER BY sort 
+		SELECT id, name, level, path FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel}  ORDER BY sort 
 	</select>
 	
 	<select id="getTopChildrenForTree" parameterType="Integer" resultMap="TreeResultMap">
-		SELECT id, name, level FROM cms_column WHERE parent_id = #{parentId} <![CDATA[ AND status <> 0 ]]> ORDER BY sort
+		SELECT id, name, level, path FROM cms_column WHERE parent_id = #{parentId} <![CDATA[ AND status <> 0 ]]> ORDER BY sort
 	</select>
 	
 	<select id="getColumnList" parameterType="com.jiantong.bean.ColumnBean" resultMap="BaseResultMap">
@@ -48,11 +50,11 @@
 	
 	<insert id="addColumn" parameterType="com.jiantong.vo.ColumnVo">
 		INSERT INTO cms_column(
-		name, rename, path, img, 
+		name, rename, path, img, type, 
 		level, channel, parent_id, sort, 
 		status, create_time, update_time) 
 		VALUES
-		(#{name},#{rename},#{path},#{img}
+		(#{name},#{rename},#{path},#{img}, #{type}
 		,#{level},#{channel},#{parentId},#{sort}
 		,#{status},#{createTime},#{updateTime});
 	</insert>
@@ -71,6 +73,9 @@
 			</if>
 			<if test="img !=null and img != ''">
 				img = #{img}, 
+			</if>
+			<if test="type !=null and type != ''">
+				type = #{type}, 
 			</if>
 			<if test="level !=null and level != ''">
 				level = #{level}, 

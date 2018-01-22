@@ -18,6 +18,8 @@ public class ColumnTree {
 	
 	private Integer level;
 	
+	private String path;
+	
 	private List<ColumnTree> nodes;
 
 	public Integer getId() {
@@ -42,6 +44,14 @@ public class ColumnTree {
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public List<ColumnTree> getNodes() {

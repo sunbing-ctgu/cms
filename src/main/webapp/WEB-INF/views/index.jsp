@@ -1,101 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
+<%-- <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<base href="<%=basePath%>">
+<%-- <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>加拿大潮商会</title>
 <meta name="description" content="overview &amp; stats" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> --%>
+<!-- <script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="front/js/jquery.superslide.2.1.1.js"></script>
-<link rel="stylesheet" href="front/css/style.css" />
+<link rel="stylesheet" href="front/css/style.css" /> -->
 </head>
 <body>
 	<div class="index_wap">
-		<div class="index_top_tip">
-			<div class="index_top_tip_text">
-				<a href="#">中文版</a> <a href="#">英文版</a>
-			</div>
-		</div>
+		<jsp:include page="common/head.jsp"></jsp:include>
 		<div class="index_wap_con">
 			<div class="logo">
 				<img src="front/upload/images/logo.png">
 			</div>
-			<div class="nav">
-				<ul class="con_1100">
-					<li class="nLi on" style="background: #C73A31">
-						<h3>
-							<a href="index.html" target="_blank"><b>首页</b></a>
-						</h3>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="introduce.html" target="_blank"><b>商會簡介</b></a>
-						</h3>
-						<ul class="sub">
-							<li><a href="introduce.html" target="_blank">商會簡介</a><a
-								href="history.html" target="_blank">商會歷程</a></li>
-							<li><a href="emblem.html" target="_blank">商會會徽</a></li>
-							<li><a href="#" target="_blank">組織架構</a></li>
-							<li><a href="#" target="_blank">商會章程</a></li>
-							<li><a href="join.html" target="_blank">入會申請</a></li>
-							<li><a href="master.html" target="_blank">理事會名錄</a></li>
-						</ul>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="news.html" target="_blank"><b>新聞動態</b></a>
-						</h3>
-						<ul class="sub">
-							<li><a href="#" target="_blank">商會新聞</a></li>
-							<li><a href="#" target="_blank">會員動態</a></li>
-							<li><a href="#" target="_blank">國際潮商</a></li>
-						</ul>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="celebrity.html" target="_blank"><b>加拿大潮人</b></a>
-						</h3>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="#" target="_blank"><b>人文風光</b></a>
-						</h3>
-						<ul class="sub">
-							<li><a href="#" target="_blank">潮汕人文</a></li>
-							<li><a href="#" target="_blank">加拿大風光</a></li>
-							<li><a href="#" target="_blank">潮人資訊</a></li>
-						</ul>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="brand.html" target="_blank"><b>會員品牌</b></a>
-						</h3>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="link.html" target="_blank"><b>友情鏈接</b></a>
-						</h3>
-						<ul class="sub">
-							<li><a href="#" target="_blank">潮商社團</a></li>
-							<li><a href="#" target="_blank">政府網站</a></li>
-							<li><a href="#" target="_blank">潮汕資訊</a></li>
-						</ul>
-					</li>
-					<li class="nLi ">
-						<h3>
-							<a href="contact.html" target="_blank"><b>聯繫我們</b></a>
-						</h3>
-					</li>
-				</ul>
-			</div>
+			<jsp:include page="common/menu.jsp"></jsp:include>
 			<div class="index_new">
 				<div class="index_new_l">
 					<div id="turn" class="turn">
@@ -293,12 +222,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 			</div>
-
 		</div>
-		<div class="footer" style="margin-top: 100px;">
-			<p>Copyright © 2012 - 2013 加拿大潮商會 ALL Rights Reserved</p>
-		</div>
-
+		<jsp:include page="common/foot.jsp"></jsp:include>
 	</div>
 
     <script id="jsID" type="text/javascript">
