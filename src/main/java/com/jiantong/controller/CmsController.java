@@ -29,11 +29,11 @@ public class CmsController extends BaseHandler{
 		return "index";
 	}
 	
-	@RequestMapping(value = "/{rootColumnPath}/{columnPath}/{articleId}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/{rootColumnPath}/{columnPath}/{articleId}", method = RequestMethod.GET)
 	public String getArticleDetail(HttpServletRequest request,@PathVariable String rootColumnPath, @PathVariable String columnPath, @PathVariable String articleId) {
 		System.out.println(columnPath+"-"+articleId);
 		HttpSession session = getSession(request);
 		session.setAttribute(CURRENT_PATH_SESSION, rootColumnPath);
 		return "index";
-	}
+	}*/
 }
