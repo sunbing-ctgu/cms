@@ -13,12 +13,24 @@
 		<result column="column_id" property="columnId" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="title_img" property="titleImg" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
 		<result column="content" property="content" jdbcType="VARCHAR" />
 		<result column="summary" property="summary" jdbcType="VARCHAR" />
+		<result column="href" property="href" jdbcType="VARCHAR" />
 		<result column="key_word" property="keyWord" jdbcType="VARCHAR" />
 		<result column="publisher_id" property="publisherId" jdbcType="INTEGER" />
 		<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
 		<result column="view_count" property="viewCount" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap id="SummaryResultMap" type="com.jiantong.pojo.ArticleSummary">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="title_img" property="titleImg" jdbcType="VARCHAR" />
+		<result column="summary" property="summary" jdbcType="VARCHAR" />
+		<result column="href" property="href" jdbcType="VARCHAR" />
+		<result column="_year" property="year" jdbcType="VARCHAR" />
+		<result column="_date" property="date" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<select id="getArticleList" parameterType="com.jiantong.bean.ArticleBean" resultMap="BaseResultMap">
@@ -42,10 +54,10 @@
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
 		INSERT INTO cms_article(column_id, root_column_id, title, title_img, 
-		content, summary, key_words, publisher_id, publish_time, top_type, 
+		content, summary, href, key_words, publisher_id, publish_time, top_type, 
 		sort, view_count, status, create_time, update_time ) 
 		VALUES(#{columnId}, #{rootColumnId}, #{title}, #{titleImg}, 
-		#{content}, #{summary}, #{keyWord}, #{publisherId}, 
+		#{content}, #{summary}, #{href}, #{keyWord}, #{publisherId}, 
 		#{publishTime}, #{topType}, #{sort}, #{viewCount}, 
 		#{status}, #{createTime}, #{updateTime})
 	</insert>
@@ -59,6 +71,7 @@
 			<if test="null != titleImg and '' != titleImg">title_img=#{titleImg},</if>
 			<if test="null != content and '' != content">content=#{content},</if>
 			<if test="null != summary and '' != summary">summary=#{summary},</if>
+			<if test="null != href and '' != href">href=#{href},</if>
 			<if test="null != keyWord and '' != keyWord">key_word=#{keyWord},</if>
 			<if test="null != publishTime and '' != publishTime">publish_time=#{publishTime},</if>
 			<if test="null != topType and '' != topType">top_type=#{topType},</if>
@@ -78,4 +91,16 @@
 			#{id}
 		</foreach> 
 	</update>
+	
+	<select id="getArticleByColumnId" parameterType="Integer" resultMap="DetailResultMap">
+		SELECT * FROM cms_article WHERE column_id = #{columnId} ORDER BY top_type desc, sort asc LIMIT 1;
+	</select>
+	
+	<select id="getArticleListByColumnId" parameterType="Integer" resultMap="SummaryResultMap">
+		SELECT id, title, title_img, summary, href, year(publish_time) _year, DATE_FORMAT(publish_time, '%m-%d') _date
+		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
+		AND column_id = #{columnId}
+		ORDER BY top_type desc, sort asc
+	</select>
+	
 </mapper>

@@ -106,5 +106,14 @@ public class ColumnServiceImpl implements ColumnService {
 		// TODO Auto-generated method stub
 		return columnDao.deleteColumnList(ids);
 	}
+
+	@Override
+	public Column getColumnByPath(String path, Integer channel) {
+		// TODO Auto-generated method stub
+		Column column = columnDao.getColumnByPath(path, channel);
+		List<Column> topChildren = columnDao.getTopChildren(column.getId());
+		column.setChildColumn(topChildren);
+		return column;
+	}
 	
 }

@@ -13,77 +13,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>加拿大潮商会</title>
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> --%>
-<!-- <script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="front/js/jquery.superslide.2.1.1.js"></script>
-<link rel="stylesheet" href="front/css/style.css" /> -->
+<!-- <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.superslide.2.1.1.js"></script>
+<link rel="stylesheet" href="css/style.css" /> -->
 </head>
 <body>
 	<div class="index_wap">
 		<jsp:include page="common/head.jsp"></jsp:include>
 		<div class="index_wap_con">
 			<div class="logo">
-				<img src="front/upload/images/logo.png">
+				<img src="upload/images/logo.png">
 			</div>
 			<jsp:include page="common/menu.jsp"></jsp:include>
 			<div class="index_new">
 				<div class="index_new_l">
 					<div id="turn" class="turn">
 						<div class="turn-loading">
-							<img src="front/upload/images/loading_comment.gif" />
+							<img src="upload/images/loading_comment.gif" />
 						</div>
 						<ul class="turn-pic">
-							<li><a href="#"><img src="front/upload/images/1.jpg" title="演示信息1" /></a></li>
-							<li><a href="#"><img src="front/upload/images/2.jpg" title="演示信息2" /></a></li>
-							<li><a href="#"><img src="front/upload/images/3.jpg" title="演示信息3" /></a></li>
-							<li><a href="#"><img src="front/upload/images/4.jpg" title="演示信息4" /></a></li>
+							<li><a href="#"><img src="upload/images/1.jpg" title="演示信息1" /></a></li>
+							<li><a href="#"><img src="upload/images/2.jpg" title="演示信息2" /></a></li>
+							<li><a href="#"><img src="upload/images/3.jpg" title="演示信息3" /></a></li>
+							<li><a href="#"><img src="upload/images/4.jpg" title="演示信息4" /></a></li>
 						</ul>
 					</div>
 				</div>
-				<ul class="index_new_r">
-					<li
-						onclick="javascript:document.getElementById('index_news01').click();">
-						<img src="front/upload/images/img_small.png" />
-						<dl>
-							<dt>
-								<a href="#" id="index_news01"> 加拿大總理哈珀會見第珀會見珀會見珀會見珀會見珀會見珀會見</a>
-							</dt>
-							<dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-						</dl>
-					</li>
-					<li style="background: #E0E2E5"
-						onclick="javascript:document.getElementById('index_news02').click();">
-						<img src="front/upload/images/img_small.png" />
-						<dl>
-							<dt>
-								<a href="#" id="index_news02">加拿大總理哈珀會見第</a>
-							</dt>
-							<dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-						</dl>
-					</li>
-					<li
-						onclick="javascript:document.getElementById('index_news03').click();">
-						<img src="front/upload/images/img_small.png" />
-						<dl>
-							<dt>
-								<a href="#" id="index_news03">加拿大總理哈珀會見第</a>
-							</dt>
-							<dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-						</dl>
-					</li>
-					<li style="background: #E0E2E5"
-						onclick="javascript:document.getElementById('index_news04').click();">
-						<img src="front/upload/images/img_small.png" />
-						<dl>
-							<dt>
-								<a href="#" id="index_news04">加拿大總理哈珀會見第</a>
-							</dt>
-							<dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-						</dl>
-					</li>
-				</ul>
+				<div class="index_new_r">
+                    <div class="index_new_r_tittle">
+                        <h4>最新公告</h4>
+                        <a href="#">更多></a>
+                    </div>
+                    <ul class="index_new_r_con">
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
+
+                    </ul>
+                </div>	
 			</div>
 			<div class="index_banner">
-				<img src="front/upload/images/banner.png">
+				<img src="upload/images/banner.png">
 			</div>
 			<ul class="news">
 				<li class="news_l">
@@ -147,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="index_landscape_con">
 					<li id="s11">
 						<div class="index_landscape_img">
-							<img src="front/upload/images/index_landscape.jpg">
+							<img src="upload/images/index_landscape.jpg">
 						</div>
 						<div class="index_landscape_in">
 							<h4>马化腾建议创业者：产业跨界领域最具创新机会</h4>
@@ -160,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<li style="display: none" id="s22">
 						<div class="index_landscape_img">
-							<img src="front/upload/images/index_landscape.jpg">
+							<img src="upload/images/index_landscape.jpg">
 						</div>
 						<div class="index_landscape_in">
 							<h4>马东敏建议创业者：拥抱AI才能赢得未来</h4>
@@ -173,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<li style="display: none" id="s33">
 						<div class="index_landscape_img">
-							<img src="front/upload/images/index_landscape.jpg">
+							<img src="upload/images/index_landscape.jpg">
 						</div>
 						<div class="index_landscape_in">
 							<h4>马云建议创业者：要抱紧淘宝的大腿</h4>
@@ -192,13 +166,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					</div>
 					<ul class="index_stars_con">
-						<li><a href="#"> <img src="front/upload/images/people.jpg"> <span>林思齊</span></a>
+						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
 						</li>
-						<li><a href="#"> <img src="front/upload/images/people.jpg"> <span>林思齊</span></a>
+						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
 						</li>
-						<li><a href="#"> <img src="front/upload/images/people.jpg"> <span>林思齊</span></a>
+						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
 						</li>
-						<li><a href="#"> <img src="front/upload/images/people.jpg"> <span>林思齊</span></a>
+						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
 						</li>
 					</ul>
 				</div>

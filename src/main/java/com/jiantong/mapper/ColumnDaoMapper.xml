@@ -106,4 +106,7 @@
 		</foreach> 
 	</update>
 	
+	<select id="getColumnByPath" resultMap="BaseResultMap">
+		SELECT * from cms_column WHERE path = #{path} AND channel = #{channel} ORDER BY id LIMIT 1
+	</select>
 </mapper>

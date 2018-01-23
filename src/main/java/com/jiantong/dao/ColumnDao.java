@@ -2,6 +2,8 @@ package com.jiantong.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jiantong.bean.ColumnBean;
 import com.jiantong.bean.ColumnTree;
 import com.jiantong.entity.Column;
@@ -52,4 +54,5 @@ public interface ColumnDao {
 	
 	public Integer deleteColumnList(List<Integer> columnList);
 	
+	public Column getColumnByPath(@Param("path")String path, @Param("channel") Integer channel);
 }

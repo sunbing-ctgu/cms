@@ -57,4 +57,11 @@ public interface ColumnService {
 	 * @return
 	 */
 	public Integer deleteColumn(List<Integer> ids);
+	
+	/**
+	 * 根据请求路径获取栏目信息
+	 * @param path
+	 * @return
+	 */
+	public Column getColumnByPath(String path, Integer channel);
 }

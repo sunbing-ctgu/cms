@@ -18,6 +18,8 @@ public class ArticleVo {
 	
 	private String summary;
 	
+	private String href;
+	
 	private String keyWord;
 	
 	private Integer publisherId;
@@ -82,6 +84,14 @@ public class ArticleVo {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	public String getKeyWord() {

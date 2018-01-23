@@ -11,11 +11,10 @@
                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 				http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-4.3.xsd">
 
-	<!-- Use spring servlet for all requests, including static resources -->
-	<mvc:default-servlet-handler />
-
 	<!-- 使用注解方式 -->
 	<context:annotation-config />
+	<!-- Use spring servlet for all requests, including static resources -->
+	<mvc:default-servlet-handler />
 
 	<!-- 开启controller注解支持 -->
 	<!-- 注：如果base-package=com.jiantong 则注解事务不起作用 TODO 读源码 -->
@@ -118,30 +117,6 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-
-	<mvc:interceptors>
-		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
-		<!-- <mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/css/**" />
-			<mvc:exclude-mapping path="/img/**" />
-			<mvc:exclude-mapping path="/jiantong_assets/**" />
-			<mvc:exclude-mapping path="/upload/**" />
-			<mvc:exclude-mapping path="/download/**" />
-			<mvc:exclude-mapping path="/fileupload/**" />
-			<mvc:exclude-mapping path="/remoteUpdate/**" />
-			<mvc:exclude-mapping path="/devReport/**" />
-			<bean class="com.jiantong.framework.interceptor.UserInterceptorHandler">
-				<property name="exclude">
-					<value>/[\S\s]*?/index,/[\S\s]*?/index.html,/[\S\s]*?/login,/[\S\s]*?/login.html,[\S\s]*?/login,[\S\s]*?/logout,[\S\s]*?/getVerificationCode,[\S\s]*?/vcode,[\S\s]*?/getUpgradeFeatureInfo/[\S\s]*?,[\S\s]*?/handleUpgradeStateInfo/[\S\s]*?,[\S\s]*?/favicon.ico
-					</value>
-				</property>
-			</bean>
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.jiantong.framework.interceptor.ErrorInterceptorHandler"></bean>
-		</mvc:interceptor> -->
-	</mvc:interceptors>
+	
 
 </beans>

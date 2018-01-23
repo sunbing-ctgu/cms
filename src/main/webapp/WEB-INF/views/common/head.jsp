@@ -14,9 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>加拿大潮商会</title>
 <meta name="description" content="overview &amp; stats"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="front/js/jquery.superslide.2.1.1.js"></script>
-<link rel="stylesheet" href="front/css/style.css" />
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.superslide.2.1.1.js"></script>
+<link rel="stylesheet" href="css/style.css" />
 </head>
 <div class="index_wap">
 	<div class="index_top_tip">

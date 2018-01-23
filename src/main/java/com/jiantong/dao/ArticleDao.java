@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jiantong.bean.ArticleBean;
 import com.jiantong.entity.Article;
+import com.jiantong.pojo.ArticleSummary;
 import com.jiantong.vo.ArticleVo;
 
 /**
@@ -55,4 +56,8 @@ public interface ArticleDao {
 	 * @return
 	 */
 	public Integer deleteArticle(List<Integer> ids);
+	
+	public Article getArticleByColumnId(Integer columnId);
+	
+	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
 }

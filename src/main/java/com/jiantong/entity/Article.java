@@ -25,11 +25,16 @@ public class Article {
 	/**标题图片*/
 	private String titleImg;
 	
+	/**作者*/
+	private String author;
+	
 	/**内容*/
 	private String content;
 	
 	/**摘要*/
 	private String summary;
+	
+	private String href;
 	
 	/**关键词*/
 	private String keyWord;
@@ -88,6 +93,14 @@ public class Article {
 		return titleImg;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
 	public void setTitleImg(String titleImg) {
 		this.titleImg = titleImg;
 	}
@@ -106,6 +119,14 @@ public class Article {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	public String getKeyWord() {

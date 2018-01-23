@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <div class="index_wap">
@@ -11,18 +11,29 @@
 		</div>
 		<jsp:include page="common/menu.jsp"></jsp:include>
 		<jsp:include page="common/columnHead.jsp"></jsp:include>
-		<jsp:include page="common/columnLeft.jsp"></jsp:include>
-        <div class="introduce_r">
-            <div class="introduce_r_tittle">
-                <h3>${column.name}</h3>
-                <span></span>
-            </div>
-            <div class="news_contact">
-               <h4>${article.title}</h4>
-               <span><small>作者：${article.author}</small><small>时间：<fmt:formatDate value="${article.publishTime}" pattern="yyyy-MM-dd"/></small></span>
-                ${article.content}
-            </div>
-        </div>
+        <div class="introduce_position">
+           <div class="introduce_r_tittle" style="margin-bottom: 0; display: block; overflow: hidden">
+               <h3>${column.name}</h3>
+               <span></span>
+           </div>
+
+           <ul class="brand">
+           		<c:forEach  items="${articleList}" var="item" varStatus="status">
+           			<c:choose>
+           				<c:when test="${status.count %3 == 0}">
+           					 <li style=" margin-right: 0"><a href="${column.path}/${item.id}"><img src="${item.titleImg}"><p>${item.title}</p></a></li>
+           				</c:when>
+           				<c:otherwise>
+           					<li><a href="${column.path}/${item.id}"> <img src="${item.titleImg}"><p>${item.title}</p></a></li>
+           				</c:otherwise>
+           			</c:choose>
+           		</c:forEach>	
+               </ul>
+           <div class="page">
+               <div value="1 0"></div>
+               <div id="page" class="page_div"></div>
+           </div>
+       </div>
    </div>
 <jsp:include page="common/foot.jsp"></jsp:include>
 </div>

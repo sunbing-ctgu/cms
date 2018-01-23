@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.jiantong.bean.ArticleBean;
 import com.jiantong.entity.Article;
+import com.jiantong.pojo.ArticleSummary;
 import com.jiantong.vo.ArticleVo;
 
 /**
@@ -58,4 +59,17 @@ public interface ArticleService {
 	 */
 	public Integer deleteArticle(List<Integer> ids);
 	
+	/**
+	 * 获取单个文章信息（简介类栏目使用）
+	 * @param columnId
+	 * @return
+	 */
+	public Article getArticleByColumnId(Integer columnId);
+	
+	/**
+	 * 获取文章概要列表
+	 * @param columnId
+	 * @return
+	 */
+	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
 }

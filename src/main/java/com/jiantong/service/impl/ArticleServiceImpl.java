@@ -11,6 +11,7 @@ import com.jiantong.bean.ArticleBean;
 import com.jiantong.dao.ArticleDao;
 import com.jiantong.entity.Article;
 import com.jiantong.entity.Column;
+import com.jiantong.pojo.ArticleSummary;
 import com.jiantong.service.ArticleService;
 import com.jiantong.vo.ArticleVo;
 
@@ -60,6 +61,18 @@ public class ArticleServiceImpl implements ArticleService {
 	public Integer deleteArticle(List<Integer> ids) {
 		// TODO Auto-generated method stub
 		return articleDao.deleteArticle(ids);
+	}
+
+	@Override
+	public Article getArticleByColumnId(Integer columnId) {
+		// TODO Auto-generated method stub
+		return articleDao.getArticleByColumnId(columnId);
+	}
+
+	@Override
+	public List<ArticleSummary> getArticleListByColumnId(Integer columnId) {
+		// TODO Auto-generated method stub
+		return articleDao.getArticleListByColumnId(columnId);
 	}
 
 }
