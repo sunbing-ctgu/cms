@@ -21,10 +21,10 @@
            		<c:forEach  items="${articleList}" var="item" varStatus="status">
            			<c:choose>
            				<c:when test="${status.count %3 == 0}">
-           					 <li style=" margin-right: 0"><a href="${column.path}/${item.id}"><img src="${item.titleImg}"><p>${item.title}</p></a></li>
+           					 <li style=" margin-right: 0"><a href="${item.href}"><img src="${item.titleImg}"><p>${item.title}</p></a></li>
            				</c:when>
            				<c:otherwise>
-           					<li><a href="${column.path}/${item.id}"> <img src="${item.titleImg}"><p>${item.title}</p></a></li>
+           					<li><a href="${item.href}" target="_blank"> <img src="${item.titleImg}"><p>${item.title}</p></a></li>
            				</c:otherwise>
            			</c:choose>
            		</c:forEach>	

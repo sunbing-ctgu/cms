@@ -55,6 +55,9 @@ public class Column {
 	/**排序*/
 	private Integer sort;
 	
+	/**是否显示*/
+	private Integer isShow;
+	
 	/**状态  0:已删除    1：正常*/
     private Integer status;
 	
@@ -139,6 +142,14 @@ public class Column {
 
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
+	}
+
+	public Integer getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
 	}
 
 	public Integer getStatus() {

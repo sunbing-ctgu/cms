@@ -79,6 +79,10 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="language"/>
         </bean>
+        <mvc:interceptor>
+			<mvc:mapping path="/front/*"/>
+			<bean class="com.jiantong.interceptor.CustomInterceptor"/>        
+        </mvc:interceptor>
     </mvc:interceptors>
     
 

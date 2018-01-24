@@ -32,6 +32,13 @@ public interface ColumnService {
 	public List<ColumnTree> getColumnTree(Integer channel);
 	
 	/**
+	 * 根据所属频道获取所有栏目Tree(前端使用)
+	 * @param channel
+	 * @return
+	 */
+	public List<ColumnTree> getShowColumnTree(Integer channel);
+	
+	/**
 	 * 获取栏目列表
 	 * @param data
 	 * @return

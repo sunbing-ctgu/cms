@@ -1,5 +1,6 @@
 package com.jiantong.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jiantong.bean.ColumnTree;
+import com.jiantong.entity.CarouselFigure;
+import com.jiantong.entity.Column;
+import com.jiantong.pojo.ArticleSummary;
+import com.jiantong.pojo.NewsSummary;
+import com.jiantong.service.ArticleService;
+import com.jiantong.service.CarouselFigureService;
 import com.jiantong.service.ColumnService;
 
 /**
@@ -24,17 +31,45 @@ public class IndexController extends BaseHandler{
 	@Autowired
 	private ColumnService columnService;
 	
+	@Autowired
+	private ArticleService articleService;
+	
+	@Autowired
+	private CarouselFigureService carouselFigureService;
+	
 	@RequestMapping("/")
 	public String index(HttpServletRequest request, Model model){
 		HttpSession session = getSession(request);
+		Integer channel = getChannel(request);
 		session.setAttribute(CURRENT_PATH_SESSION, "");
+		//获取导航列表
 		List<ColumnTree> dataList = (List<ColumnTree>)session.getAttribute(MENU_SESSION);
 		if(null == dataList) {
-			Integer channel = getChannel(request);
-			List<ColumnTree> columnTreeList = columnService.getColumnTree(channel);
+			List<ColumnTree> columnTreeList = columnService.getShowColumnTree(channel);
 			session.setAttribute(MENU_SESSION, columnTreeList);
 		}
-		//获取导航列表
+		//轮播图
+		List<CarouselFigure> frontCarouselFigureList = carouselFigureService.getFrontCarouselFigureList();
+		request.setAttribute("frontCarouselFigureList", frontCarouselFigureList);
+		//公告
+		List<ArticleSummary> noticeList = articleService.getArticleListByColumnId(26);
+		request.setAttribute("noticeList", noticeList);
+		//新闻动态
+		Column newsColumn = columnService.getColumnByPath("front/news", channel);
+		List<NewsSummary> newsSummaryList = new ArrayList<>();
+		for(Column column : newsColumn.getChildColumn()) {
+			NewsSummary newsSummary = new NewsSummary();
+			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+			newsSummary.setColumnName(column.getName());
+			newsSummary.setColumnPath(column.getPath());
+			newsSummary.setArticleList(articleList);
+			newsSummaryList.add(newsSummary);
+		}
+		request.setAttribute("newsSummaryList", newsSummaryList);
+		//人文风光
+		//加拿大潮人
+		List<ArticleSummary> chaorenList = articleService.getArticleListByColumnId(4);
+		request.setAttribute("chaorenList", chaorenList);
 		return "index";
 	}
 	

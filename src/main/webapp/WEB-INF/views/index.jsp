@@ -1,21 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%-- <base href="<%=basePath%>">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>加拿大潮商会</title>
-<meta name="description" content="overview &amp; stats" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> --%>
-<!-- <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="js/jquery.superslide.2.1.1.js"></script>
-<link rel="stylesheet" href="css/style.css" /> -->
 </head>
 <body>
 	<div class="index_wap">
@@ -32,10 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<img src="upload/images/loading_comment.gif" />
 						</div>
 						<ul class="turn-pic">
-							<li><a href="#"><img src="upload/images/1.jpg" title="演示信息1" /></a></li>
+							<c:forEach  items="${frontCarouselFigureList}" var="item">
+								<li><a href="${item.href}"><img src="${item.imgPath}" title="${item.title}"/></a></li>
+							</c:forEach>	
+							<!-- <li><a href="#"><img src="upload/images/1.jpg" title="演示信息1" /></a></li>
 							<li><a href="#"><img src="upload/images/2.jpg" title="演示信息2" /></a></li>
 							<li><a href="#"><img src="upload/images/3.jpg" title="演示信息3" /></a></li>
-							<li><a href="#"><img src="upload/images/4.jpg" title="演示信息4" /></a></li>
+							<li><a href="#"><img src="upload/images/4.jpg" title="演示信息4" /></a></li> -->
 						</ul>
 					</div>
 				</div>
@@ -45,14 +36,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <a href="#">更多></a>
                     </div>
                     <ul class="index_new_r_con">
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-                        <li><a href="#">【通知】潮商大咖齐聚邕城参加…</a> </li>
-
+                    	<c:forEach  items="${noticeList}" var="item">
+							<li><a href="#">${item.summary}</a> </li>
+						</c:forEach>
                     </ul>
                 </div>	
 			</div>
@@ -60,57 +46,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<img src="upload/images/banner.png">
 			</div>
 			<ul class="news">
-				<li class="news_l">
-					<div class="news_l_tittle">
-						<h4>商会新闻</h4>
-						<a href="#">更多></a>
-					</div>
-					<ul class="news_l_con">
-						<li><a href="#">
-								廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-
-					</ul>
-				</li>
-				<li class="news_c">
-					<div class="news_l_tittle">
-						<h4>商会新闻</h4>
-						<a href="#">更多></a>
-					</div>
-					<ul class="news_l_con">
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-					</ul>
-				</li>
-				<li class="news_r" style="margin-right: 0">
-					<div class="news_l_tittle">
-						<h4>商会新闻</h4>
-						<a href="#">更多></a>
-					</div>
-					<ul class="news_l_con">
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-						<li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-					</ul>
-				</li>
-
+				<c:forEach  items="${newsSummaryList}" var="item" varStatus="status">
+					<c:choose>
+						<c:when test="${status.count == 1}">
+							<li class="news_l">
+								<div class="news_l_tittle">
+									<h4>${item.columnName}</h4>
+									<a href="${item.columnPath}">更多></a>
+								</div>
+								<ul class="news_l_con">
+									<c:forEach  items="${item.articleList}" var="article">
+										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									</c:forEach>
+								</ul>
+							</li>
+						</c:when>
+						<c:when test="${status.count == 2}">
+							<li class="news_c">
+								<div class="news_l_tittle">
+									<h4>${item.columnName}</h4>
+									<a href="${item.columnPath}">更多></a>
+								</div>
+								<ul class="news_l_con">
+									<c:forEach  items="${item.articleList}" var="article">
+										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									</c:forEach>
+								</ul>
+							</li>
+						</c:when>
+						<c:when test="${status.count == 3}">
+							<li class="news_r" style="margin-right: 0">
+								<div class="news_l_tittle">
+									<h4>${item.columnName}</h4>
+									<a href="${item.columnPath}">更多></a>
+								</div>
+								<ul class="news_l_con">
+									<c:forEach  items="${item.articleList}" var="article">
+										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									</c:forEach>
+								</ul>
+							</li>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</ul>
 			<div class="index_landscape">
 				<ul class="index_landscape_tittle">
@@ -166,14 +146,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					</div>
 					<ul class="index_stars_con">
-						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
-						</li>
-						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
-						</li>
-						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
-						</li>
-						<li><a href="#"> <img src="upload/images/people.jpg"> <span>林思齊</span></a>
-						</li>
+						<c:forEach  items="${chaorenList}" var="item" varStatus="status">
+							<li><a href="front/chaosan/${item.id}"> <img height="222" width="180" src="${item.titleImg}"> <span>${item.title}</span></a>
+		           		</c:forEach>	
 					</ul>
 				</div>
 				<div class="index_cantact_us">

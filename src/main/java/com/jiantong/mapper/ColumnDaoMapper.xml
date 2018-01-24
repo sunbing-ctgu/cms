@@ -12,6 +12,7 @@
 		<result column="channel" property="channel" jdbcType="INTEGER"/>
 		<result column="parent_id" property="parentId" jdbcType="INTEGER"/>
 		<result column="sort" property="sort" jdbcType="INTEGER"/>
+		<result column="is_show" property="isShow" jdbcType="INTEGER" />
 		<result column="status" property="status" jdbcType="INTEGER" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -34,8 +35,16 @@
 		SELECT id, name, level, path FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel}  ORDER BY sort 
 	</select>
 	
+	<select id="getShowRootColumnForTree" parameterType="Integer" resultMap="TreeResultMap">
+		SELECT id, name, level, path FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} AND is_show = 1 ORDER BY sort 
+	</select>
+	
 	<select id="getTopChildrenForTree" parameterType="Integer" resultMap="TreeResultMap">
 		SELECT id, name, level, path FROM cms_column WHERE parent_id = #{parentId} <![CDATA[ AND status <> 0 ]]> ORDER BY sort
+	</select>
+	
+	<select id="getShowTopChildrenForTree" parameterType="Integer" resultMap="TreeResultMap">
+		SELECT id, name, level, path FROM cms_column WHERE parent_id = #{parentId} <![CDATA[ AND status <> 0 ]]> AND is_show = 1 ORDER BY sort
 	</select>
 	
 	<select id="getColumnList" parameterType="com.jiantong.bean.ColumnBean" resultMap="BaseResultMap">

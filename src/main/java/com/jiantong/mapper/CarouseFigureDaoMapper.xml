@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiantong.dao.CarouselFigureDao">
+	<resultMap type="com.jiantong.entity.CarouselFigure" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="img_path" property="imgPath" jdbcType="VARCHAR"/>
+		<result column="href" property="href" jdbcType="VARCHAR"/>
+		<result column="sort" property="sort" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<resultMap type="com.jiantong.entity.CarouselFigure" id="FrontResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="img_path" property="imgPath" jdbcType="VARCHAR"/>
+		<result column="href" property="href" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="getFrontCarouselFigureList" resultMap="FrontResultMap">
+		SELECT id, title, img_path, href FROM cms_carousel_figure WHERE <![CDATA[ status <> 0 ]]> ORDER BY sort limit 4
+	</select>
+</mapper>

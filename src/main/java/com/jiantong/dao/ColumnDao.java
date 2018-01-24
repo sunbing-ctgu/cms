@@ -38,6 +38,13 @@ public interface ColumnDao {
 	 * @return
 	 */
 	public List<ColumnTree> getRootColumnForTree(Integer channel);
+	
+	/**
+	 * 根据所属频道查询跟栏目(前端Tree使用)
+	 * @param channel
+	 * @return
+	 */
+	public List<ColumnTree> getShowRootColumnForTree(Integer channel);
 
 	/**
 	 * 查询父级栏目的直接子栏目(Tree使用)
@@ -45,6 +52,13 @@ public interface ColumnDao {
 	 * @return
 	 */
 	public List<ColumnTree> getTopChildrenForTree(Integer parentId);
+	
+	/**
+	 * 查询父级栏目的直接子栏目(Tree使用、前端)
+	 * @param parentId
+	 * @return
+	 */
+	public List<ColumnTree> getShowTopChildrenForTree(Integer parentId);
 	
 	public List<Column> getColumnList(ColumnBean data);
 	
