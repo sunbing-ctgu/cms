@@ -3,7 +3,7 @@ package com.jiantong.pojo;
 import java.util.List;
 
 /**
- * 首页新闻栏使用
+ * 首页新闻栏
  * Title:NewsSummary
  * Company:jiantong
  * @author sunbing

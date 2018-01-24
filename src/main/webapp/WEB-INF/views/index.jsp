@@ -23,10 +23,6 @@
 							<c:forEach  items="${frontCarouselFigureList}" var="item">
 								<li><a href="${item.href}"><img src="${item.imgPath}" title="${item.title}"/></a></li>
 							</c:forEach>	
-							<!-- <li><a href="#"><img src="upload/images/1.jpg" title="演示信息1" /></a></li>
-							<li><a href="#"><img src="upload/images/2.jpg" title="演示信息2" /></a></li>
-							<li><a href="#"><img src="upload/images/3.jpg" title="演示信息3" /></a></li>
-							<li><a href="#"><img src="upload/images/4.jpg" title="演示信息4" /></a></li> -->
 						</ul>
 					</div>
 				</div>
@@ -94,49 +90,63 @@
 			</ul>
 			<div class="index_landscape">
 				<ul class="index_landscape_tittle">
-					<li class="current" id="s1">潮人資訊</li>
-					<li class="current1" id="s2">潮汕人文</li>
-					<li class="current1" id="s3">加拿大风光</li>
+					<c:forEach  items="${humanitySummary.columnNameList}" var="item" varStatus="status">
+						<c:choose>
+							<c:when test="${status.count == 1}">
+								<li class="current" id="s${status.count}">${item}</li>
+							</c:when>
+							<c:otherwise>
+								<li class="current1" id="s${status.count}">${item}</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</ul>
 				<ul class="index_landscape_con">
-					<li id="s11">
-						<div class="index_landscape_img">
-							<img src="upload/images/index_landscape.jpg">
-						</div>
-						<div class="index_landscape_in">
-							<h4>马化腾建议创业者：产业跨界领域最具创新机会</h4>
-							<hr color="#eaeaea" />
-							<p>腾讯科技讯
-								腾讯董事会主席兼首席执行官马化腾(微博)周二在香港向青年创业者建议，要关注两个产业跨界的部分，“因为一个产业已经做得很久，已经是一片红海，我们现在看到用新技术在两个产业跨界部分往往是最有可能诞生创新的机会，那可能是一片蓝海”。</p>
-							<a href="#">查看更多+</a>
-						</div>
-					</li>
-
-					<li style="display: none" id="s22">
-						<div class="index_landscape_img">
-							<img src="upload/images/index_landscape.jpg">
-						</div>
-						<div class="index_landscape_in">
-							<h4>马东敏建议创业者：拥抱AI才能赢得未来</h4>
-							<hr color="#eaeaea" />
-							<p>腾讯科技讯
-								腾讯董事会主席兼首席执行官马化腾(微博)周二在香港向青年创业者建议，要关注两个产业跨界的部分，“因为一个产业已经做得很久，已经是一片红海，我们现在看到用新技术在两个产业跨界部分往往是最有可能诞生创新的机会，那可能是一片蓝海”。</p>
-							<a href="#">查看更多+</a>
-						</div>
-					</li>
-
-					<li style="display: none" id="s33">
-						<div class="index_landscape_img">
-							<img src="upload/images/index_landscape.jpg">
-						</div>
-						<div class="index_landscape_in">
-							<h4>马云建议创业者：要抱紧淘宝的大腿</h4>
-							<hr color="#eaeaea" />
-							<p>腾讯科技讯
-								腾讯董事会主席兼首席执行官马化腾(微博)周二在香港向青年创业者建议，要关注两个产业跨界的部分，“因为一个产业已经做得很久，已经是一片红海，我们现在看到用新技术在两个产业跨界部分往往是最有可能诞生创新的机会，那可能是一片蓝海”。</p>
-							<a href="#">查看更多+</a>
-						</div>
-					</li>
+					<c:forEach  items="${humanitySummary.articleList}" var="item" varStatus="status">
+						<c:choose>
+							<c:when test="${status.count == 1}">
+								<li id="s11">
+									<div class="index_landscape_img">
+										<img src="${item.titleImg}">
+									</div>
+									<div class="index_landscape_in">
+										<h4>${item.title}</h4>
+										<hr color="#eaeaea" />
+										<p>${item.summary}</p>
+										<a href="front/humanity/chaoshan">查看更多+</a>
+									</div>
+								</li>
+							</c:when>
+							<c:when test="${status.count == 2}">
+								<li style="display: none" id="s22">
+									<div class="index_landscape_img">
+										<img src="${item.titleImg}">
+									</div>
+									<div class="index_landscape_in">
+										<h4>${item.title}</h4>
+										<hr color="#eaeaea" />
+										<p>${item.summary}</p>
+										<a href="front/humanity/canada">查看更多+</a>
+									</div>
+								</li>
+							</c:when>
+							<c:when test="${status.count == 3}">
+								<li style="display: none" id="s33">
+									<div class="index_landscape_img">
+										<img src="${item.titleImg}">
+									</div>
+									<div class="index_landscape_in">
+										<h4>${item.title}</h4>
+										<hr color="#eaeaea" />
+										<p>${item.summary}</p>
+										<a href="front/humanity/information">查看更多+</a>
+									</div>
+								</li>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</ul>
 			</div>
 			<div class="index_bottom">

@@ -15,6 +15,7 @@ import com.jiantong.bean.ColumnTree;
 import com.jiantong.entity.CarouselFigure;
 import com.jiantong.entity.Column;
 import com.jiantong.pojo.ArticleSummary;
+import com.jiantong.pojo.HumanitySummary;
 import com.jiantong.pojo.NewsSummary;
 import com.jiantong.service.ArticleService;
 import com.jiantong.service.CarouselFigureService;
@@ -67,6 +68,18 @@ public class IndexController extends BaseHandler{
 		}
 		request.setAttribute("newsSummaryList", newsSummaryList);
 		//人文风光
+		Column humanityColumn = columnService.getColumnByPath("front/humanity", channel);
+		HumanitySummary humanitySummary = new HumanitySummary();
+		List<String> columnNameList = new ArrayList<>();
+		List<ArticleSummary> humanityArticleList  = new ArrayList<>();
+		for(Column column : humanityColumn.getChildColumn()) {
+			columnNameList.add(column.getName());
+			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+			humanityArticleList.add(articleList.get(0));
+		}
+		humanitySummary.setColumnNameList(columnNameList);
+		humanitySummary.setArticleList(humanityArticleList);
+		request.setAttribute("humanitySummary", humanitySummary);
 		//加拿大潮人
 		List<ArticleSummary> chaorenList = articleService.getArticleListByColumnId(4);
 		request.setAttribute("chaorenList", chaorenList);
