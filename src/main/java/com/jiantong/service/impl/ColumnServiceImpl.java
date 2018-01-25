@@ -48,9 +48,9 @@ public class ColumnServiceImpl implements ColumnService {
 	public List<ColumnTree> getShowColumnTree(Integer channel) {
 		List<ColumnTree> result = new ArrayList<>();
 		//获取跟栏目
-		List<ColumnTree> rootColumns = columnDao.getRootColumnForTree(channel);
+		List<ColumnTree> rootColumns = columnDao.getShowRootColumnForTree(channel);
 		for(ColumnTree column : rootColumns) {
-			result.add(buildTree(column));
+			result.add(buildShowTree(column));
 		}
 		return result;
 	}
@@ -97,7 +97,7 @@ public class ColumnServiceImpl implements ColumnService {
 			List<ColumnTree> topChildren = columnDao.getShowTopChildrenForTree(column.getId());
 			column.setNodes(topChildren);
 			for(ColumnTree child : topChildren) {
-				buildTree(child);
+				buildShowTree(child);
 			}
 		}
 		return column;
