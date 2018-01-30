@@ -1,6 +1,9 @@
 package com.jiantong.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.jiantong.entity.Article;
 import com.jiantong.entity.Column;
 import com.jiantong.pojo.ArticleSummary;
+import com.jiantong.pojo.LinksSummary;
 import com.jiantong.service.ArticleService;
 import com.jiantong.service.ColumnService;
 
@@ -78,7 +82,22 @@ public class FrontController extends BaseHandler{
 			articleList = articleService.getArticleListByColumnId(column.getId());
 			request.setAttribute("articleList", articleList);
 			break;
-
+		//超链接类
+		case 4:
+			Map<String,List<LinksSummary>> linksMap = new HashMap<>();
+			for(Column childColumn : rootColumn.getChildColumn()) {
+				List<LinksSummary> linksSummaryList = new ArrayList<>();
+				articleList = articleService.getArticleListByColumnId(column.getId());
+				for(ArticleSummary articleSummary : articleList) {
+					LinksSummary linksSummary = new LinksSummary();
+					linksSummary.setTitle(articleSummary.getTitle());
+					linksSummary.setHref(articleSummary.getHref());
+					articleList.add(articleSummary);
+				}
+				linksMap.put(childColumn.getName(), linksSummaryList);
+			}
+			request.setAttribute("linksSummary", linksMap);
+			result = "links";
 		default:
 			break;
 		}
