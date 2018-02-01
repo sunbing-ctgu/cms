@@ -79,9 +79,11 @@ public class ColumnServiceImpl implements ColumnService {
 	private ColumnTree buildTree(ColumnTree column) {
 		if(column.getLevel() != 1) {
 			List<ColumnTree> topChildren = columnDao.getTopChildrenForTree(column.getId());
-			column.setNodes(topChildren);
-			for(ColumnTree child : topChildren) {
-				buildTree(child);
+			if(null != topChildren && topChildren.size() > 0) {
+				column.setNodes(topChildren);
+				for(ColumnTree child : topChildren) {
+					buildTree(child);
+				}
 			}
 		}
 		return column;

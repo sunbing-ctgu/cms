@@ -363,5 +363,6 @@ $(function(){
 	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
 	   		}
 	   	});
+		$('#tree').treeview('collapseAll', { silent: true });
 	});
 });

@@ -145,6 +145,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		expandIcon: 'glyphicon glyphicon-chevron-right',
         collapseIcon: 'glyphicon glyphicon-chevron-down',
    	});
-   	//$('#tree').treeview('collapseAll', { silent: true });
 </script>
 </html>
