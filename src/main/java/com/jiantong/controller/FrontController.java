@@ -1,7 +1,7 @@
 package com.jiantong.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,15 +84,15 @@ public class FrontController extends BaseHandler{
 			break;
 		//超链接类
 		case 4:
-			Map<String,List<LinksSummary>> linksMap = new HashMap<>();
+			Map<String,List<LinksSummary>> linksMap = new LinkedHashMap<>();
 			for(Column childColumn : rootColumn.getChildColumn()) {
 				List<LinksSummary> linksSummaryList = new ArrayList<>();
-				articleList = articleService.getArticleListByColumnId(column.getId());
+				articleList = articleService.getArticleListByColumnId(childColumn.getId());
 				for(ArticleSummary articleSummary : articleList) {
 					LinksSummary linksSummary = new LinksSummary();
 					linksSummary.setTitle(articleSummary.getTitle());
 					linksSummary.setHref(articleSummary.getHref());
-					articleList.add(articleSummary);
+					linksSummaryList.add(linksSummary);
 				}
 				linksMap.put(childColumn.getName(), linksSummaryList);
 			}
