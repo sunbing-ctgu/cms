@@ -24,7 +24,7 @@
 		<result column="path" property="path" jdbcType="VARCHAR"/>
 	</resultMap>
 	<select id="getRootColumn" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT * FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} ORDER BY sort
+		SELECT * FROM cms_column WHERE parent_id = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} ORDER BY sort
 	</select>
 	
 	<select id="getTopChildren" parameterType="Integer" resultMap="BaseResultMap">
@@ -32,11 +32,11 @@
 	</select>
 	
 	<select id="getRootColumnForTree" parameterType="Integer" resultMap="TreeResultMap">
-		SELECT id, name, level, path FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel}  ORDER BY sort 
+		SELECT id, name, level, path FROM cms_column WHERE parent_id = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel}  ORDER BY sort 
 	</select>
 	
 	<select id="getShowRootColumnForTree" parameterType="Integer" resultMap="TreeResultMap">
-		SELECT id, name, level, path FROM cms_column WHERE level = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} AND is_show = 1 ORDER BY sort 
+		SELECT id, name, level, path FROM cms_column WHERE parent_id = -1 <![CDATA[ AND status <> 0 ]]> AND channel = #{channel} AND is_show = 1 ORDER BY sort 
 	</select>
 	
 	<select id="getTopChildrenForTree" parameterType="Integer" resultMap="TreeResultMap">

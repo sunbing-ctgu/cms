@@ -252,15 +252,13 @@ $(function(){
 	    query(param);
 	});
 });
-function openUserModal(columnInfo, type) {
+function openColumnModal(columnInfo, type) {
     if (type == 1) {
         $('#column-modal-title').html('新增栏目');
         $('#name').val('');
         $('#rename').val('');
         $('#path').val('');
-        $('#img').html('&nbsp;');
-        $('#password').css('display', '');
-        $('#username-input').removeAttr('disabled');
+        $('#sort').val('');
         $('.column-modal-submit').html('确认添加');
         columnModalSubmitType = 1;
     } else {
@@ -295,6 +293,16 @@ $(document).on('change', '.checkbox-user', function () {
 });
 
 $(function(){
+	QueryTree.getColumnTree().then((result) => {
+		treeCache = result;
+		$('#tree').treeview({
+	   		data: treeCache,
+	   		onNodeSelected: function(event, node) {
+	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+	   		}
+	   	});
+		$('#tree').treeview('collapseAll', { silent: true });
+	});
 	/* 批量删除*/
 	$('#del-column-btn').click(function () {
 		batchDel();
@@ -345,16 +353,3 @@ class QueryTree {
 		});
 	}
 }
-
-$(function(){
-	QueryTree.getColumnTree().then((result) => {
-		treeCache = result;
-		$('#tree').treeview({
-	   		data: treeCache,
-	   		onNodeSelected: function(event, node) {
-	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
-	   		}
-	   	});
-		$('#tree').treeview('collapseAll', { silent: true });
-	});
-});

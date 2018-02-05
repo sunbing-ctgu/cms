@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="<c:if test="${fn:contains(sessionScope.index, 'introduceManage')}">active</c:if>">
 				<a href="tables.html">
 					<i class="menu-icon fa fa-caret-right"></i>
-					简介管理
+					轮播图管理
 				</a>
 
 				<b class="arrow"></b>
@@ -71,14 +71,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<b class="arrow"></b>
 
 		<ul class="submenu">
-			<li class="">
+			<!-- <li class="">
 				<a href="form-elements.html">
 					<i class="menu-icon fa fa-caret-right"></i>
 					导航管理
 				</a>
 
 				<b class="arrow"></b>
-			</li>
+			</li> -->
 
 			<li class="">
 				<a href="form-wizard.html">
@@ -110,14 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b class="arrow"></b>
 			</li>
 
-			<li class="">
+			<!-- <li class="">
 				<a href="form-wizard.html">
 					<i class="menu-icon fa fa-caret-right"></i>
 					站点设置
 				</a>
 
 				<b class="arrow"></b>
-			</li>
+			</li> -->
 		</ul>
 	</li>	
 </ul>					
