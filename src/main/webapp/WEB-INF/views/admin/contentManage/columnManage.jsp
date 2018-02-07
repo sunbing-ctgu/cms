@@ -175,9 +175,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="repassword">上级栏目</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="form-field-select-1" style="width: 67%;">
+								<select class="form-control" id="root-column-select" style="width: 67%;">
 									<option value="-1">根栏目</option>
-									<option value="AL">Alabama</option>
 								</select>
 							</div> 
 						</div>

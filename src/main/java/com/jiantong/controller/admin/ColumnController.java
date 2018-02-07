@@ -83,6 +83,30 @@ public class ColumnController extends BaseController {
 		return result;
 	}
 	
+	@RequestMapping(value="/getRootColumnList", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseJsonData getRootColumnList(HttpServletRequest request) {
+		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
+		List<Column> columnList = null;
+		try {
+			columnList = columnService.getRootColumnList();
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.error("getRootColumnList Exception", e);
+		}
+		if (flag) {
+			result.setRetcode(SUCCESS);
+			result.setDataList(columnList);
+		} else {
+			result.setRetcode(FAIL);
+			result.setMsg("获取根栏目列表失败");
+		}
+		return result;
+	}
+	
 	@RequestMapping(value = "/addColumn", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseJsonData addColumn(HttpServletRequest request, @RequestBody ColumnVo data) {

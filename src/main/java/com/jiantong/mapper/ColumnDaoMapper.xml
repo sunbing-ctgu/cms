@@ -57,6 +57,11 @@
 		</if>
 	</select>
 	
+	<select id="getRootColumnList" resultMap="BaseResultMap">
+		SELECT * FROM cms_column WHERE <![CDATA[ status <> 0 ]]>
+		AND parent_id = -1
+	</select>
+	
 	<insert id="addColumn" parameterType="com.jiantong.vo.ColumnVo">
 		INSERT INTO cms_column(
 		name, rename, path, img, type, 

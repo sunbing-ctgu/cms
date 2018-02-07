@@ -62,6 +62,8 @@ public interface ColumnDao {
 	
 	public List<Column> getColumnList(ColumnBean data);
 	
+	public List<Column> getRootColumnList();
+	
 	public Integer addColumn(ColumnVo column);
 	
 	public Integer updateColumn(ColumnVo column);

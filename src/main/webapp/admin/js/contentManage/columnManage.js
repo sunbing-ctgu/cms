@@ -65,6 +65,22 @@ class OperationUser {
 	}
 }
 
+class QueryRootColumn {
+	static query() {
+		return new Promise((resolve) => {
+			$.ajax({
+				url: 'admin/columnManage/getRootColumnList',
+				type: 'GET',
+				async: true,
+				contentType: "application/json; charset=utf-8",
+	            dataType: 'json'
+			}).then((result) => {
+				resolve(result)
+			});
+		});
+	}
+}
+
 class DrawTable {
 	static fillData(result) {
 		let htmlValue = '';
@@ -156,6 +172,22 @@ function queryDefault() {
 }
 
 queryDefault();
+
+function queryRootColumn() {
+	QueryRootColumn.query().then((result) => {
+		console.log(result.dataList)
+		let rootCoulumList = result.dataList;
+		if(rootCoulumList.length > 0) {
+			let optionValue = '';
+			for (let i = 0; i < rootCoulumList.length; i++) {
+	        	
+				optionValue +=
+	        	`<option value="${rootCoulumList[i].id}">${rootCoulumList[i].name}</option>`;
+	        }
+	        $('#root-column-select').append(optionValue);
+		}
+	});
+}
 
 function doOperation(userInfo, type) {
     $('#user-modal').modal('hide');
@@ -317,6 +349,7 @@ $(function(){
 	});
 	
 	$('#column-modal').on('show.bs.modal', function (event) {
+		queryRootColumn();
 		let btn = $(event.relatedTarget);
 		let index = btn.data("id"); 
 		if(index != -1) {

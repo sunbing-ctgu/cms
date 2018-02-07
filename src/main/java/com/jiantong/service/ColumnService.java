@@ -46,6 +46,12 @@ public interface ColumnService {
 	public PageInfo<Column> getColumnList(ColumnBean data);
 	
 	/**
+	 * 获取根栏目列表
+	 * @return
+	 */
+	public List<Column> getRootColumnList();
+	
+	/**
 	 * 添加栏目
 	 * @param data
 	 * @return

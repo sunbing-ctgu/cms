@@ -143,5 +143,11 @@ public class ColumnServiceImpl implements ColumnService {
 		column.setChildColumn(topChildren);
 		return column;
 	}
+
+	@Override
+	public List<Column> getRootColumnList() {
+		// TODO Auto-generated method stub
+		return columnDao.getRootColumnList();
+	}
 	
 }
