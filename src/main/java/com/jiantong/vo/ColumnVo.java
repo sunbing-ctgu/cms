@@ -34,6 +34,12 @@ public class ColumnVo {
 	/**排序*/
 	private Integer sort;
 	
+	/**是否显示*/
+	private Integer isShow;
+	
+	/**状态*/
+	private Integer status;
+	
 	/**创建时间*/
 	private Date createTime;
 	
@@ -118,6 +124,22 @@ public class ColumnVo {
 
 	public void setSort(Integer sort) {
 		this.sort = sort;
+	}
+
+	public Integer getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Date getCreateTime() {

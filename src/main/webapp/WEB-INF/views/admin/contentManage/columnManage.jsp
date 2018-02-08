@@ -176,8 +176,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="img">栏目图片</label>
-							<div class="col-sm-9">
-								<input id="file-selector" name="" type="file" class="file col-sm-10" data-msg-placeholder="请选择一个文件">
+							<div class="col-sm-9" style="width: 66%">
+								<input id="file-selector" name="" type="file" class="file" data-msg-placeholder="请选择一个文件">
                                 <input type="hidden" name="img" value="">
 							</div>
 						</div>

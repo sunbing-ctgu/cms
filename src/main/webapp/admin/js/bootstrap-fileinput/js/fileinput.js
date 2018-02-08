@@ -4184,7 +4184,7 @@
         previewFileExtSettings: {},
         buttonLabelClass: 'hidden-xs',
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>&nbsp;',
-        browseClass: 'btn btn-primary',
+        browseClass: 'btn btn-sm btn-primary',
         removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
         removeClass: 'btn btn-default btn-secondary',
         cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',

@@ -6,8 +6,8 @@ let isUploaded = null;
 $("#file-selector").fileinput({
     uploadUrl: "admin/fileUpload/upload",//上传的地址
     language: 'zh',
-    showUpload: true,//是否显示上传按钮,跟随文本框的那个
-    showRemove: true,//显示移除按钮,跟随文本框的那个
+    showUpload: false,//是否显示上传按钮,跟随文本框的那个
+    showRemove: false,//显示移除按钮,跟随文本框的那个
     showPreview: true,//是否显示预览,不写默认为true
     dropZoneEnabled: false,//是否显示拖拽区域，默认不写为true，但是会占用很大区域
     //minImageWidth: 50, //图片的最小宽度
@@ -25,12 +25,16 @@ $("#file-selector").fileinput({
 /* 文件上传*/
 $("#file-selector").on("fileuploaded", function (event, data, previewId, index) {
     isUploaded = data;
+    $('.kv-file-remove').click(function() {
+    	isUploaded = null;
+    })
     $('.file-upload-error').html('');
 });
 /* 移除文件*/
 $('#file-selector').on('filecleared', function (event, id) {
     isUploaded = null;
 });
+
 /* 取消上传*/
 $('#file-selector').on('fileuploaderror', function (event, id) {
     isUploaded = null;
@@ -271,7 +275,9 @@ function addColumn() {
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
     column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
-    //column.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
+    if(null != isUploaded) {
+    	column.img = isUploaded.response.data.path;
+    }
     column.level = $("input[name='level']:checked").val();
     column.type = $('#type-select option:selected').val();
     column.channel = $("input[name='channel']:checked").val();

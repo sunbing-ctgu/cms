@@ -4,7 +4,7 @@
 	<resultMap type="com.jiantong.entity.Column" id="BaseResultMap">
 		<id column="id" property="id" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
-		<result column="rename" property="rename" jdbcType="VARCHAR"/>
+		<result column="re_name" property="rename" jdbcType="VARCHAR"/>
 		<result column="path" property="path" jdbcType="VARCHAR"/>
 		<result column="img" property="img" jdbcType="VARCHAR"/>
 		<result column="type" property="type" jdbcType="INTEGER"/>
@@ -64,12 +64,12 @@
 	
 	<insert id="addColumn" parameterType="com.jiantong.vo.ColumnVo">
 		INSERT INTO cms_column(
-		name, rename, path, img, type, 
-		level, channel, parent_id, sort, 
+		name, re_name, path, img, type, 
+		level, channel, parent_id, sort, is_show,  
 		status, create_time, update_time) 
 		VALUES
 		(#{name},#{rename},#{path},#{img}, #{type}
-		,#{level},#{channel},#{parentId},#{sort}
+		,#{level},#{channel},#{parentId},#{sort},#{isShow}
 		,#{status},#{createTime},#{updateTime});
 	</insert>
 	
@@ -80,7 +80,7 @@
 				name = #{name},
 			</if>
 			<if test="rename !=null and rename != ''">
-				rename = #{rename}, 
+				re_name = #{rename}, 
 			</if>
 			<if test="path !=null and path != ''">
 				path = #{path}, 
