@@ -36,7 +36,7 @@ public class FileUploadController extends BaseController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 	
-	@RequestMapping(value="/upload")
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
 		boolean flag = false;

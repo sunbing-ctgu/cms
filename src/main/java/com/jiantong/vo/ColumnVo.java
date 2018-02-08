@@ -19,6 +19,9 @@ public class ColumnVo {
 	/**栏目图片*/
 	private String img;
 	
+	/**栏目类别*/
+	private Integer type;
+	
 	/**所属层级(1：顶级0：叶子级)*/
 	private Integer level;
 	
@@ -75,6 +78,14 @@ public class ColumnVo {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public Integer getLevel() {

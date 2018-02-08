@@ -9,9 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <jsp:include page="../common/head.jsp"></jsp:include>
+<link type="text/css" rel="stylesheet" href="admin/js/bootstrap-fileinput/css/fileinput.min.css"/>
+<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/locales/zh.js"></script>
 <script type="text/javascript" src="admin/js/treeview/bootstrap-treeview.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src='admin/js/contentManage/columnManage.js'></script>
 <title>栏目管理</title>
 </head>
 <body class="no-skin">
@@ -161,19 +163,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="username">栏目名</label>
+							<label class="col-sm-3 control-label no-padding-right" for="name">栏目名</label>
 							<div class="col-sm-9">
 								<input type="text" id="name" class="col-xs-10 col-sm-8">
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="password">别名</label>
+							<label class="col-sm-3 control-label no-padding-right" for="rename">别名</label>
 							<div class="col-sm-9">
 								<input type="text" id="rename" class="col-xs-10 col-sm-8">
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="repassword">上级栏目</label>
+							<label class="col-sm-3 control-label no-padding-right" for="img">栏目图片</label>
+							<div class="col-sm-9">
+								<input id="file-selector" name="" type="file" class="file col-sm-10" data-msg-placeholder="请选择一个文件">
+                                <input type="hidden" name="img" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right">上级栏目</label>
 							<div class="col-sm-9">
 								<select class="form-control" id="root-column-select" style="width: 67%;">
 									<option value="-1">根栏目</option>
@@ -181,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="realname">所属频道</label>
+							<label class="col-sm-3 control-label no-padding-right" for="channel">所属频道</label>
 							<div class="col-sm-9 radio">
 								<label>
 									<input name="channel" type="radio" value="0" class="ace" checked="checked"/>
@@ -194,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="tel">是否为终极栏目</label>
+							<label class="col-sm-3 control-label no-padding-right" for="level">是否为终极栏目</label>
 							<div class="col-sm-9 radio">
 								<label>
 									<input name="level" type="radio" value="0" class="ace" checked="checked"/>
@@ -207,9 +216,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="tel">所属应用</label>
+							<label class="col-sm-3 control-label no-padding-right">所属应用</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="form-field-select-2" style="width: 67%;">
+								<select class="form-control" id="type-select" style="width: 67%;">
 									<option value="0">介绍</option>
 									<option value="1">新闻</option>
 									<option value="2">展示</option>
@@ -219,13 +228,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="tel">访问路径</label>
+							<label class="col-sm-3 control-label no-padding-right" for="path">访问路径</label>
 							<div class="col-sm-9">
 								<input type="text" id="path" class="col-xs-10 col-sm-8">
 							</div> 
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="tel">自定义排序</label>
+							<label class="col-sm-3 control-label no-padding-right" for="sort">自定义排序</label>
 							<div class="col-sm-9">
 								<input type="text" id="sort" class="col-xs-10 col-sm-8">
 							</div> 
@@ -259,6 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 </body>
+<script src='admin/js/contentManage/columnManage.js'></script>
 <script type="text/javascript">
    	$('#tree').treeview({
    		color: "#428bca",
