@@ -90,7 +90,7 @@ class DrawTable {
 				<td class="center"><label class="position-relative">
 						<input type="checkbox" class="ace checkbox-user" data-id="${result[i].id}"/> <span class="lbl"></span>
 				</label></td>
-
+        		<td>${result[i].title}</td>
 				<td>${getRecommend(result[i].topType)}</td>
 				<td>${getTop(result[i].topType)}</td>
 				<td>${result[i].viewCount}</td>

@@ -93,13 +93,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<th class="center col-md-1"><label class="position-relative">
 									<input type="checkbox" class="ace checkbox-user-all" /> <span class="lbl"></span>
 							</label></th>
-							<th class="col-md-2">标题</th>
-							<th class="col-md-2">推荐</th>
+							<th class="col-md-4">标题</th>
+							<th class="col-md-1">推荐</th>
 							<th class="col-md-1">置顶</th>
 							<th class="col-md-1">点击数</th>
 							<th class="col-md-1">排序</th>
-							<th class="col-md-2">更新时间</th>
-							<th class="col-md-2">操作</th>
+							<th class="col-md-1">更新时间</th>
+							<th class="col-md-1">操作</th>
 						</tr>
 					</thead>
 					<tbody id="table-tbody">
