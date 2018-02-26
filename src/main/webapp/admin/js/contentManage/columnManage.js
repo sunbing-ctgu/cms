@@ -61,6 +61,7 @@ class Column {
 		this.type;
 		this.path
 		this.sort;
+		this.isShow;
 	}
 }
 
@@ -233,7 +234,7 @@ function queryRootColumn() {
 }
 
 function doOperation(userInfo, type) {
-    $('#user-modal').modal('hide');
+    $('#column-modal').modal('hide');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
     OperationUser.operation(JSON.stringify(userInfo), type).then((result) => {
@@ -281,6 +282,7 @@ function addColumn() {
     column.level = $("input[name='level']:checked").val();
     column.type = $('#type-select option:selected').val();
     column.channel = $("input[name='channel']:checked").val();
+    column.isShow = $("input[name='isShow']:checked").val();
     column.parentId =  $('#root-column-select option:selected').val()
     column.sort = $('#sort').val()
     if (column.name != '' && column.path != '' && column.level != '' && column.channel != '' && column.parentId != '') {
@@ -298,6 +300,7 @@ function updateColumn() {//currentUpdateUser
     column.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
     column.level = $("input[name='sex']:checked").val();
     column.channel = $("input[name='channel']:checked").val();
+    column.isShow = $("input[name='isShow']:checked").val();
     column.parentId =  $('#parentId').val()
     column.sort = $('#sort').val()
     doOperation(column, 'updateColumn', '修改');

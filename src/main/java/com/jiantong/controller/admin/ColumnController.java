@@ -115,7 +115,6 @@ public class ColumnController extends BaseController {
 		try {
 			Date date = new Date();
 			data.setStatus(1);
-			data.setIsShow(1);
 			data.setCreateTime(date);
 			data.setUpdateTime(date);
 			columnService.addColumn(data);

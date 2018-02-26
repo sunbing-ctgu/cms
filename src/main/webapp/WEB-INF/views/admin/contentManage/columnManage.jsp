@@ -216,6 +216,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div> 
 						</div>
 						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="level">是否显示</label>
+							<div class="col-sm-9 radio">
+								<label>
+									<input name="isShow" type="radio" value="1" class="ace" checked="checked"/>
+									<span class="lbl">是&nbsp&nbsp&nbsp&nbsp</span>
+								</label>
+								<label>
+									<input name="isShow" type="radio" value="0" class="ace"/>
+									<span class="lbl">否&nbsp&nbsp&nbsp&nbsp</span>
+								</label>
+							</div> 
+						</div>
+						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right">所属应用</label>
 							<div class="col-sm-9">
 								<select class="form-control" id="type-select" style="width: 67%;">
