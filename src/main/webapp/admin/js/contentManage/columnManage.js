@@ -91,7 +91,7 @@ class QueryColumn {
 	}
 }
 
-class OperationUser {
+class OperationColumn {
 	static operation(data, type) {
 		let url = "admin/columnManage/" + type;
 		return new Promise((resolve) => {
@@ -140,7 +140,7 @@ class DrawTable {
         	htmlValue +=
         	`<tr>
 				<td class="center"><label class="position-relative">
-						<input type="checkbox" class="ace checkbox-user" data-id="${result[i].id}"/> <span class="lbl"></span>
+						<input type="checkbox" class="ace checkbox-column" data-id="${result[i].id}"/> <span class="lbl"></span>
 				</label></td>
 
 				<td>${result[i].name}</td>
@@ -150,8 +150,8 @@ class DrawTable {
 				<td>${result[i].createTime}</td>
 				<td>
 					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-primary update-user" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
-						<button class="btn btn-minier btn-danger delete-user" data-id="${result[i].id}">删除</button>
+						<button class="btn btn-minier btn-primary update-column" data-toggle="modal" data-id="${i}" data-target="#column-modal">修改</button>
+						<button class="btn btn-minier btn-danger delete-column" data-id="${result[i].id}">删除</button>
 					</div>
 				</td>
 			</tr>`;
@@ -233,11 +233,11 @@ function queryRootColumn() {
 	});
 }
 
-function doOperation(userInfo, type) {
+function doOperation(columnInfo, type) {
     $('#column-modal').modal('hide');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
-    OperationUser.operation(JSON.stringify(userInfo), type).then((result) => {
+    OperationColumn.operation(JSON.stringify(columnInfo), type).then((result) => {
         if (result.retcode == 1) {
             $('.loading-gif').attr('src', 'admin/img/submit_success.png');
             $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
@@ -264,7 +264,7 @@ function batchDel() {
 	let ids = {ids:[]}
 	if(selectedArr.length > 0){
 		ids.ids = selectedArr;
-		doOperation(ids, 'deleteUser');
+		doOperation(ids, 'deleteColumn');
 	} else {
 		alert("请先勾选！");
 	}
@@ -283,8 +283,8 @@ function addColumn() {
     column.type = $('#type-select option:selected').val();
     column.channel = $("input[name='channel']:checked").val();
     column.isShow = $("input[name='isShow']:checked").val();
-    column.parentId =  $('#root-column-select option:selected').val()
-    column.sort = $('#sort').val()
+    column.parentId =  $('#root-column-select option:selected').val();
+    column.sort = $('#sort').val();
     if (column.name != '' && column.path != '' && column.level != '' && column.channel != '' && column.parentId != '') {
     	doOperation(column, 'addColumn', '添加');
     } else {
@@ -297,12 +297,15 @@ function updateColumn() {//currentUpdateUser
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
     column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.level = $("input[name='sex']:checked").val();
+    if(null != isUploaded) {
+    	column.img = isUploaded.response.data.path;
+    }
+    column.level = $("input[name='level']:checked").val();
+    column.type = $('#type-select option:selected').val();
     column.channel = $("input[name='channel']:checked").val();
     column.isShow = $("input[name='isShow']:checked").val();
-    column.parentId =  $('#parentId').val()
-    column.sort = $('#sort').val()
+    column.parentId =  $('#root-column-select option:selected').val();
+    column.sort = $('#sort').val();
     doOperation(column, 'updateColumn', '修改');
 }
 
@@ -348,30 +351,26 @@ function openColumnModal(columnInfo, type) {
         $('#rename').val(columnInfo.rename);
         $('#path').val(columnInfo.path);
         $('#username').attr('disabled', 'disabled');
-        if (columnInfo.sex == 0) {
-        	$("input:radio[value=0]").attr('checked','true');
+        if (columnInfo.channel == 0) {
+        	$("input:radio[name='channel'][value=0]").attr('checked','true');
         } else {
-        	$("input:radio[value=1]").attr('checked','true');
+        	$("input:radio[name='channel'][value=1]").attr('checked','true');
         }
+        if (columnInfo.level == 0) {
+        	$("input:radio[name='level'][value=0]").attr('checked','true');
+        } else {
+        	$("input:radio[name='level'][value=1]").attr('checked','true');
+        }
+        if (columnInfo.isShow == 0) {
+        	$("input:radio[name='isShow'][value=0]").attr('checked','true');
+        } else {
+        	$("input:radio[name='isShow'][value=1]").attr('checked','true');
+        }
+        $('#sort').val(columnInfo.sort);
         $('.column-modal-submit').html('确认修改');
         columnModalSubmitType = 2;
     }
 }
-
-/* 选择框 */
-$(document).on('change', '.checkbox-user', function () {
-	let selectId =  parseInt($(this).attr('data-id'));
-	let currentIndex = $.inArray(selectId, selectedArr);
-	if($(this).is(':checked')) {
-		if(currentIndex ==-1) {
-			selectedArr.push(selectId);
-		}
-	} else {
-		if(currentIndex>-1) {
-			selectedArr.splice(currentIndex,1);
-		}
-	}
-});
 
 $(function(){
 	QueryTree.getColumnTree().then((result) => {
@@ -383,6 +382,34 @@ $(function(){
 	   		}
 	   	});
 		$('#tree').treeview('collapseAll', { silent: true });
+	});
+	$('.checkbox-column-all').change(function() { 
+		if($(this).is(':checked')) {
+			$('.checkbox-column').each(function() {
+				$(this).prop('checked', true);
+			});
+		} else {
+			$('.checkbox-column').each(function() {
+				$(this).prop('checked', false);
+			});
+		}
+		$('.checkbox-column').each(function() {
+			$(this).change();
+		});
+	});
+	/* 选择框 */
+	$(document).on('change', '.checkbox-column', function () {
+		let selectId =  parseInt($(this).attr('data-id'));
+		let currentIndex = $.inArray(selectId, selectedArr);
+		if($(this).is(':checked')) {
+			if(currentIndex ==-1) {
+				selectedArr.push(selectId);
+			}
+		} else {
+			if(currentIndex>-1) {
+				selectedArr.splice(currentIndex,1);
+			}
+		}
 	});
 	/* 批量删除*/
 	$('#del-column-btn').click(function () {

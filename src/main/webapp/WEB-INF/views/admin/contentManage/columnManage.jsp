@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<tr>
 											<th class="center col-md-1"><label
 												class="position-relative"> <input type="checkbox"
-													class="ace checkbox-user-all" /> <span class="lbl"></span>
+													class="ace checkbox-column-all" /> <span class="lbl"></span>
 											</label></th>
 											<th class="col-md-2">栏目名</th>
 											<th class="col-md-2">别名</th>
