@@ -316,11 +316,9 @@ function confirmModal(type, content, data) {
     $('#confirm-modal-submit').click(function () {
         $('#confirm-modal').modal('hide');
         switch (type) {
-            case 'deleteUser':
+            case 'deleteColumn':
                 doOperation(data, 'deleteColumn');
                 break;
-            case 'lockUser':
-            	doOperation(data, 'updateColumn');
             default:
                 break;
         }
@@ -328,14 +326,6 @@ function confirmModal(type, content, data) {
     });
 }
 
-/* 选择每页显示数量*/
-$(function(){
-	$('#total-count-selector').change(function () {
-	    param.pageNum = 1;
-	    param.pageSize = $(this).val();
-	    query(param);
-	});
-});
 function openColumnModal(columnInfo, type) {
     if (type == 1) {
         $('#column-modal-title').html('新增栏目');
@@ -371,8 +361,22 @@ function openColumnModal(columnInfo, type) {
         columnModalSubmitType = 2;
     }
 }
-
+/* 单个删除*/
+$(document).on('click', '.delete-column', function () {
+	let columnId = $(this).data('id');
+	let ids = {
+			ids:[columnId]
+	};
+	confirmModal('deleteColumn', '是否删除', ids);
+});
 $(function(){
+	/* 选择每页显示数量*/
+	$('#total-count-selector').change(function () {
+	    param.pageNum = 1;
+	    param.pageSize = $(this).val();
+	    query(param);
+	});
+	
 	QueryTree.getColumnTree().then((result) => {
 		treeCache = result;
 		$('#tree').treeview({
@@ -411,6 +415,7 @@ $(function(){
 			}
 		}
 	});
+	
 	/* 批量删除*/
 	$('#del-column-btn').click(function () {
 		batchDel();
@@ -437,14 +442,6 @@ $(function(){
 		}
 	});
 	
-});
-
-$(document).on('click', '.delete-column', function () {
-	let columnId = $(this).data('id');
-    let ids = {
-    	ids:[columnId]
-    }
-    confirmModal('deleteColumn', '是否删除', ids);
 });
 
 class QueryTree {
