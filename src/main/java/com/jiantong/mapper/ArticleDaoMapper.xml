@@ -53,10 +53,10 @@
 	</select>
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
-		INSERT INTO cms_article(column_id, root_column_id, title, title_img, 
+		INSERT INTO cms_article(column_id, title, title_img, 
 		content, summary, href, key_words, publisher_id, publish_time, top_type, 
 		sort, view_count, status, create_time, update_time ) 
-		VALUES(#{columnId}, #{rootColumnId}, #{title}, #{titleImg}, 
+		VALUES(#{columnId}, #{title}, #{titleImg}, 
 		#{content}, #{summary}, #{href}, #{keyWord}, #{publisherId}, 
 		#{publishTime}, #{topType}, #{sort}, #{viewCount}, 
 		#{status}, #{createTime}, #{updateTime})
@@ -66,7 +66,6 @@
 		UPDATE cms_article
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="null != columnId and '' != columnId">column_id=#{columnId},</if>
-			<if test="null != rootColumnId and '' != rootColumnId">root_column_id=#{rootColumnId},</if>
 			<if test="null != title and '' != title">title=#{title},</if>
 			<if test="null != titleImg and '' != titleImg">title_img=#{titleImg},</if>
 			<if test="null != content and '' != content">content=#{content},</if>

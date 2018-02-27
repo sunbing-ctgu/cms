@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="page-header">
 	<h1>
 		内容管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-			栏目管理
+			新闻管理
 		</small>
 	</h1>
 </div>
@@ -47,9 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="col-xs-10">
 		<div class="row form-horizontal cms-form-horizontal">
 			<div class="col-xs-6 form-group">
-				<label class="col-sm-3  control-label">栏目名:</label>
+				<label class="col-sm-3  control-label">标题名:</label>
 				<div class="col-sm-9">
-					<input id="columnNameSearch" class="input-sm" type="text"	aria-controls="sample-table-2" />
+					<input id="titleSearch" class="input-sm" type="text" aria-controls="sample-table-2" />
 				</div>
 			</div>
 		</div>
@@ -74,10 +74,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="col-xs-9" style="padding-left:1px;">
 		<div style="margin-top: -10px">
 			<h5 class="bigger lighter">
-				<a id="add-user-btn" class="btn btn-xs btn-primary" data-toggle="modal" data-id="-1" data-target="#user-modal">
+				<a id="add-article-btn" class="btn btn-xs btn-primary" data-toggle="modal" data-id="-1" data-target="#user-modal">
 					<i class="glyphicon glyphicon-plus"></i>新增
 				</a> 
-				<a id="del-user-btn" class="btn btn-xs btn-danger">
+				<a id="del-article-btn" class="btn btn-xs btn-danger">
 					<i class="glyphicon glyphicon-trash"></i>删除
 				</a>
 			</h5>
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<thead>
 						<tr>
 							<th class="center col-md-1"><label class="position-relative">
-									<input type="checkbox" class="ace checkbox-user-all" /> <span class="lbl"></span>
+									<input type="checkbox" class="ace checkbox-article-all" /> <span class="lbl"></span>
 							</label></th>
 							<th class="col-md-4">标题</th>
 							<th class="col-md-1">推荐</th>

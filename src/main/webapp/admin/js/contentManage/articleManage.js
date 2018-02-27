@@ -6,18 +6,24 @@ let treeCache;
 class QueryParam {
 	constructor() {
 		this.columnId;
-		this.columnName;
+		this.title;
 		this.pageSize = 10;
 		this.pageNum = 1;
 	}
 }
 class Article {
 	constructor() {
-		this.name;
-		this.rename;
-		this.channel;
+		this.id,
+		this.columnId;
+		this.title;
+		this.titleImg;
+		this.author;
+		this.summary;
+		this.href;
+		this.keyWord;
+		this.content;
+		this.topType;
 		this.sort;
-		this.createTime;
 	}
 }
 
@@ -98,8 +104,8 @@ class DrawTable {
 				<td>${result[i].createTime}</td>
 				<td>
 					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-primary update-user" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
-						<button class="btn btn-minier btn-danger delete-user" data-id="${result[i].id}">删除</button>
+						<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
+						<button class="btn btn-minier btn-danger delete-article" data-id="${result[i].id}">删除</button>
 					</div>
 				</td>
 			</tr>`;
@@ -187,8 +193,8 @@ function doOperation(userInfo, type) {
 
 function onSearch() {
 	param.pageNum = 1;
-	param.username = $('#userNameSearch').val();
-	param.realname = $('#realNameSearch').val();
+	param.columnId = $('#userNameSearch').val();
+	param.title = $('#titleSearch').val();
 	query(param);
 }
 
@@ -240,11 +246,11 @@ function confirmModal(type, content, data) {
     $('#confirm-modal-submit').click(function () {
         $('#confirm-modal').modal('hide');
         switch (type) {
-            case 'deleteUser':
-                doOperation(data, 'deleteColumn');
+            case 'deleteArticle':
+                doOperation(data, 'deleteArticle');
                 break;
-            case 'lockUser':
-            	doOperation(data, 'updateColumn');
+            case 'lockArticle':
+            	doOperation(data, 'updateArticle');
             default:
                 break;
         }
@@ -310,9 +316,9 @@ $(function(){
 	/* Modal提交*/
 	$('.article-modal-submit').click(function () {
 	    if (columnModalSubmitType == 1) {
-	        addColumn();
+	        addArticle();
 	    } else {
-	        updateColumn();
+	        updateArticle();
 	    }
 	});
 	
