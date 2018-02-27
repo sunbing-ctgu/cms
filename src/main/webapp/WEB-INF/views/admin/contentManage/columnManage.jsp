@@ -248,7 +248,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="path">访问路径</label>
 							<div class="col-sm-9">
-								<input type="text" id="path" class="col-xs-10 col-sm-8">
+								<label class="col-sm-2 control-label" for="path">/front/</label>
+								<input type="text" id="path" class="col-xs-8 col-sm-6">
 							</div> 
 						</div>
 						<div class="form-group">

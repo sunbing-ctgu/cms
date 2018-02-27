@@ -249,6 +249,7 @@ function doOperation(columnInfo, type) {
             $('.loading-gif').attr('src', 'admin/img/submit_success.png');
             $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
             queryDefault();
+            refreshTree();
         } else {
             $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
             $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
@@ -260,10 +261,14 @@ function doOperation(columnInfo, type) {
     });
 }
 
-function onSearch() {
+function onSearch(parentId) {
 	param.pageNum = 1;
-	param.username = $('#userNameSearch').val();
-	param.realname = $('#realNameSearch').val();
+	param.name = $('#userNameSearch').val();
+	if(parentId) {
+		param.parentId = parentId;
+	}else {
+		param.parentId = '';
+	}
 	query(param);
 }
 
@@ -282,7 +287,11 @@ function addColumn() {
     let column = new Column();//
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
+    let urlPath = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
+    if(urlPath) {
+    	urlPath = 'front/' + urlPath;
+    }
+    column.path = urlPath;
     if(null != isUploaded) {
     	column.img = isUploaded.response.data.path;
     }
@@ -304,7 +313,10 @@ function updateColumn() {//currentUpdateUser
     column.id = currentUpdateColumn.id;
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
-    column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
+    let urlPath = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
+    if(urlPath) {
+    	urlPath = 'front/' + urlPath;
+    }
     if(null != isUploaded) {
     	column.img = isUploaded.response.data.path;
     }else {
@@ -352,6 +364,8 @@ function openColumnModal(columnInfo, type) {
         $('#rename').val(columnInfo.rename);
         if(columnInfo.img) {
         	$("#column-img").attr('src',columnInfo.img); 
+        }else {
+        	$("#column-img").attr('src','upload/images/default_img.jpg'); 
         }
         $('#path').val(columnInfo.path);
         $('#username').attr('disabled', 'disabled');
@@ -412,6 +426,10 @@ $(function(){
 	   		data: treeCache,
 	   		onNodeSelected: function(event, node) {
 	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+	   			onSearch(node.id);
+	   		},
+	   		onNodeUnselected: function(event, node) {
+	   			onSearch();
 	   		}
 	   	});
 		$('#tree').treeview('collapseAll', { silent: true });
@@ -478,4 +496,21 @@ class QueryTree {
 	        });
 		});
 	}
+}
+
+function refreshTree() {
+	QueryTree.getColumnTree().then((result) => {
+		treeCache = result;
+		$('#tree').treeview({
+	   		data: treeCache,
+	   		onNodeSelected: function(event, node) {
+	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+	   			onSearch(node.id);
+	   		},
+	   		onNodeUnselected: function(event, node) {
+	   			onSearch();
+	   		}
+	   	});
+		$('#tree').treeview('collapseAll', { silent: true });
+	});
 }
