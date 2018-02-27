@@ -77,15 +77,15 @@ public class FileUploadController extends BaseController {
 			if ("avi".equalsIgnoreCase(extension) || "mp4".equalsIgnoreCase(extension) || "mov".equalsIgnoreCase(extension)) {
 				fileName = strName + "."+ extension;
 				targetFile = new File(videoPath, fileName);
-				path = "/upload/video/" + fileName;
+				path = "upload/video/" + fileName;
 			} else if("bmp".equalsIgnoreCase(extension) || "jpe".equalsIgnoreCase(extension) || "jpeg".equalsIgnoreCase(extension) || "jpg".equalsIgnoreCase(extension) || "png".equalsIgnoreCase(extension)){
 		    	fileName = strName + "."+ extension;
 		    	targetFile = new File(imgPath, fileName);
-		    	path = "/upload/img/" + fileName;
+		    	path = "upload/images/" + fileName;
 		    }else if("doc".equalsIgnoreCase(extension) || "docx".equalsIgnoreCase(extension)) {
 		    	fileName = fileName + "_" + strName + "."+ extension;
 		    	targetFile = new File(docPath, fileName);
-		    	path = "/upload/doc/" + fileName;
+		    	path = "upload/doc/" + fileName;
 		    }else{
 		    	//获取文件MD5值
 		    	StringBuffer reStr = null;
@@ -107,7 +107,7 @@ public class FileUploadController extends BaseController {
 		    	
 		    	fileName = fileName + "_" + strName + "."+ extension;
 		    	targetFile = new File(rootPath, fileName);
-		    	path = "/upload/system/" + fileName;
+		    	path = "upload/system/" + fileName;
 		    	
 		    	data.put("mdf", reStr);
 		    }
@@ -115,7 +115,7 @@ public class FileUploadController extends BaseController {
 			//没有后缀名的文件放到system目录下
 			String fileName = fullFileName + "_" + strName;
 	    	targetFile = new File(docPath, fileName);
-	    	path = "/upload/system/" + fileName;
+	    	path = "upload/system/" + fileName;
 		}
 		
 	    data.put("path", path);

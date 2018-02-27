@@ -85,9 +85,7 @@
 			<if test="path !=null and path != ''">
 				path = #{path}, 
 			</if>
-			<if test="img !=null and img != ''">
 				img = #{img}, 
-			</if>
 			<if test="type !=null and type != ''">
 				type = #{type}, 
 			</if>
@@ -106,7 +104,7 @@
 			<if test="status !=null and status != ''">
 				status = #{status}, 
 			</if>
-			<if test="updateTime !=null and updateTime != ''">
+			<if test="updateTime !=null">
 				update_time = #{updateTime}, 
 			</if>
 		</trim> 

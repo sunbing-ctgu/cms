@@ -22,6 +22,11 @@ $("#file-selector").fileinput({
     allowedPreviewTypes : [ 'image' ],//配置所有的被预览文件类型
     allowedPreviewMimeTypes : [ 'jpg', 'png', 'gif' ],//控制被预览的所有mime类型
 });
+/*自动上传*/
+$("#file-selector").on("filebatchselected", function(event, files) {
+	$("#preview-img").hide();
+	$(this).fileinput("upload");
+});
 /* 文件上传*/
 $("#file-selector").on("fileuploaded", function (event, data, previewId, index) {
     isUploaded = data;
@@ -52,6 +57,7 @@ class QueryParam {
 }
 class Column {
 	constructor() {
+		this.id;
 		this.name;
 		this.rename;
 		this.parentId;
@@ -235,6 +241,7 @@ function queryRootColumn() {
 
 function doOperation(columnInfo, type) {
     $('#column-modal').modal('hide');
+    $("#file-selector").fileinput('clear');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
     OperationColumn.operation(JSON.stringify(columnInfo), type).then((result) => {
@@ -293,12 +300,15 @@ function addColumn() {
 }
 
 function updateColumn() {//currentUpdateUser
-    let column = currentUpdateColumn;
+    let column = new Column();
+    column.id = currentUpdateColumn.id;
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
     column.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
     if(null != isUploaded) {
     	column.img = isUploaded.response.data.path;
+    }else {
+    	column.img = currentUpdateColumn.img;
     }
     column.level = $("input[name='level']:checked").val();
     column.type = $('#type-select option:selected').val();
@@ -334,11 +344,15 @@ function openColumnModal(columnInfo, type) {
         $('#path').val('');
         $('#sort').val('');
         $('.column-modal-submit').html('确认添加');
+        $("#preview-img").hide();
         columnModalSubmitType = 1;
     } else {
         $('#column-modal-title').html('修改信息');
         $('#name').val(columnInfo.name);
         $('#rename').val(columnInfo.rename);
+        if(columnInfo.img) {
+        	$("#column-img").attr('src',columnInfo.img); 
+        }
         $('#path').val(columnInfo.path);
         $('#username').attr('disabled', 'disabled');
         if (columnInfo.channel == 0) {
@@ -358,6 +372,7 @@ function openColumnModal(columnInfo, type) {
         }
         $('#sort').val(columnInfo.sort);
         $('.column-modal-submit').html('确认修改');
+        $("#preview-img").show();
         columnModalSubmitType = 2;
     }
 }
@@ -368,6 +383,20 @@ $(document).on('click', '.delete-column', function () {
 			ids:[columnId]
 	};
 	confirmModal('deleteColumn', '是否删除', ids);
+});
+/* 选择框 */
+$(document).on('change', '.checkbox-column', function () {
+	let selectId =  parseInt($(this).attr('data-id'));
+	let currentIndex = $.inArray(selectId, selectedArr);
+	if($(this).is(':checked')) {
+		if(currentIndex ==-1) {
+			selectedArr.push(selectId);
+		}
+	} else {
+		if(currentIndex>-1) {
+			selectedArr.splice(currentIndex,1);
+		}
+	}
 });
 $(function(){
 	/* 选择每页显示数量*/
@@ -401,20 +430,6 @@ $(function(){
 			$(this).change();
 		});
 	});
-	/* 选择框 */
-	$(document).on('change', '.checkbox-column', function () {
-		let selectId =  parseInt($(this).attr('data-id'));
-		let currentIndex = $.inArray(selectId, selectedArr);
-		if($(this).is(':checked')) {
-			if(currentIndex ==-1) {
-				selectedArr.push(selectId);
-			}
-		} else {
-			if(currentIndex>-1) {
-				selectedArr.splice(currentIndex,1);
-			}
-		}
-	});
 	
 	/* 批量删除*/
 	$('#del-column-btn').click(function () {
@@ -442,6 +457,11 @@ $(function(){
 		}
 	});
 	
+	$(".column-img-remove").click(function () {
+		currentUpdateColumn.img = '';
+		$("#column-img").attr('src',''); 
+		$("#preview-img").hide();
+	});
 });
 
 class QueryTree {

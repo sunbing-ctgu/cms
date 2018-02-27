@@ -177,8 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="img">栏目图片</label>
 							<div class="col-sm-9" style="width: 66%">
+								<div id="preview-img" class="file-preview">
+									<button type="button" class="close fileinput-remove column-img-remove" aria-label="Close">
+									  <span aria-hidden="true">×</span>
+									</button>
+									<img id="column-img" src="upload/images/default_img.jpg" width="338px" height="253px">
+								</div>
 								<input id="file-selector" name="" type="file" class="file" data-msg-placeholder="请选择一个文件">
-                                <input type="hidden" name="img" value="">
 							</div>
 						</div>
 						<div class="form-group">
