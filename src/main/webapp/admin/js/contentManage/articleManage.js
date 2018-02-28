@@ -328,12 +328,26 @@ $(function(){
 		if(index != -1) {
 			let columnInfo = resultCache[index];
 			currentUpdateColumn = columnInfo;
-			openArticleModal(columnInfo, 2);
+			//openArticleModal(columnInfo, 2);
 		}else {
-			openArticleModal(null, 1);
+			//openArticleModal(null, 1);
 		}
 	});
 	
+	$("#columnId").click(function() {
+		QueryTree.getColumnTree().then((result) => {
+			$('#columnTreeView').treeview({
+		   		data: result,
+		   		onNodeSelected: function(event, node) {
+		   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+		   			$("#columnName").val(node.text);
+		   			$("#columnId").val(node.id);
+		   			$('#columnTreeView').hide();
+		   		}
+		   	});
+			$('#columnTreeView').treeview('collapseAll', { silent: true });
+		});
+	});
 });
 
 $(document).on('click', '.delete-column', function () {
