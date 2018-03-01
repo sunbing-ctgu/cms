@@ -45,7 +45,7 @@
 				#{columnId}
 			</foreach> 	
 		</if>
-		ORDER BY top_type desc, sort asc
+		ORDER BY is_type desc, sort asc
 	</select>
 	
 	<select id="getArticleByKey" parameterType="Integer" resultMap="DetailResultMap">
@@ -54,11 +54,11 @@
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
 		INSERT INTO cms_article(column_id, title, title_img, 
-		content, summary, href, key_words, publisher_id, publish_time, top_type, 
+		content, summary, href, key_words, publisher_id, publish_time, is_type, is_recommend, 
 		sort, view_count, status, create_time, update_time ) 
 		VALUES(#{columnId}, #{title}, #{titleImg}, 
 		#{content}, #{summary}, #{href}, #{keyWord}, #{publisherId}, 
-		#{publishTime}, #{topType}, #{sort}, #{viewCount}, 
+		#{publishTime}, #{isType}, #{isRecommend}, #{sort}, #{viewCount}, 
 		#{status}, #{createTime}, #{updateTime})
 	</insert>
 	
@@ -73,7 +73,8 @@
 			<if test="null != href and '' != href">href=#{href},</if>
 			<if test="null != keyWord and '' != keyWord">key_word=#{keyWord},</if>
 			<if test="null != publishTime and '' != publishTime">publish_time=#{publishTime},</if>
-			<if test="null != topType and '' != topType">top_type=#{topType},</if>
+			<if test="null != isType and '' != isType">is_type=#{isType},</if>
+			<if test="null != isRecommend and '' != isRecommend">is_recommend=#{isRecommend},</if>
 			<if test="null != sort and '' != sort">sort=#{sort},</if>
 			<if test="null != updateTime and '' != updateTime">update_time=#{updateTime},</if>
 		</trim>
@@ -92,14 +93,14 @@
 	</update>
 	
 	<select id="getArticleByColumnId" parameterType="Integer" resultMap="DetailResultMap">
-		SELECT * FROM cms_article WHERE column_id = #{columnId} ORDER BY top_type desc, sort asc LIMIT 1;
+		SELECT * FROM cms_article WHERE column_id = #{columnId} ORDER BY is_top desc, sort asc LIMIT 1;
 	</select>
 	
 	<select id="getArticleListByColumnId" parameterType="Integer" resultMap="SummaryResultMap">
 		SELECT id, title, title_img, summary, href, year(publish_time) _year, DATE_FORMAT(publish_time, '%m-%d') _date
 		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
 		AND column_id = #{columnId}
-		ORDER BY top_type desc, sort asc
+		ORDER BY is_top desc, sort asc
 	</select>
 	
 </mapper>

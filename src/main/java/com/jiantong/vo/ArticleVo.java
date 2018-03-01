@@ -26,7 +26,9 @@ public class ArticleVo {
 	
 	private Date publishTime;
 	
-	private Integer topType;
+	private Integer isTop;
+	
+	private Integer isRecommend;
 	
 	private Integer sort;
 	
@@ -126,12 +128,20 @@ public class ArticleVo {
 		this.publishTime = publishTime;
 	}
 
-	public Integer getTopType() {
-		return topType;
+	public Integer getIsTop() {
+		return isTop;
 	}
 
-	public void setTopType(Integer topType) {
-		this.topType = topType;
+	public void setIsTop(Integer isTop) {
+		this.isTop = isTop;
+	}
+
+	public Integer getIsRecommend() {
+		return isRecommend;
+	}
+
+	public void setIsRecommend(Integer isRecommend) {
+		this.isRecommend = isRecommend;
 	}
 
 	public Integer getSort() {

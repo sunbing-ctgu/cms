@@ -334,7 +334,7 @@ $(function(){
 		}
 	});
 	
-	$("#columnId").click(function() {
+	$("#columnName").click(function() {
 		QueryTree.getColumnTree().then((result) => {
 			$('#columnTreeView').treeview({
 		   		data: result,

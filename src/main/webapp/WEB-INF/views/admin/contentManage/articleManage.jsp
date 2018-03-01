@@ -9,6 +9,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <jsp:include page="../common/head.jsp"></jsp:include>
+<script type="text/javascript" src="admin/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="admin/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="admin/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="admin/js/treeview/bootstrap-treeview.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新闻管理</title>
@@ -148,8 +151,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 		<!-- Modal -->
-	<div class="modal fade bs-example-modal-lg" id="article-modal" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" data-backdrop="static">
-		<div class="modal-dialog" role="document">
+	<div class="modal fade" id="article-modal" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" data-backdrop="static">
+		<div class="modal-dialog modal-lg" style="min-width: 1024px" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -160,104 +163,111 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="columnId">所属栏目</label>
-							<div class="col-sm-9">
-								<input type="text" id="columnName" class="col-xs-10 col-sm-8 form-control" value="" onclick="$('#columnTreeView').show()">
-								<input type="hidden" id="columnId" value=""/>
-								<div id="columnTreeView" style="display:none;"></div>
-							</div> 
+						<div class="tabbable">
+							<ul class="nav nav-tabs" id="articleTab">
+								<li class="active"><a data-toggle="tab" href="#baseInfo">基本信息</a></li>
+								<li class=""><a data-toggle="tab" href="#contentInfo">新闻正文</a></li>
+							</ul>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="rename">别名</label>
-							<div class="col-sm-9">
-								<input type="text" id="rename" class="col-xs-10 col-sm-8">
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="img">栏目图片</label>
-							<div class="col-sm-9" style="width: 66%">
-								<div id="preview-img" class="file-preview">
-									<button type="button" class="close fileinput-remove column-img-remove" aria-label="Close">
-									  <span aria-hidden="true">×</span>
-									</button>
-									<img id="column-img" src="upload/images/default_img.jpg" width="338px" height="253px">
+						<div class="tab-content">
+							<div id="baseInfo" class="tab-pane active">
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="columnId">所属栏目</label>
+									<div class="col-sm-5">
+										<input type="text" id="columnName" class="col-xs-10 col-sm-8 form-control" value="" onclick="$('#columnTreeView').show()">
+										<input type="hidden" id="columnId" value=""/>
+										<div id="columnTreeView" style="display:none;"></div>
+									</div> 
 								</div>
-								<input id="file-selector" name="" type="file" class="file" data-msg-placeholder="请选择一个文件">
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="rename">标题</label>
+									<div class="col-sm-5">
+										<input type="text" id="title" class="col-xs-10 col-sm-8 form-control">
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="img">标题图片</label>
+									<div class="col-sm-5">
+										<div id="preview-img" class="file-preview">
+											<button type="button" class="close fileinput-remove title-img-remove" aria-label="Close">
+											  <span aria-hidden="true">×</span>
+											</button>
+											<img id="title-img" src="upload/images/default_img.jpg" width="338px" height="253px">
+										</div>
+										<input id="file-selector" name="" type="file" class="file" data-msg-placeholder="请选择一个文件">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="author">作者</label>
+									<div class="col-sm-5">
+										<input type="text" id="author" class="col-xs-10 col-sm-8 form-control">
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="summary">摘要</label>
+									<div class="col-sm-5">
+										<textarea id="summary" class="form-control" rows="5"></textarea>
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="author">关键词</label>
+									<div class="col-sm-5">
+										<input type="text" id="key-words" class="col-xs-10 col-sm-8 form-control" placeholder="多个关键词请用,分隔">
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="author">跳转链接</label>
+									<div class="col-sm-5">
+										<input type="text" id="href" class="col-xs-10 col-sm-8 form-control">
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="author">发布时间</label>
+									<div class="col-sm-5">
+										<input type="text" id="publish-time" class="col-xs-10 col-sm-8 form-control">
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="channel">是否置顶</label>
+									<div class="col-sm-5 radio">
+										<label>
+											<input name="is-top" type="radio" value="0" class="ace" checked="checked"/>
+											<span class="lbl">否</span>
+										</label>
+										<label>
+											<input name="is-top" type="radio" value="1" class="ace"/>
+											<span class="lbl">是</span>
+										</label>
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="channel">是否推荐</label>
+									<div class="col-sm-5 radio">
+										<label>
+											<input name="is-recommend" type="radio" value="0" class="ace" checked="checked"/>
+											<span class="lbl">否</span>
+										</label>
+										<label>
+											<input name="is-recommend" type="radio" value="1" class="ace"/>
+											<span class="lbl">是</span>
+										</label>
+									</div> 
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="sort">自定义排序</label>
+									<div class="col-sm-3">
+										<input type="text" id="sort" class="col-xs-10 col-sm-8 form-control">
+									</div> 
+								</div>
+							</div>
+							<div id="contentInfo" class="tab-pane">
+								<div class="page-content">
+								<script id="container" name="content" type="text/plain">
+        							这里写你的初始化内容
+								</script>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right">上级栏目</label>
-							<div class="col-sm-9">
-								<select class="form-control" id="root-column-select" style="width: 67%;">
-									<option value="-1">根栏目</option>
-								</select>
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="channel">所属频道</label>
-							<div class="col-sm-9 radio">
-								<label>
-									<input name="channel" type="radio" value="0" class="ace" checked="checked"/>
-									<span class="lbl">中文</span>
-								</label>
-								<label>
-									<input name="channel" type="radio" value="1" class="ace"/>
-									<span class="lbl">英文</span>
-								</label>
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="level">是否为终极栏目</label>
-							<div class="col-sm-9 radio">
-								<label>
-									<input name="level" type="radio" value="0" class="ace" checked="checked"/>
-									<span class="lbl">是&nbsp&nbsp&nbsp&nbsp</span>
-								</label>
-								<label>
-									<input name="level" type="radio" value="1" class="ace"/>
-									<span class="lbl">否&nbsp&nbsp&nbsp&nbsp</span>
-								</label>
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="level">是否显示</label>
-							<div class="col-sm-9 radio">
-								<label>
-									<input name="isShow" type="radio" value="1" class="ace" checked="checked"/>
-									<span class="lbl">是&nbsp&nbsp&nbsp&nbsp</span>
-								</label>
-								<label>
-									<input name="isShow" type="radio" value="0" class="ace"/>
-									<span class="lbl">否&nbsp&nbsp&nbsp&nbsp</span>
-								</label>
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right">所属应用</label>
-							<div class="col-sm-9">
-								<select class="form-control" id="type-select" style="width: 67%;">
-									<option value="0">介绍</option>
-									<option value="1">新闻</option>
-									<option value="2">展示</option>
-									<option value="3">图片一览</option>
-									<option value="4">友情链接</option>
-								</select>
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="path">访问路径</label>
-							<div class="col-sm-9">
-								<label class="col-sm-2 control-label" for="path">/front/</label>
-								<input type="text" id="path" class="col-xs-8 col-sm-6">
-							</div> 
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="sort">自定义排序</label>
-							<div class="col-sm-9">
-								<input type="text" id="sort" class="col-xs-10 col-sm-8">
-							</div> 
-						</div>
+						
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -289,10 +299,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 <script src='admin/js/contentManage/articleManage.js'></script>
 <script type="text/javascript">
+	var ue = UE.getEditor('container');
+	ue.ready(function() {
+		ue.setHeight(480);
+	});
    	$('#tree').treeview({
    		color: "#428bca",
    		expandIcon: 'glyphicon glyphicon-chevron-right',
         collapseIcon: 'glyphicon glyphicon-chevron-down',
    	});
+   	
 </script>
 </html>

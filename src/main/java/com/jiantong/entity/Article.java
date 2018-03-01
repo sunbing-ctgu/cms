@@ -45,8 +45,11 @@ public class Article {
 	/**发布时间*/
 	private Date publishTime;
 	
-	/**置顶属性(0:默认1:置顶2:推荐)*/
-	private Integer topType;
+	/**置顶属性(0:否1:是)*/
+	private Integer isTop;
+	
+	/**推荐属性(0:否1:是)*/
+	private Integer isRecommend;
 	
 	/**排序*/
 	private Integer sort;
@@ -153,12 +156,20 @@ public class Article {
 		this.publishTime = publishTime;
 	}
 
-	public Integer getTopType() {
-		return topType;
+	public Integer getIsTop() {
+		return isTop;
 	}
 
-	public void setTopType(Integer topType) {
-		this.topType = topType;
+	public void setIsTop(Integer isTop) {
+		this.isTop = isTop;
+	}
+
+	public Integer getIsRecommend() {
+		return isRecommend;
+	}
+
+	public void setIsRecommend(Integer isRecommend) {
+		this.isRecommend = isRecommend;
 	}
 
 	public Integer getSort() {
