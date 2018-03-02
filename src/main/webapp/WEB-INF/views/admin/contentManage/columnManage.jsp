@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="row" style="margin-top: 64px">
-					<div class="col-xs-3" style="padding-right: 1px;">
+					<div class="col-xs-2" style="padding-right: 1px;">
 						<div class="widget-box widget-color-blue2"
 							style="margin-top: 0px;">
 							<div class="widget-header">
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-9" style="padding-left: 1px;">
+					<div class="col-xs-10" style="padding-left: 1px;">
 						<div style="margin-top: -10px">
 							<h5 class="bigger lighter">
 								<a id="add-column-btn" class="btn btn-xs btn-primary"

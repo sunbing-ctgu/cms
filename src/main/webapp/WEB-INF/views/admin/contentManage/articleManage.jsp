@@ -9,6 +9,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <jsp:include page="../common/head.jsp"></jsp:include>
+<link type="text/css" rel="stylesheet" href="admin/js/bootstrap-fileinput/css/fileinput.min.css"/>
+<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/locales/zh.js"></script>
 <script type="text/javascript" src="admin/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="admin/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="admin/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -67,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="row" style="margin-top: 64px">
-					<div class="col-xs-3" style="padding-right: 1px;">
+					<div class="col-xs-2" style="padding-right: 1px;">
 						<div class="widget-box widget-color-blue2"
 							style="margin-top: 0px;">
 							<div class="widget-header">
@@ -80,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-9" style="padding-left: 1px;">
+					<div class="col-xs-10" style="padding-left: 1px;">
 						<div style="margin-top: -10px">
 							<h5 class="bigger lighter">
 								<a id="add-article-btn" class="btn btn-xs btn-primary"
@@ -109,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<th class="col-md-1">点击数</th>
 											<th class="col-md-1">排序</th>
 											<th class="col-md-1">更新时间</th>
-											<th class="col-md-1">操作</th>
+											<th class="col-md-2">操作</th>
 										</tr>
 									</thead>
 									<tbody id="table-tbody">
@@ -176,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="col-sm-5">
 										<input type="text" id="columnName" class="col-xs-10 col-sm-8 form-control" value="" onclick="$('#columnTreeView').show()">
 										<input type="hidden" id="columnId" value=""/>
-										<div id="columnTreeView" style="display:none;"></div>
+										<div id="columnTreeView" style="margin-top:34px; display:none;"></div>
 									</div> 
 								</div>
 								<div class="form-group">
@@ -262,17 +265,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div id="contentInfo" class="tab-pane">
 								<div class="page-content">
-								<script id="container" name="content" type="text/plain">
-        							这里写你的初始化内容
-								</script>
+									<script id="container" name="content" type="text/plain">
+        								这里写你的初始化内容
+									</script>
+								</div>
 							</div>
 						</div>
-						
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary column-modal-submit"></button>
+					<button type="button" class="btn btn-primary article-modal-submit"></button>
 				</div>
 			</div>
 		</div>
@@ -303,7 +306,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	ue.ready(function() {
 		ue.setHeight(480);
 	});
-   	$('#tree').treeview({
+	$('#tree').treeview({
+   		color: "#428bca",
+   		expandIcon: 'glyphicon glyphicon-chevron-right',
+        collapseIcon: 'glyphicon glyphicon-chevron-down',
+   	});
+   	$('#columnTreeView').treeview({
    		color: "#428bca",
    		expandIcon: 'glyphicon glyphicon-chevron-right',
         collapseIcon: 'glyphicon glyphicon-chevron-down',

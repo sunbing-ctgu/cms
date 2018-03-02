@@ -1,6 +1,50 @@
 /**
  * 
  */
+let isUploaded = null;
+/* 加载bootstrap fileinput*/
+$("#file-selector").fileinput({
+    uploadUrl: "admin/fileUpload/upload",//上传的地址
+    language: 'zh',
+    showUpload: false,//是否显示上传按钮,跟随文本框的那个
+    showRemove: false,//显示移除按钮,跟随文本框的那个
+    showPreview: true,//是否显示预览,不写默认为true
+    dropZoneEnabled: false,//是否显示拖拽区域，默认不写为true，但是会占用很大区域
+    //minImageWidth: 50, //图片的最小宽度
+    //minImageHeight: 50,//图片的最小高度
+    //maxImageWidth: 1000,//图片的最大宽度
+    //maxImageHeight: 1000,//图片的最大高度
+    //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+    //minFileCount: 0,
+    maxFileCount: 1,
+    enctype: 'multipart/form-data',
+    allowedFileTypes: ['image'],//配置允许文件上传的类型
+    allowedPreviewTypes : [ 'image' ],//配置所有的被预览文件类型
+    allowedPreviewMimeTypes : [ 'jpg', 'png', 'gif' ],//控制被预览的所有mime类型
+});
+/*自动上传*/
+$("#file-selector").on("filebatchselected", function(event, files) {
+	$("#preview-img").hide();
+	$(this).fileinput("upload");
+});
+/* 文件上传*/
+$("#file-selector").on("fileuploaded", function (event, data, previewId, index) {
+    isUploaded = data;
+    $('.kv-file-remove').click(function() {
+    	isUploaded = null;
+    })
+    $('.file-upload-error').html('');
+});
+/* 移除文件*/
+$('#file-selector').on('filecleared', function (event, id) {
+    isUploaded = null;
+});
+
+/* 取消上传*/
+$('#file-selector').on('fileuploaderror', function (event, id) {
+    isUploaded = null;
+    $('.kv-upload-progress').css('display', 'none');
+});
 let treeCache;
 
 class QueryParam {
@@ -104,7 +148,8 @@ class DrawTable {
 				<td>${result[i].createTime}</td>
 				<td>
 					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
+						<button class="btn btn-minier btn-primary view-article" data-toggle="modal" data-id="${i}" data-type="0" data-target="#article-modal">查看</button>
+						<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="${i}" data-type="2" data-target="#article-modal">修改</button>
 						<button class="btn btn-minier btn-danger delete-article" data-id="${result[i].id}">删除</button>
 					</div>
 				</td>
@@ -266,18 +311,40 @@ $(function(){
 	    query(param);
 	});
 });
-function openUserModal(columnInfo, type) {
-    if (type == 1) {
-        $('#article-modal-title').html('新增新闻');
-        $('#name').val('');
-        $('#rename').val('');
-        $('#path').val('');
-        $('#img').html('&nbsp;');
-        $('#password').css('display', '');
-        $('#username-input').removeAttr('disabled');
-        $('.article-modal-submit').html('确认添加');
-        columnModalSubmitType = 1;
-    } else {
+function openArticleModal(columnInfo, type) {
+    if (type == 0) {
+    	$('#article-modal-title').html('查看新闻');
+        $('#columnName').val('');
+        $('#columnId').val('');
+        $('#title').val('');
+        $('#author').val('');
+        $('#summary').val('');
+        $('#key-words').val('');
+        $('#href').val('');
+        $('#publish-time').val('');
+        $("input:radio[name='is-top'][value=0]").attr('checked','true');
+        $("input:radio[name='is-recommend'][value=0]").attr('checked','true');
+        $('#sort').val('');
+        $('.article-modal-submit').html('关闭');
+        $("#preview-img").hide();
+        articleModalSubmitType = 1;
+    }else if(type == 1) {
+    	 $('#article-modal-title').html('新增新闻');
+         $('#columnName').val('');
+         $('#columnId').val('');
+         $('#title').val('');
+         $('#author').val('');
+         $('#summary').val('');
+         $('#key-words').val('');
+         $('#href').val('');
+         $('#publish-time').val('');
+         $("input:radio[name='is-top'][value=0]").attr('checked','true');
+         $("input:radio[name='is-recommend'][value=0]").attr('checked','true');
+         $('#sort').val('');
+         $('.article-modal-submit').html('确认添加');
+         $("#preview-img").hide();
+         articleModalSubmitType = 1;
+    }else {
         $('#article-modal-title').html('修改信息');
         $('#name').val(columnInfo.name);
         $('#rename').val(columnInfo.rename);
@@ -289,7 +356,7 @@ function openUserModal(columnInfo, type) {
         	$("input:radio[value=1]").attr('checked','true');
         }
         $('.article-modal-submit').html('确认修改');
-        columnModalSubmitType = 2;
+        articleModalSubmitType = 2;
     }
 }
 
@@ -315,7 +382,7 @@ $(function(){
 	});
 	/* Modal提交*/
 	$('.article-modal-submit').click(function () {
-	    if (columnModalSubmitType == 1) {
+	    if (articleModalSubmitType == 1) {
 	        addArticle();
 	    } else {
 	        updateArticle();
@@ -325,12 +392,13 @@ $(function(){
 	$('#article-modal').on('show.bs.modal', function (event) {
 		let btn = $(event.relatedTarget);
 		let index = btn.data("id"); 
+		let type = btn.data("type"); 
 		if(index != -1) {
-			let columnInfo = resultCache[index];
-			currentUpdateColumn = columnInfo;
-			//openArticleModal(columnInfo, 2);
+			let articleInfo = resultCache[index];
+			currentUpdateArticle = articleInfo;
+			openArticleModal(articleInfo, type);
 		}else {
-			//openArticleModal(null, 1);
+			openArticleModal(null, 1);
 		}
 	});
 	
@@ -346,7 +414,10 @@ $(function(){
 		   		}
 		   	});
 			$('#columnTreeView').treeview('collapseAll', { silent: true });
+			$("#columnTreeView>ul").css("margin-left", "0px");
 		});
+	}).blur(function() {
+		$('#columnTreeView').hide();
 	});
 });
 

@@ -45,7 +45,7 @@
 				#{columnId}
 			</foreach> 	
 		</if>
-		ORDER BY is_type desc, sort asc
+		ORDER BY is_top desc, sort asc
 	</select>
 	
 	<select id="getArticleByKey" parameterType="Integer" resultMap="DetailResultMap">
@@ -54,11 +54,11 @@
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
 		INSERT INTO cms_article(column_id, title, title_img, 
-		content, summary, href, key_words, publisher_id, publish_time, is_type, is_recommend, 
+		content, summary, href, key_words, publisher_id, publish_time, is_top, is_recommend, 
 		sort, view_count, status, create_time, update_time ) 
 		VALUES(#{columnId}, #{title}, #{titleImg}, 
 		#{content}, #{summary}, #{href}, #{keyWord}, #{publisherId}, 
-		#{publishTime}, #{isType}, #{isRecommend}, #{sort}, #{viewCount}, 
+		#{publishTime}, #{isTop}, #{isRecommend}, #{sort}, #{viewCount}, 
 		#{status}, #{createTime}, #{updateTime})
 	</insert>
 	
@@ -73,7 +73,7 @@
 			<if test="null != href and '' != href">href=#{href},</if>
 			<if test="null != keyWord and '' != keyWord">key_word=#{keyWord},</if>
 			<if test="null != publishTime and '' != publishTime">publish_time=#{publishTime},</if>
-			<if test="null != isType and '' != isType">is_type=#{isType},</if>
+			<if test="null != isTop and '' != isTop">is_top=#{isTop},</if>
 			<if test="null != isRecommend and '' != isRecommend">is_recommend=#{isRecommend},</if>
 			<if test="null != sort and '' != sort">sort=#{sort},</if>
 			<if test="null != updateTime and '' != updateTime">update_time=#{updateTime},</if>
