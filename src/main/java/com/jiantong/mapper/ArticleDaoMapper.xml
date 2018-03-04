@@ -6,7 +6,11 @@
 		<result column="column_id" property="columnId" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="title_img" property="titleImg" jdbcType="VARCHAR" />
-		<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+		<result column="is_top" property="isTop" jdbcType="INTEGER" />
+		<result column="is_recommend" property="isRecommend" jdbcType="INTEGER" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="view_count" property="viewCount" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<resultMap id="DetailResultMap" type="com.jiantong.entity.Article">
 		<id column="id" property="id" jdbcType="INTEGER" />
@@ -18,7 +22,6 @@
 		<result column="summary" property="summary" jdbcType="VARCHAR" />
 		<result column="href" property="href" jdbcType="VARCHAR" />
 		<result column="key_word" property="keyWord" jdbcType="VARCHAR" />
-		<result column="publisher_id" property="publisherId" jdbcType="INTEGER" />
 		<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
 		<result column="view_count" property="viewCount" jdbcType="INTEGER" />
 	</resultMap>
@@ -34,7 +37,7 @@
 	</resultMap>
 	
 	<select id="getArticleList" parameterType="com.jiantong.bean.ArticleBean" resultMap="BaseResultMap">
-		SELECT id, column_id, title, title_img, publish_time
+		SELECT id, column_id, title, title_img, is_top, is_recommend, sort, view_count, create_time
 		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
 		<if test="title !=null and title != ''">
 			AND title like CONCAT('%', #{title}, '%')
@@ -45,7 +48,7 @@
 				#{columnId}
 			</foreach> 	
 		</if>
-		ORDER BY is_top desc, sort asc
+		ORDER BY create_time desc
 	</select>
 	
 	<select id="getArticleByKey" parameterType="Integer" resultMap="DetailResultMap">
@@ -54,12 +57,12 @@
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
 		INSERT INTO cms_article(column_id, title, title_img, 
-		content, summary, href, key_words, publisher_id, publish_time, is_top, is_recommend, 
-		sort, view_count, status, create_time, update_time ) 
+		content, summary, href, key_words, publish_time, is_top, is_recommend, 
+		sort, view_count, status, creater_id, create_time, updater_id, update_time ) 
 		VALUES(#{columnId}, #{title}, #{titleImg}, 
-		#{content}, #{summary}, #{href}, #{keyWord}, #{publisherId}, 
+		#{content}, #{summary}, #{href}, #{keyWord}, 
 		#{publishTime}, #{isTop}, #{isRecommend}, #{sort}, #{viewCount}, 
-		#{status}, #{createTime}, #{updateTime})
+		#{status}, #{createrId}, #{createTime}, #{updaterId}, #{updateTime})
 	</insert>
 	
 	<update id="updateArticle" parameterType="com.jiantong.vo.ArticleVo">
@@ -76,6 +79,7 @@
 			<if test="null != isTop and '' != isTop">is_top=#{isTop},</if>
 			<if test="null != isRecommend and '' != isRecommend">is_recommend=#{isRecommend},</if>
 			<if test="null != sort and '' != sort">sort=#{sort},</if>
+			<if test="null != updaterId and '' != updaterId">updater_id=#{updaterId},</if>
 			<if test="null != updateTime and '' != updateTime">update_time=#{updateTime},</if>
 		</trim>
 		WHERE id = #{id}

@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="admin/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="admin/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="admin/js/treeview/bootstrap-treeview.js"></script>
+<script type="text/javascript" src="<%=basePath%>admin/js/My97DatePicker/WdatePicker.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新闻管理</title>
 </head>
@@ -106,12 +107,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												class="position-relative"> <input type="checkbox"
 													class="ace checkbox-article-all" /> <span class="lbl"></span>
 											</label></th>
-											<th class="col-md-4">标题</th>
-											<th class="col-md-1">推荐</th>
+											<th class="col-md-3">标题</th>
 											<th class="col-md-1">置顶</th>
+											<th class="col-md-1">推荐</th>
 											<th class="col-md-1">点击数</th>
 											<th class="col-md-1">排序</th>
-											<th class="col-md-1">更新时间</th>
+											<th class="col-md-2">创建时间</th>
 											<th class="col-md-2">操作</th>
 										</tr>
 									</thead>
@@ -183,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div> 
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="rename">标题</label>
+									<label class="col-sm-3 control-label no-padding-right" for="title">标题</label>
 									<div class="col-sm-5">
 										<input type="text" id="title" class="col-xs-10 col-sm-8 form-control">
 									</div> 
@@ -227,7 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="author">发布时间</label>
 									<div class="col-sm-5">
-										<input type="text" id="publish-time" class="col-xs-10 col-sm-8 form-control">
+										<input type="text" id="publish-time" class="col-xs-10 col-sm-8 form-control" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 									</div> 
 								</div>
 								<div class="form-group">
@@ -266,7 +267,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div id="contentInfo" class="tab-pane">
 								<div class="page-content">
 									<script id="container" name="content" type="text/plain">
-        								这里写你的初始化内容
 									</script>
 								</div>
 							</div>
@@ -302,10 +302,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 <script src='admin/js/contentManage/articleManage.js'></script>
 <script type="text/javascript">
-	var ue = UE.getEditor('container');
-	ue.ready(function() {
-		ue.setHeight(480);
-	});
 	$('#tree').treeview({
    		color: "#428bca",
    		expandIcon: 'glyphicon glyphicon-chevron-right',

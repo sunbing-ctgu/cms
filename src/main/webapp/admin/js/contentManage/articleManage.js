@@ -45,6 +45,12 @@ $('#file-selector').on('fileuploaderror', function (event, id) {
     isUploaded = null;
     $('.kv-upload-progress').css('display', 'none');
 });
+
+var ue = UE.getEditor('container');
+ue.ready(function() {
+	ue.setHeight(480);
+});
+
 let treeCache;
 
 class QueryParam {
@@ -66,7 +72,9 @@ class Article {
 		this.href;
 		this.keyWord;
 		this.content;
-		this.topType;
+		this.publishTime;
+		this.isType;
+		this.isRecommend;
 		this.sort;
 	}
 }
@@ -119,7 +127,7 @@ class DrawTable {
 	static fillData(result) {
 		let htmlValue = '';
 		function getRecommend(val) {
-            if (val == 2) {
+            if (val == 1) {
                 return '是';
             } else {
                 return '否';
@@ -138,12 +146,12 @@ class DrawTable {
         	htmlValue +=
         	`<tr>
 				<td class="center"><label class="position-relative">
-						<input type="checkbox" class="ace checkbox-user" data-id="${result[i].id}"/> <span class="lbl"></span>
+						<input type="checkbox" class="ace checkbox-article" data-id="${result[i].id}"/> <span class="lbl"></span>
 				</label></td>
         		<td>${result[i].title}</td>
-				<td>${getRecommend(result[i].topType)}</td>
-				<td>${getTop(result[i].topType)}</td>
-				<td>${result[i].viewCount}</td>
+				<td>${getTop(result[i].isTop)}</td>
+				<td>${getRecommend(result[i].isRecommend)}</td>
+        		<td>${result[i].viewCount}</td>
 				<td>${result[i].sort}</td>
 				<td>${result[i].createTime}</td>
 				<td>
@@ -216,11 +224,11 @@ function queryDefault() {
 
 queryDefault();
 
-function doOperation(userInfo, type) {
-    $('#user-modal').modal('hide');
+function doOperation(articleInfo, type) {
+    $('#article-modal').modal('hide');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
-    OperationUser.operation(JSON.stringify(userInfo), type).then((result) => {
+    OperationArticle.operation(JSON.stringify(articleInfo), type).then((result) => {
         if (result.retcode == 1) {
             $('.loading-gif').attr('src', 'admin/img/submit_success.png');
             $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
@@ -247,7 +255,8 @@ function batchDel() {
 	let ids = {ids:[]}
 	if(selectedArr.length > 0){
 		ids.ids = selectedArr;
-		doOperation(ids, 'deleteUser');
+		confirmModal('deleteArticle', '是否删除', ids);
+		//doOperation(ids, 'deleteArticle');
 	} else {
 		alert("请先勾选！");
 	}
@@ -256,16 +265,22 @@ function batchDel() {
 
 function addArticle() {
     let article = new Article();//
-    article.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.level = $("input[name='sex']:checked").val();
-    article.channel = $("input[name='channel']:checked").val();
-    article.parentId =  $('#parentId').val()
+    article.columnId = $('#columnId').val();
+    article.title = $('#title').val().replace(/(^\s*)|(\s*$)/g, "");
+    if(isUploaded) {
+    	article.titleImg = isUploaded.response.data.path;
+    }
+    article.author = $('#author').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.summary = $('#summary').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.href = $('#href').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.keyWord =  $('#key-words').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.content = ue.getContent();
+    article.publishTime = $('#publish-time').val();
+    article.isTop = $("input[name='is-top']:checked").val();
+    article.isRecommend = $("input[name='is-recommend']:checked").val();
     article.sort = $('#sort').val()
-    if (article.name != '' && article.path != '' && article.level != '' && article.channel != '' && article.parentId != '') {
-    	doOperation(column, 'addColumn', '添加');
+    if (article.columnId != '' && article.title != '') {
+    	doOperation(article, 'addArticle', '添加');
     } else {
         alert('信息未输入完整');
     }
@@ -294,8 +309,6 @@ function confirmModal(type, content, data) {
             case 'deleteArticle':
                 doOperation(data, 'deleteArticle');
                 break;
-            case 'lockArticle':
-            	doOperation(data, 'updateArticle');
             default:
                 break;
         }
@@ -303,14 +316,6 @@ function confirmModal(type, content, data) {
     });
 }
 
-/* 选择每页显示数量*/
-$(function(){
-	$('#total-count-selector').change(function () {
-	    param.pageNum = 1;
-	    param.pageSize = $(this).val();
-	    query(param);
-	});
-});
 function openArticleModal(columnInfo, type) {
     if (type == 0) {
     	$('#article-modal-title').html('查看新闻');
@@ -325,6 +330,7 @@ function openArticleModal(columnInfo, type) {
         $("input:radio[name='is-top'][value=0]").attr('checked','true');
         $("input:radio[name='is-recommend'][value=0]").attr('checked','true');
         $('#sort').val('');
+        ue.setContent('', true);
         $('.article-modal-submit').html('关闭');
         $("#preview-img").hide();
         articleModalSubmitType = 1;
@@ -341,6 +347,7 @@ function openArticleModal(columnInfo, type) {
          $("input:radio[name='is-top'][value=0]").attr('checked','true');
          $("input:radio[name='is-recommend'][value=0]").attr('checked','true');
          $('#sort').val('');
+         ue.setContent('', true);
          $('.article-modal-submit').html('确认添加');
          $("#preview-img").hide();
          articleModalSubmitType = 1;
@@ -359,9 +366,16 @@ function openArticleModal(columnInfo, type) {
         articleModalSubmitType = 2;
     }
 }
-
+/* 单个删除*/
+$(document).on('click', '.delete-article', function () {
+	let articleId = $(this).data('id');
+    let ids = {
+    	ids:[articleId]
+    }
+    confirmModal('deleteArticle', '是否删除', ids);
+});
 /* 选择框 */
-$(document).on('change', '.checkbox-user', function () {
+$(document).on('change', '.checkbox-article', function () {
 	let selectId =  parseInt($(this).attr('data-id'));
 	let currentIndex = $.inArray(selectId, selectedArr);
 	if($(this).is(':checked')) {
@@ -376,6 +390,26 @@ $(document).on('change', '.checkbox-user', function () {
 });
 
 $(function(){
+	/* 选择每页显示数量*/
+	$('#total-count-selector').change(function () {
+	    param.pageNum = 1;
+	    param.pageSize = $(this).val();
+	    query(param);
+	});
+	$('.checkbox-article-all').change(function() { 
+		if($(this).is(':checked')) {
+			$('.checkbox-article').each(function() {
+				$(this).prop('checked', true);
+			});
+		} else {
+			$('.checkbox-article').each(function() {
+				$(this).prop('checked', false);
+			});
+		}
+		$('.checkbox-article').each(function() {
+			$(this).change();
+		});
+	});
 	/* 批量删除*/
 	$('#del-article-btn').click(function () {
 		batchDel();
@@ -416,17 +450,9 @@ $(function(){
 			$('#columnTreeView').treeview('collapseAll', { silent: true });
 			$("#columnTreeView>ul").css("margin-left", "0px");
 		});
-	}).blur(function() {
+	})/*.blur(function() {
 		$('#columnTreeView').hide();
-	});
-});
-
-$(document).on('click', '.delete-column', function () {
-	let columnId = $(this).data('id');
-    let ids = {
-    	ids:[columnId]
-    }
-    confirmModal('deleteColumn', '是否删除', ids);
+	})*/;
 });
 
 class QueryTree {

@@ -276,7 +276,8 @@ function batchDel() {
 	let ids = {ids:[]}
 	if(selectedArr.length > 0){
 		ids.ids = selectedArr;
-		doOperation(ids, 'deleteColumn');
+		confirmModal('deleteColumn', '是否删除', ids);
+		//doOperation(ids, 'deleteColumn');
 	} else {
 		alert("请先勾选！");
 	}

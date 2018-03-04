@@ -22,8 +22,6 @@ public class ArticleVo {
 	
 	private String keyWord;
 	
-	private Integer publisherId;
-	
 	private Date publishTime;
 	
 	private Integer isTop;
@@ -36,7 +34,11 @@ public class ArticleVo {
 	
 	private Integer status;
 	
+	private Integer createrId;
+	
 	private Date createTime;
+	
+	private Integer updaterId;
 	
 	private Date updateTime;
 
@@ -112,14 +114,6 @@ public class ArticleVo {
 		this.keyWord = keyWord;
 	}
 
-	public Integer getPublisherId() {
-		return publisherId;
-	}
-
-	public void setPublisherId(Integer publisherId) {
-		this.publisherId = publisherId;
-	}
-
 	public Date getPublishTime() {
 		return publishTime;
 	}
@@ -168,12 +162,28 @@ public class ArticleVo {
 		this.status = status;
 	}
 
+	public Integer getCreaterId() {
+		return createrId;
+	}
+
+	public void setCreaterId(Integer createrId) {
+		this.createrId = createrId;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Integer getUpdaterId() {
+		return updaterId;
+	}
+
+	public void setUpdaterId(Integer updaterId) {
+		this.updaterId = updaterId;
 	}
 
 	public Date getUpdateTime() {

@@ -22,6 +22,7 @@ import com.jiantong.bean.ArticleBean;
 import com.jiantong.common.ResponseJsonData;
 import com.jiantong.controller.admin.base.BaseController;
 import com.jiantong.entity.Article;
+import com.jiantong.entity.User;
 import com.jiantong.service.ArticleService;
 import com.jiantong.vo.ArticleVo;
 
@@ -76,9 +77,13 @@ public class ArticleController extends BaseController {
 	public ResponseJsonData addArticle(HttpServletRequest request, @RequestBody ArticleVo data) {
 		ResponseJsonData result = new ResponseJsonData();
 		boolean flag = false;
+		User user = getUser(request);
 		try {
 			Date date = new Date();
+			data.setStatus(1);
+			data.setCreaterId(user.getId());
 			data.setCreateTime(date);
+			data.setUpdaterId(user.getId());
 			data.setUpdateTime(date);
 			articleService.addArticle(data);
 			flag = true;
@@ -101,7 +106,9 @@ public class ArticleController extends BaseController {
 	public ResponseJsonData updateArticle(HttpServletRequest request, @RequestBody ArticleVo data) {
 		ResponseJsonData result = new ResponseJsonData();
 		boolean flag = false;
+		User user = getUser(request);
 		try {
+			data.setUpdaterId(user.getId());
 			data.setUpdateTime(new Date());
 			articleService.updateArticle(data);
 			flag = true; 

@@ -39,9 +39,6 @@ public class Article {
 	/**关键词*/
 	private String keyWord;
 	
-	/**发布者ID*/
-	private Integer publisherId;
-	
 	/**发布时间*/
 	private Date publishTime;
 	
@@ -59,10 +56,16 @@ public class Article {
 	
 	/**状态  0:已删除    1：正常*/
     private Integer status;
+    
+    /**发布者ID*/
+	private Integer createrId;
 	
 	/**创建时间*/
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date createTime;
+    
+    /** 更新者ID */
+    private Integer updaterId;
 	
 	/**更新时间*/
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -140,14 +143,6 @@ public class Article {
 		this.keyWord = keyWord;
 	}
 
-	public Integer getPublisherId() {
-		return publisherId;
-	}
-
-	public void setPublisherId(Integer publisherId) {
-		this.publisherId = publisherId;
-	}
-
 	public Date getPublishTime() {
 		return publishTime;
 	}
@@ -195,6 +190,13 @@ public class Article {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public Integer getCreaterId() {
+		return createrId;
+	}
+
+	public void setCreaterId(Integer createrId) {
+		this.createrId = createrId;
+	}
 
 	public Date getCreateTime() {
 		return createTime;
@@ -202,6 +204,14 @@ public class Article {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Integer getUpdaterId() {
+		return updaterId;
+	}
+
+	public void setUpdaterId(Integer updaterId) {
+		this.updaterId = updaterId;
 	}
 
 	public Date getUpdateTime() {
