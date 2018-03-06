@@ -316,23 +316,38 @@ function confirmModal(type, content, data) {
     });
 }
 
-function openArticleModal(columnInfo, type) {
+function openArticleModal(articleInfo, type) {
     if (type == 0) {
     	$('#article-modal-title').html('查看新闻');
-        $('#columnName').val('');
-        $('#columnId').val('');
-        $('#title').val('');
-        $('#author').val('');
-        $('#summary').val('');
-        $('#key-words').val('');
-        $('#href').val('');
-        $('#publish-time').val('');
-        $("input:radio[name='is-top'][value=0]").attr('checked','true');
-        $("input:radio[name='is-recommend'][value=0]").attr('checked','true');
-        $('#sort').val('');
-        ue.setContent('', true);
+    	traverseTree(treeCache, articleInfo.columnId);
+        $('#columnId').val(articleInfo.columnId);
+        $('#title').val(articleInfo.title);
+        $('#author').val(articleInfo.author);
+        if(articleInfo.titleImg) {
+        	$("#title-img").attr('src',articleInfo.titleImg); 
+        }else {
+        	$("#title-img").attr('src','upload/images/default_img.jpg'); 
+        }
+        $('#summary').val(articleInfo.summary);
+        $('#key-words').val(articleInfo.keyWords);
+        $('#href').val(articleInfo.href);
+        $('#publish-time').val(articleInfo.publishTime);
+        if(articleInfo.isTop == 0) {
+        	 $("input:radio[name='is-top'][value=0]").attr('checked','true');
+        }else {
+        	 $("input:radio[name='is-top'][value=1]").attr('checked','true');
+        }
+        if(articleInfo.isRecommend == 0) {
+        	$("input:radio[name='is-recommend'][value=0]").attr('checked','true');
+        }else {
+        	$("input:radio[name='is-recommend'][value=1]").attr('checked','true');
+        }
+        $('#sort').val(articleInfo.sort);
+        if(articleInfo.content) {
+        	ue.setContent(articleInfo.content, true);
+        }
         $('.article-modal-submit').html('关闭');
-        $("#preview-img").hide();
+        setDisabled();
         articleModalSubmitType = 1;
     }else if(type == 1) {
     	 $('#article-modal-title').html('新增新闻');
@@ -350,6 +365,7 @@ function openArticleModal(columnInfo, type) {
          ue.setContent('', true);
          $('.article-modal-submit').html('确认添加');
          $("#preview-img").hide();
+         setEnabled();
          articleModalSubmitType = 1;
     }else {
         $('#article-modal-title').html('修改信息');
@@ -363,8 +379,33 @@ function openArticleModal(columnInfo, type) {
         	$("input:radio[value=1]").attr('checked','true');
         }
         $('.article-modal-submit').html('确认修改');
+        setEnabled();
         articleModalSubmitType = 2;
     }
+}
+function setDisabled() {
+	$('#columnName').attr("disabled", true);
+    $('#title').attr("disabled", true);
+    $('#author').attr("disabled", true);
+    $('#summary').attr("disabled", true);
+    $('#key-words').attr("disabled", true);
+    $('#href').attr("disabled", true);
+    $('#publish-time').attr("disabled", true);
+    $("input:radio[name='is-top']").attr("disabled", true);
+    $("input:radio[name='is-recommend']").attr("disabled", true);
+    $('#sort').attr("disabled", true);
+}
+function setEnabled() {
+	$('#columnName').attr("disabled", false);
+    $('#title').attr("disabled", false);
+    $('#author').attr("disabled", false);
+    $('#summary').attr("disabled", false);
+    $('#key-words').attr("disabled", false);
+    $('#href').attr("disabled", false);
+    $('#publish-time').attr("disabled", false);
+    $("input:radio[name='is-top']").attr("disabled", false);
+    $("input:radio[name='is-recommend']").attr("disabled", false);
+    $('#sort').attr("disabled", false);
 }
 /* 单个删除*/
 $(document).on('click', '.delete-article', function () {
@@ -483,3 +524,20 @@ $(function(){
 		$('#tree').treeview('collapseAll', { silent: true });
 	});
 });
+
+function traverseTree(nodes, id) {
+	if(!nodes) {
+		return;
+	}
+	let i = 0;
+	for(i = 0; i < nodes.length; i++) {
+		let currentNode = nodes[i];
+		if(currentNode.id == id) {
+   		 $('#columnName').val(currentNode.text);
+   		 return;
+        }
+		if (currentNode.nodes && currentNode.nodes.length > 0) {
+			this.traverseTree(currentNode.nodes, id);
+	    }
+	}
+}
