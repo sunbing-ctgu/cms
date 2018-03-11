@@ -87,8 +87,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 													<div class="clearfix">
 														<label class="inline">
-															<input type="checkbox" class="ace" />
-															<span class="lbl"> Remember Me</span>
+															<!-- <input type="checkbox" class="ace" />
+															<span class="lbl"> Remember Me</span> -->
 														</label>
 
 														<button id="loginButton" type="button" class="width-35 pull-right btn btn-sm btn-primary">
@@ -109,10 +109,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div>
 											</div>
 											<div>
-												<a href="#" data-target="#forgot-box" class="user-signup-link">
+												<!-- <a href="#" data-target="#forgot-box" class="user-signup-link">
 													忘记密码
 													<i class="ace-icon fa fa-arrow-right"></i>
-												</a>
+												</a> -->
 											</div>
 										</div>
 									</div><!-- /.widget-body -->
@@ -267,6 +267,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 $(document).on('click', '#loginButton', function(e) {
 				 $('#formLogin').submit();
 			 });
+			 
+			$(document).keyup(function(e) {
+					if (e.keyCode == 13) {//按键信息对象以参数的形式传递进来了  
+						//此处编写用户敲回车后的代码  
+						$('#formLogin').submit();
+					}
+				});
 			});
 		</script>
 	</body>

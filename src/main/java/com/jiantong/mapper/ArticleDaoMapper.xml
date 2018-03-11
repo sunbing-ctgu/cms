@@ -57,11 +57,11 @@
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
 		INSERT INTO cms_article(column_id, title, title_img, 
-		content, summary, href, key_words, publish_time, is_top, is_recommend, 
-		sort, view_count, status, creater_id, create_time, updater_id, update_time ) 
+		content, summary, href, key_word, publish_time, is_top, is_recommend, 
+		sort, status, creater_id, create_time, updater_id, update_time ) 
 		VALUES(#{columnId}, #{title}, #{titleImg}, 
 		#{content}, #{summary}, #{href}, #{keyWord}, 
-		#{publishTime}, #{isTop}, #{isRecommend}, #{sort}, #{viewCount}, 
+		#{publishTime}, #{isTop}, #{isRecommend}, #{sort}, 
 		#{status}, #{createrId}, #{createTime}, #{updaterId}, #{updateTime})
 	</insert>
 	
@@ -80,7 +80,7 @@
 			<if test="null != isRecommend and '' != isRecommend">is_recommend=#{isRecommend},</if>
 			<if test="null != sort and '' != sort">sort=#{sort},</if>
 			<if test="null != updaterId and '' != updaterId">updater_id=#{updaterId},</if>
-			<if test="null != updateTime and '' != updateTime">update_time=#{updateTime},</if>
+			<if test="null != updateTime">update_time=#{updateTime},</if>
 		</trim>
 		WHERE id = #{id}
 	</update>

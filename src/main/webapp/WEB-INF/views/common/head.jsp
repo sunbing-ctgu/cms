@@ -16,7 +16,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.superslide.2.1.1.js"></script>
+<script src="js/breakingnews.js"></script>
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/breakingnews.css">
 </head>
 <div class="index_wap">
 	<div class="index_top_tip">

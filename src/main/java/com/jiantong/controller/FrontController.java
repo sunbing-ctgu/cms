@@ -98,6 +98,12 @@ public class FrontController extends BaseHandler{
 			}
 			request.setAttribute("linksSummary", linksMap);
 			result = "links";
+		case 5:
+			//公告类
+			result = "notice";
+			articleList = articleService.getArticleListByColumnId(column.getId());
+			request.setAttribute("articleList", articleList);
+			break;
 		default:
 			break;
 		}
@@ -167,5 +173,18 @@ public class FrontController extends BaseHandler{
 		Article article = articleService.getArticleByKey(articleId);
 		request.setAttribute("article", article);
 		return "newsDetail";
+	}
+	
+	@RequestMapping(value = "/notice/{articleId}", method = RequestMethod.GET)
+	public String getNoticeDetail(HttpServletRequest request, @PathVariable Integer articleId) {
+		HttpSession session = getSession(request);
+		Integer channel = getChannel(request);
+		String path = BASEPATH + "notice";
+		session.setAttribute(CURRENT_PATH_SESSION, path);
+		Column column = columnService.getColumnByPath(path, channel);
+		request.setAttribute("column", column);
+		Article article = articleService.getArticleByKey(articleId);
+		request.setAttribute("article", article);
+		return "noticeDetail";
 	}
 }

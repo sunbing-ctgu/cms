@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</li>
 		</ul>
 	</li>
-	<li class="">
+<!-- 	<li class="">
 		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-desktop"></i>
 			<span class="menu-text"> 界面风格 </span>
@@ -71,14 +71,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<b class="arrow"></b>
 
 		<ul class="submenu">
-			<!-- <li class="">
+			<li class="">
 				<a href="form-elements.html">
 					<i class="menu-icon fa fa-caret-right"></i>
 					导航管理
 				</a>
 
 				<b class="arrow"></b>
-			</li> -->
+			</li>
 
 			<li class="">
 				<a href="form-wizard.html">
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b class="arrow"></b>
 			</li>
 		</ul>
-	</li>	
+	</li> -->	
 	<li class="<c:if test="${fn:contains(sessionScope.index, 'systemManage')}">active open</c:if>">
 		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-cogs"></i>

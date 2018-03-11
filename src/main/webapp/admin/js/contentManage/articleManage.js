@@ -278,7 +278,7 @@ function addArticle() {
     article.publishTime = $('#publish-time').val();
     article.isTop = $("input[name='is-top']:checked").val();
     article.isRecommend = $("input[name='is-recommend']:checked").val();
-    article.sort = $('#sort').val()
+    article.sort = $('#sort').val();
     if (article.columnId != '' && article.title != '') {
     	doOperation(article, 'addArticle', '添加');
     } else {
@@ -287,15 +287,22 @@ function addArticle() {
 }
 
 function updateArticle() {//currentUpdateUser
-    let article = currentUpdateArticle;
-    article.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.path = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.img = $('#img').val().replace(/(^\s*)|(\s*$)/g, "");
-    article.level = $("input[name='sex']:checked").val();
-    article.channel = $("input[name='channel']:checked").val();
-    article.parentId =  $('#parentId').val()
-    article.sort = $('#sort').val()
+    let article = new Article();//
+    article.id = currentUpdateArticle.id;
+    article.columnId = $('#columnId').val();
+    article.title = $('#title').val().replace(/(^\s*)|(\s*$)/g, "");
+    if(isUploaded) {
+    	article.titleImg = isUploaded.response.data.path;
+    }
+    article.author = $('#author').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.summary = $('#summary').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.href = $('#href').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.keyWord =  $('#key-words').val().replace(/(^\s*)|(\s*$)/g, "");
+    article.content = ue.getContent();
+    article.publishTime = $('#publish-time').val();
+    article.isTop = $("input[name='is-top']:checked").val();
+    article.isRecommend = $("input[name='is-recommend']:checked").val();
+    article.sort = $('#sort').val();
     doOperation(article, 'updateArticle', '修改');
 }
 
@@ -369,14 +376,32 @@ function openArticleModal(articleInfo, type) {
          articleModalSubmitType = 1;
     }else {
         $('#article-modal-title').html('修改信息');
-        $('#name').val(columnInfo.name);
-        $('#rename').val(columnInfo.rename);
-        $('#path').val(columnInfo.path);
-        $('#username').attr('disabled', 'disabled');
-        if (columnInfo.sex == 0) {
-        	$("input:radio[value=0]").attr('checked','true');
-        } else {
-        	$("input:radio[value=1]").attr('checked','true');
+        traverseTree(treeCache, articleInfo.columnId);
+        $('#columnId').val(articleInfo.columnId);
+        $('#title').val(articleInfo.title);
+        $('#author').val(articleInfo.author);
+        if(articleInfo.titleImg) {
+        	$("#title-img").attr('src',articleInfo.titleImg); 
+        }else {
+        	$("#title-img").attr('src','upload/images/default_img.jpg'); 
+        }
+        $('#summary').val(articleInfo.summary);
+        $('#key-words').val(articleInfo.keyWords);
+        $('#href').val(articleInfo.href);
+        $('#publish-time').val(articleInfo.publishTime);
+        if(articleInfo.isTop == 0) {
+        	 $("input:radio[name='is-top'][value=0]").attr('checked','true');
+        }else {
+        	 $("input:radio[name='is-top'][value=1]").attr('checked','true');
+        }
+        if(articleInfo.isRecommend == 0) {
+        	$("input:radio[name='is-recommend'][value=0]").attr('checked','true');
+        }else {
+        	$("input:radio[name='is-recommend'][value=1]").attr('checked','true');
+        }
+        $('#sort').val(articleInfo.sort);
+        if(articleInfo.content) {
+        	ue.setContent(articleInfo.content, true);
         }
         $('.article-modal-submit').html('确认修改');
         setEnabled();
@@ -459,7 +484,7 @@ $(function(){
 	$('.article-modal-submit').click(function () {
 	    if (articleModalSubmitType == 1) {
 	        addArticle();
-	    } else {
+	    } else if (articleModalSubmitType == 2) {
 	        updateArticle();
 	    }
 	});

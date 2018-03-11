@@ -4,6 +4,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+    .demo { width: 99.5%; margin: 0 auto; box-sizing: border-box}
+    .demo2 { margin-top: 24px;}
+
+</style>
 </head>
 <body>
 	<div class="index_wap">
@@ -27,7 +32,35 @@
 					</div>
 				</div>
 				<div class="index_new_r">
-                    <div class="index_new_r_tittle">
+					<li onclick="javascript:document.getElementById('index_news01').click();">
+                        <img src="upload/images/img_small.png"/>
+                        <dl>
+                            <dt><a href="#" id="index_news01"> 加拿大總理哈珀會見第珀會見珀會見珀會見珀會見珀會見珀會見</a></dt>
+                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
+                        </dl>
+                    </li>
+                    <li style="background: #F0F2F5" onclick="javascript:document.getElementById('index_news02').click();">
+                        <img src="upload/images/img_small.png"/>
+                        <dl>
+                            <dt><a href="#" id="index_news02">加拿大總理哈珀會見第</a></dt>
+                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
+                        </dl>
+                    </li>
+                    <li onclick="javascript:document.getElementById('index_news03').click();">
+                        <img src="upload/images/img_small.png"/>
+                        <dl>
+                            <dt><a href="#" id="index_news03">加拿大總理哈珀會見第</a></dt>
+                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
+                        </dl>
+                    </li>
+                    <li style="background: #F0F2F5" onclick="javascript:document.getElementById('index_news04').click();">
+                        <img src="upload/images/img_small.png"/>
+                        <dl>
+                            <dt><a href="#" id="index_news04">加拿大總理哈珀會見第</a></dt>
+                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
+                        </dl>
+                    </li>
+                    <%-- <div class="index_new_r_tittle">
                         <h4>最新公告</h4>
                         <a href="#">更多></a>
                     </div>
@@ -35,16 +68,52 @@
                     	<c:forEach  items="${noticeList}" var="item">
 							<li><a href="#">${item.summary}</a> </li>
 						</c:forEach>
-                    </ul>
+                    </ul> --%>
                 </div>	
 			</div>
-			<div class="index_banner">
-				<img src="upload/images/banner.png">
-			</div>
+
+			<div class="demo demo2">
+                <div class="BreakingNewsController easing" id="breakingnews2">
+                    <div class="bn-title"></div>
+                    <ul id="abc">
+                   		<c:forEach  items="${noticeList}" var="item">
+							<li><a href="front/notice/${item.id}" target="_blank">${item.summary}</a> </li>
+						</c:forEach>
+                    </ul>
+                    <div class="bn-arrows"><span class="bn-arrows-left"></span><span class="bn-arrows-right"></span></div>
+                </div>
+            </div>
+			<div class="rolling_new">
+                <div class="news_l_tittle">
+                    <h4>商會新聞</h4>
+                    <a href="#">更多></a>
+                </div>
+                <div class="rolling_new_con">
+                    <div id=demo style="overflow:hidden;width:96%; margin: 10px 2%;" align=center>
+                        <table border=0 align=center cellpadding=1 cellspacing=1 cellspace=0 >
+                            <tr><td valign=top bgcolor=ffffff id=marquePic1>
+                                <table width='100%' border='0' cellspacing='0'>
+                                    <tr>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling1.jpg"  width=230  border=0><br>我會訪問團...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling2.jpg"  width=230  border=0><br>第十七届国...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling3.jpg" width=230 border=0><br>鳳凰頤樂養...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling4.jpg"  width=230 border=0><br>9.29潮...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling5.jpg"  width=230 border=0><br>林少毅會</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling1.jpg"  width=230 border=0><br>我會訪問團...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling2.jpg"  width=230 border=0><br>第十七届国...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling3.jpg"  width=230 border=0><br>鳳凰頤樂養...</a></td>
+                                        <td align=center><a href='#'><img src="upload/images/img_rolling4.jpg"  width=230 border=0><br>9.29潮...</a></td>
+                                    </tr>
+                                </table>
+                            </td><td id=marquePic2 valign=top></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
 			<ul class="news">
 				<c:forEach  items="${newsSummaryList}" var="item" varStatus="status">
 					<c:choose>
-						<c:when test="${status.count == 1}">
+						<%-- <c:when test="${status.count == 1}">
 							<li class="news_l">
 								<div class="news_l_tittle">
 									<h4>${item.columnName}</h4>
@@ -56,14 +125,22 @@
 									</c:forEach>
 								</ul>
 							</li>
-						</c:when>
+						</c:when> --%>
 						<c:when test="${status.count == 2}">
-							<li class="news_c">
+							<li class="news_l_t">
 								<div class="news_l_tittle">
 									<h4>${item.columnName}</h4>
 									<a href="${item.columnPath}">更多></a>
 								</div>
-								<ul class="news_l_con">
+								<ul class="news_l_t_con">
+									<li id="news_l_t_img"><a href="#">
+			                            <img src="upload/images/img_news_small.jpg">
+			                            <dl>
+			                                <dt>廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見……</dt>
+			                                <dd>主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</dd>
+			                            </dl>
+			                            </a>
+			                        </li>
 									<c:forEach  items="${item.articleList}" var="article">
 										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
 									</c:forEach>
@@ -71,12 +148,20 @@
 							</li>
 						</c:when>
 						<c:when test="${status.count == 3}">
-							<li class="news_r" style="margin-right: 0">
+							<li class="news_r_t" style="margin-right: 0">
 								<div class="news_l_tittle">
 									<h4>${item.columnName}</h4>
 									<a href="${item.columnPath}">更多></a>
 								</div>
 								<ul class="news_l_con">
+									<li id="news_l_t_img_r">
+										<a href="#"> <img src="upload/images/img_news_small.jpg">
+				                            <dl>
+				                                <dt>廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見……</dt>
+				                                <dd>主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</dd>
+				                            </dl>
+				                        </a>
+			                        </li>
 									<c:forEach  items="${item.articleList}" var="article">
 										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
 									</c:forEach>
@@ -89,7 +174,69 @@
 				</c:forEach>
 			</ul>
 			<div class="index_landscape">
-				<ul class="index_landscape_tittle">
+				<c:forEach  items="${humanitySummary.columnNameList}" var="item" varStatus="status">
+					<c:choose>
+						<c:when test="${status.count == 1}">
+							<li class="news_l" id="${status.count}">
+			                    <div class="news_l_tittle">
+			                        <h4>${item}</h4>
+			                        <a href="#">更多></a>
+			                    </div>
+			                    <ul class="news_l_con">
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			
+			                    </ul>
+			                </li>
+						</c:when>
+						<c:when test="${status.count == 2}">
+							<li class="news_c" id="${status.count}">
+			                    <div class="news_l_tittle">
+			                        <h4>${item}</h4>
+			                        <a href="#">更多></a>
+			                    </div>
+			                    <ul class="news_l_con">
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			
+			                    </ul>
+			                </li>
+						</c:when>
+						<c:otherwise>
+							<li class="news_r" id="${status.count}" style="margin-right: 0">
+			                    <div class="news_l_tittle">
+			                        <h4>${item}</h4>
+			                        <a href="#">更多></a>
+			                    </div>
+			                    <ul class="news_l_con">
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
+			
+			                    </ul>
+			                </li>
+						</c:otherwise>
+					</c:choose>
+					
+				</c:forEach>
+				<%-- <ul class="index_landscape_tittle">
 					<c:forEach  items="${humanitySummary.columnNameList}" var="item" varStatus="status">
 						<c:choose>
 							<c:when test="${status.count == 1}">
@@ -147,7 +294,10 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-				</ul>
+				</ul> --%>
+			</div>
+			<div class="index_banner">
+				<img src="upload/images/banner.png">
 			</div>
 			<div class="index_bottom">
 				<div class="index_stars">
@@ -182,10 +332,46 @@
 				</div>
 			</div>
 		</div>
+		<div class="index_link rolling_new">
+                <div class="news_l_tittle">
+                    <h4>友情鏈接</h4>
+                    <a href="#">更多></a>
+                </div>
+                <div class="index_link_con">
+                    <ul>
+                        <li><a href="#">加拿大溫哥華潮州同鄉會</a> </li>
+                        <li><a href="#">新加坡潮州八邑会馆 </a> </li>
+                        <li><a href="#">深圳市揭陽商會</a> </li>
+                        <li><a href="#"> 深圳市汕尾商會</a> </li>
+                        <li><a href="#">深圳潮汕商會</a> </li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">深圳市汕頭商會</a> </li>
+                        <li><a href="#">國際潮青聯合會</a> </li>
+                        <li><a href="#">國際潮青聯合會 </a> </li>
+                        <li><a href="#">國際潮團聯誼年會</a> </li>
+                        <li><a href="#">香港潮州商會</a> </li>
+                    </ul>
+                </div>
+            </div>
 		<jsp:include page="common/foot.jsp"></jsp:include>
 	</div>
+	<script type="text/javascript">
+        $(function(){
 
-    <script id="jsID" type="text/javascript">
+            $('#breakingnews2').BreakingNews({
+                title: '最新公告',
+                titlebgcolor: '#E94034',
+                linkhovercolor: '#E94034',
+                border: '1px solid #e8e6e7',
+                timer: 4000,
+                effect: 'slide'
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+    
         jQuery(".nav").slide({
             type:"menu",// 效果类型，针对菜单/导航而引入的参数（默认slide）
             titCell:".nLi", //鼠标触发对象

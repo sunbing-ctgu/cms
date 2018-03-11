@@ -9,12 +9,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <jsp:include page="../common/head.jsp"></jsp:include>
-<link type="text/css" rel="stylesheet" href="admin/js/bootstrap-fileinput/css/fileinput.min.css"/>
-<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/fileinput.min.js"></script>
-<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/locales/zh.js"></script>
 <script type="text/javascript" src="admin/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="admin/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<link type="text/css" rel="stylesheet" href="admin/js/bootstrap-fileinput/css/fileinput.min.css"/>
+<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script type="text/javascript" src="admin/js/bootstrap-fileinput/js/locales/zh.js"></script>
 <script type="text/javascript" src="admin/js/treeview/bootstrap-treeview.js"></script>
 <script type="text/javascript" src="<%=basePath%>admin/js/My97DatePicker/WdatePicker.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
