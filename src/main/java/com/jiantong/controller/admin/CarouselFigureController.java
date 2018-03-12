@@ -12,9 +12,9 @@ import com.jiantong.controller.admin.base.BaseController;
 
 @Controller
 @RequestMapping("/admin/carouselFigureManage")
-public class CarouselFigure extends BaseController {
+public class CarouselFigureController extends BaseController {
 
-	private final static Logger logger = LoggerFactory.getLogger(CarouselFigure.class);
+	private final static Logger logger = LoggerFactory.getLogger(CarouselFigureController.class);
 	
 	@RequestMapping("")
 	public String index(HttpServletRequest request) {
