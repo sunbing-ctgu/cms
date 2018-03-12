@@ -22,4 +22,48 @@
 	<select id="getFrontCarouselFigureList" resultMap="FrontResultMap">
 		SELECT id, title, img_path, href FROM cms_carousel_figure WHERE <![CDATA[ status <> 0 ]]> ORDER BY sort limit 4
 	</select>
+	
+	<select id="getCarouselFigureList" resultMap="FrontResultMap">
+		SELECT * FROM cms_carousel_figure WHERE <![CDATA[ status <> 0 ]]> ORDER BY id desc
+	</select>
+	
+	<insert id="addCarouselFigure" parameterType="com.jiantong.vo.CarouselFigureVo">
+		INSERT INTO cms_carousel_figure(
+		title, img_path, href, sort,
+		status, create_time, update_time)
+		VALUES
+		(
+		#{title},#{imgPath}, #{href}, #{sort},
+		#{status},	#{createTime}, #{updateTime})
+	</insert>
+	<update id="updateCarouselFigure" parameterType="com.jiantong.vo.CarouselFigureVo">
+		UPDATE cms_carousel_figure
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="title !=null and title != ''">
+				title = #{title}, 
+			</if>
+			<if test="imgPath !=null and imgPath != ''">
+				img_path = #{imgPath}, 
+			</if>
+			<if test="href !=null and href != ''">
+				href = #{href}, 
+			</if>
+			<if test="sort !=null and sort != ''">
+				sex = #{sex}, 
+			</if>
+			<if test="tel !=null and tel != ''">
+				sort = #{sort}, 
+			</if>
+			<if test="null != updateTime">update_time=#{updateTime},</if>
+		</trim>
+		WHERE
+		id = #{id}
+	</update>
+	
+	<update id="deleteCarouselFigureList" parameterType="java.util.List">
+		UPDATE cms_carousel_figure set status = 0 where id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach> 
+	</update>
 </mapper>
