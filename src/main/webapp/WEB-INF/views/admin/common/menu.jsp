@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<ul class="submenu">
 			<li class="<c:if test="${fn:contains(sessionScope.index, 'introduceManage')}">active</c:if>">
-				<a href="tables.html">
+				<a href="admin/carouselFigureManage">
 					<i class="menu-icon fa fa-caret-right"></i>
 					轮播图管理
 				</a>
