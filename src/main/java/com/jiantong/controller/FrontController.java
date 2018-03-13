@@ -98,6 +98,7 @@ public class FrontController extends BaseHandler{
 			}
 			request.setAttribute("linksSummary", linksMap);
 			result = "links";
+			break;
 		case 5:
 			//公告类
 			result = "notice";
