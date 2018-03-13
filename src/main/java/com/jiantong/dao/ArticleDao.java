@@ -60,4 +60,6 @@ public interface ArticleDao {
 	public Article getArticleByColumnId(Integer columnId);
 	
 	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
+	
+	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId);
 }

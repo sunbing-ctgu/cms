@@ -72,4 +72,11 @@ public interface ArticleService {
 	 * @return
 	 */
 	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
+	
+	/**
+	 * 获取文章概要列表Top4
+	 * @param columnId
+	 * @return
+	 */
+	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId);
 }

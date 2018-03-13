@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<img class="nav-user-photo" src="admin/assets/avatars/user.png" alt="Jason's Photo" />
 						<span class="user-info">
 							<small>Welcome,</small>
-							Jason
+							${sessionScope.user.username}
 						</span>
 
 						<i class="ace-icon fa fa-caret-down"></i>

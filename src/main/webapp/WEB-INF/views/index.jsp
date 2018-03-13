@@ -32,7 +32,16 @@
 					</div>
 				</div>
 				<div class="index_new_r">
-					<li onclick="javascript:document.getElementById('index_news01').click();">
+						<c:forEach  items="${topArticleList}" var="item">
+							<li>
+		                        <img src="${item.titleImg}"/>
+		                        <dl>
+		                            <dt><a href="front/news/chamber/${item.id}" id="index_news01">${item.title}</a></dt>
+		                            <dd>${item.summary}</dd>
+		                        </dl>
+		                    </li>
+						</c:forEach>
+					<!-- <li onclick="javascript:document.getElementById('index_news01').click();">
                         <img src="upload/images/img_small.png"/>
                         <dl>
                             <dt><a href="#" id="index_news01"> 加拿大總理哈珀會見第珀會見珀會見珀會見珀會見珀會見珀會見</a></dt>
@@ -59,7 +68,7 @@
                             <dt><a href="#" id="index_news04">加拿大總理哈珀會見第</a></dt>
                             <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
                         </dl>
-                    </li>
+                    </li> -->
                     <%-- <div class="index_new_r_tittle">
                         <h4>最新公告</h4>
                         <a href="#">更多></a>
@@ -86,7 +95,7 @@
 			<div class="rolling_new">
                 <div class="news_l_tittle">
                     <h4>商會新聞</h4>
-                    <a href="#">更多></a>
+                    <a href="front/news/chamber">更多></a>
                 </div>
                 <div class="rolling_new_con">
                     <div id=demo style="overflow:hidden;width:96%; margin: 10px 2%;" align=center>
@@ -94,15 +103,17 @@
                             <tr><td valign=top bgcolor=ffffff id=marquePic1>
                                 <table width='100%' border='0' cellspacing='0'>
                                     <tr>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling1.jpg"  width=230  border=0><br>我會訪問團...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling2.jpg"  width=230  border=0><br>第十七届国...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling3.jpg" width=230 border=0><br>鳳凰頤樂養...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling4.jpg"  width=230 border=0><br>9.29潮...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling5.jpg"  width=230 border=0><br>林少毅會</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling1.jpg"  width=230 border=0><br>我會訪問團...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling2.jpg"  width=230 border=0><br>第十七届国...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling3.jpg"  width=230 border=0><br>鳳凰頤樂養...</a></td>
-                                        <td align=center><a href='#'><img src="upload/images/img_rolling4.jpg"  width=230 border=0><br>9.29潮...</a></td>
+                                    	<c:forEach  items="${newsSummaryList}" var="item" varStatus="status">
+											<c:choose>
+												<c:when test="${status.count == 1}">
+													<c:forEach  items="${item.articleList}" var="article">
+														<td align=center><a href='${item.columnPath}/${article.id}'><img src="${article.titleImg}"  width=230  border=0><br>...</a></td>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
                                     </tr>
                                 </table>
                             </td><td id=marquePic2 valign=top></td></tr>
@@ -133,16 +144,22 @@
 									<a href="${item.columnPath}">更多></a>
 								</div>
 								<ul class="news_l_t_con">
-									<li id="news_l_t_img"><a href="#">
-			                            <img src="upload/images/img_news_small.jpg">
-			                            <dl>
-			                                <dt>廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見……</dt>
-			                                <dd>主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</dd>
-			                            </dl>
-			                            </a>
-			                        </li>
-									<c:forEach  items="${item.articleList}" var="article">
-										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									<c:forEach  items="${item.articleList}" var="article" varStatus="status">
+										<c:choose>
+											<c:when test="${status.index==0}">
+												<li id="news_l_t_img"><a href="${item.columnPath}/${article.id}">
+						                            <img src="${article.titleImg}">
+						                            <dl>
+						                                <dt>${article.title}</dt>
+						                                <dd>${article.summary}……</dd>
+						                            </dl>
+						                            </a>
+						                        </li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</ul>
 							</li>
@@ -154,16 +171,22 @@
 									<a href="${item.columnPath}">更多></a>
 								</div>
 								<ul class="news_l_con">
-									<li id="news_l_t_img_r">
-										<a href="#"> <img src="upload/images/img_news_small.jpg">
-				                            <dl>
-				                                <dt>廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見……</dt>
-				                                <dd>主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</dd>
-				                            </dl>
-				                        </a>
-			                        </li>
-									<c:forEach  items="${item.articleList}" var="article">
-										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									<c:forEach  items="${item.articleList}" var="article" varStatus="status">
+										<c:choose>
+											<c:when test="${status.index==0}">
+												<li id="news_l_t_img_r"><a href="${item.columnPath}/${article.id}">
+						                            <img src="${article.titleImg}">
+						                            <dl>
+						                                <dt>${article.title}</dt>
+						                                <dd>${article.summary}……</dd>
+						                            </dl>
+						                            </a>
+						                        </li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</ul>
 							</li>
@@ -180,18 +203,12 @@
 							<li class="news_l" id="${status.count}">
 			                    <div class="news_l_tittle">
 			                        <h4>${item}</h4>
-			                        <a href="#">更多></a>
+			                        <a href="front/humanity/chaoshan">更多></a>
 			                    </div>
 			                    <ul class="news_l_con">
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			
+			                        <c:forEach  items="${humanitySummary.articleList}" var="article" varStatus="status">
+										<li><a href="front/humanity/chaoshan/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									</c:forEach>
 			                    </ul>
 			                </li>
 						</c:when>
@@ -199,18 +216,12 @@
 							<li class="news_c" id="${status.count}">
 			                    <div class="news_l_tittle">
 			                        <h4>${item}</h4>
-			                        <a href="#">更多></a>
+			                        <a href="front/humanity/canada">更多></a>
 			                    </div>
 			                    <ul class="news_l_con">
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			
+			                        <c:forEach  items="${humanitySummary.articleList}" var="article" varStatus="status">
+										<li><a href="front/humanity/canada/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									</c:forEach>
 			                    </ul>
 			                </li>
 						</c:when>
@@ -218,18 +229,12 @@
 							<li class="news_r" id="${status.count}" style="margin-right: 0">
 			                    <div class="news_l_tittle">
 			                        <h4>${item}</h4>
-			                        <a href="#">更多></a>
+			                        <a href="front/humanity/information">更多></a>
 			                    </div>
 			                    <ul class="news_l_con">
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見學源接見黨組書記、主席程……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			                        <li><a href="#"> 廣東省僑聯黨組書記、主席程學源接見……</a><span>11-09</span></li>
-			
+									<c:forEach  items="${humanitySummary.articleList}" var="article" varStatus="status">
+										<li><a href="front/humanity/information/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									</c:forEach>
 			                    </ul>
 			                </li>
 						</c:otherwise>

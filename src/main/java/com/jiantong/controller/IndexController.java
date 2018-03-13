@@ -52,6 +52,9 @@ public class IndexController extends BaseHandler{
 		//轮播图
 		List<CarouselFigure> frontCarouselFigureList = carouselFigureService.getFrontCarouselFigureList();
 		request.setAttribute("frontCarouselFigureList", frontCarouselFigureList);
+		Column chamberColumn = columnService.getColumnByPath("front/news/chamber", channel);
+		List<ArticleSummary> topArticleList = articleService.getArticleListByColumnId(chamberColumn.getId());
+		request.setAttribute("topArticleList", topArticleList);
 		//公告
 		List<ArticleSummary> noticeList = articleService.getArticleListByColumnId(26);
 		request.setAttribute("noticeList", noticeList);
