@@ -55,9 +55,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="col-xs-10">
 						<div class="row form-horizontal cms-form-horizontal">
 							<div class="col-xs-6 form-group">
-								<label class="col-sm-3  control-label">栏目名:</label>
+								<label class="col-sm-3  control-label">图片名:</label>
 								<div class="col-sm-9">
-									<input id="columnNameSearch" class="input-sm" type="text"
+									<input id="titleSearch" class="input-sm" type="text"
 										aria-controls="sample-table-2" />
 								</div>
 							</div>
@@ -71,10 +71,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="col-xs-12">
 						<div>
 							<h5 class="bigger lighter">
-								<a id="add-carouseFigure-btn" class="btn btn-xs btn-primary"
-									data-toggle="modal" data-id="-1" data-target="#carouseFigure-modal">
+								<a id="add-carouselFigure-btn" class="btn btn-xs btn-primary"
+									data-toggle="modal" data-id="-1" data-target="#carouselFigure-modal">
 									<i class="glyphicon glyphicon-plus"></i>新增
-								</a> <a id="del-carouseFigure-btn" class="btn btn-xs btn-danger"> <i
+								</a> <a id="del-carouselFigure-btn" class="btn btn-xs btn-danger"> <i
 									class="glyphicon glyphicon-trash"></i>删除
 								</a>
 							</h5>
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<tr>
 											<th class="center col-md-1"><label
 												class="position-relative"> <input type="checkbox"
-													class="ace checkbox-column-all" /> <span class="lbl"></span>
+													class="ace checkbox-carouselFigure-all" /> <span class="lbl"></span>
 											</label></th>
 											<th class="col-md-1">图片名</th>
 											<th class="col-md-3">图片</th>
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<!-- Modal -->
-	<div class="modal fade" id="carouseFigure-modal" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" data-backdrop="static">
+	<div class="modal fade" id="carouselFigure-modal" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" data-backdrop="static">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="column-modal-title"></h4>
+					<h4 class="modal-title" id="carouselFigure-modal-title"></h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
@@ -185,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary column-modal-submit"></button>
+					<button type="button" class="btn btn-primary carouselFigure-modal-submit"></button>
 				</div>
 			</div>
 		</div>

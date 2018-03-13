@@ -15,6 +15,8 @@ public class CarouselFigureVo {
 	
 	private String title;
 	
+	private String imgPath;
+	
 	private String href;
 	
 	private Integer sort;
@@ -39,6 +41,14 @@ public class CarouselFigureVo {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 	public String getHref() {
