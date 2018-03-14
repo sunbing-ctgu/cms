@@ -3,13 +3,13 @@ package com.jiantong.pojo;
 import java.util.List;
 
 /**
- * 首页新闻栏
- * Title:NewsSummary
+ * 首页栏目概要信息（新闻、人文）
+ * Title:ColumnSummary
  * Company:jiantong
  * @author sunbing
- * @date 2018年1月25日 上午12:53:48
+ * @date 2018年3月15日 上午1:01:44
  */
-public class NewsSummary {
+public class ColumnSummary {
 
 	/**栏目名*/
 	private String columnName;

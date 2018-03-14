@@ -41,43 +41,6 @@
 		                        </dl>
 		                    </li>
 						</c:forEach>
-					<!-- <li onclick="javascript:document.getElementById('index_news01').click();">
-                        <img src="upload/images/img_small.png"/>
-                        <dl>
-                            <dt><a href="#" id="index_news01"> 加拿大總理哈珀會見第珀會見珀會見珀會見珀會見珀會見珀會見</a></dt>
-                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-                        </dl>
-                    </li>
-                    <li style="background: #F0F2F5" onclick="javascript:document.getElementById('index_news02').click();">
-                        <img src="upload/images/img_small.png"/>
-                        <dl>
-                            <dt><a href="#" id="index_news02">加拿大總理哈珀會見第</a></dt>
-                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-                        </dl>
-                    </li>
-                    <li onclick="javascript:document.getElementById('index_news03').click();">
-                        <img src="upload/images/img_small.png"/>
-                        <dl>
-                            <dt><a href="#" id="index_news03">加拿大總理哈珀會見第</a></dt>
-                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-                        </dl>
-                    </li>
-                    <li style="background: #F0F2F5" onclick="javascript:document.getElementById('index_news04').click();">
-                        <img src="upload/images/img_small.png"/>
-                        <dl>
-                            <dt><a href="#" id="index_news04">加拿大總理哈珀會見第</a></dt>
-                            <dd>加拿大總理史蒂文哈柏於5月27日在加拿大渥太華會見…</dd>
-                        </dl>
-                    </li> -->
-                    <%-- <div class="index_new_r_tittle">
-                        <h4>最新公告</h4>
-                        <a href="#">更多></a>
-                    </div>
-                    <ul class="index_new_r_con">
-                    	<c:forEach  items="${noticeList}" var="item">
-							<li><a href="#">${item.summary}</a> </li>
-						</c:forEach>
-                    </ul> --%>
                 </div>	
 			</div>
 
@@ -124,19 +87,6 @@
 			<ul class="news">
 				<c:forEach  items="${newsSummaryList}" var="item" varStatus="status">
 					<c:choose>
-						<%-- <c:when test="${status.count == 1}">
-							<li class="news_l">
-								<div class="news_l_tittle">
-									<h4>${item.columnName}</h4>
-									<a href="${item.columnPath}">更多></a>
-								</div>
-								<ul class="news_l_con">
-									<c:forEach  items="${item.articleList}" var="article">
-										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
-									</c:forEach>
-								</ul>
-							</li>
-						</c:when> --%>
 						<c:when test="${status.count == 2}">
 							<li class="news_l_t">
 								<div class="news_l_tittle">
@@ -197,17 +147,17 @@
 				</c:forEach>
 			</ul>
 			<div class="index_landscape">
-				<c:forEach  items="${humanitySummary.columnNameList}" var="item" varStatus="status">
+				<c:forEach  items="${humanitySummaryList}" var="item" varStatus="status">
 					<c:choose>
 						<c:when test="${status.count == 1}">
 							<li class="news_l" id="${status.count}">
 			                    <div class="news_l_tittle">
-			                        <h4>${item}</h4>
-			                        <a href="front/humanity/chaoshan">更多></a>
+			                        <h4>${item.columnName}</h4>
+			                        <a href="${item.columnPath}">更多></a>
 			                    </div>
 			                    <ul class="news_l_con">
-			                        <c:forEach  items="${humanitySummary.articleList}" var="article" varStatus="status">
-										<li><a href="front/humanity/chaoshan/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+			                        <c:forEach  items="${item.articleList}" var="article" varStatus="status">
+										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
 									</c:forEach>
 			                    </ul>
 			                </li>
@@ -215,12 +165,12 @@
 						<c:when test="${status.count == 2}">
 							<li class="news_c" id="${status.count}">
 			                    <div class="news_l_tittle">
-			                        <h4>${item}</h4>
-			                        <a href="front/humanity/canada">更多></a>
+			                        <h4>${item.columnName}</h4>
+			                        <a href="${item.columnPath}">更多></a>
 			                    </div>
 			                    <ul class="news_l_con">
-			                        <c:forEach  items="${humanitySummary.articleList}" var="article" varStatus="status">
-										<li><a href="front/humanity/canada/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+			                        <c:forEach  items="${item.articleList}" var="article" varStatus="status">
+										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
 									</c:forEach>
 			                    </ul>
 			                </li>
@@ -228,12 +178,12 @@
 						<c:otherwise>
 							<li class="news_r" id="${status.count}" style="margin-right: 0">
 			                    <div class="news_l_tittle">
-			                        <h4>${item}</h4>
-			                        <a href="front/humanity/information">更多></a>
+			                        <h4>${item.columnName}</h4>
+			                        <a href="${item.columnPath}">更多></a>
 			                    </div>
 			                    <ul class="news_l_con">
-									<c:forEach  items="${humanitySummary.articleList}" var="article" varStatus="status">
-										<li><a href="front/humanity/information/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
+									<c:forEach  items="${item.articleList}" var="article" varStatus="status">
+										<li><a href="${item.columnPath}/${article.id}"> ${article.summary}</a><span>${article.date}</span></li>
 									</c:forEach>
 			                    </ul>
 			                </li>
@@ -241,65 +191,6 @@
 					</c:choose>
 					
 				</c:forEach>
-				<%-- <ul class="index_landscape_tittle">
-					<c:forEach  items="${humanitySummary.columnNameList}" var="item" varStatus="status">
-						<c:choose>
-							<c:when test="${status.count == 1}">
-								<li class="current" id="s${status.count}">${item}</li>
-							</c:when>
-							<c:otherwise>
-								<li class="current1" id="s${status.count}">${item}</li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</ul>
-				<ul class="index_landscape_con">
-					<c:forEach  items="${humanitySummary.articleList}" var="item" varStatus="status">
-						<c:choose>
-							<c:when test="${status.count == 1}">
-								<li id="s11">
-									<div class="index_landscape_img">
-										<img src="${item.titleImg}">
-									</div>
-									<div class="index_landscape_in">
-										<h4>${item.title}</h4>
-										<hr color="#eaeaea" />
-										<p>${item.summary}</p>
-										<a href="front/humanity/chaoshan">查看更多+</a>
-									</div>
-								</li>
-							</c:when>
-							<c:when test="${status.count == 2}">
-								<li style="display: none" id="s22">
-									<div class="index_landscape_img">
-										<img src="${item.titleImg}">
-									</div>
-									<div class="index_landscape_in">
-										<h4>${item.title}</h4>
-										<hr color="#eaeaea" />
-										<p>${item.summary}</p>
-										<a href="front/humanity/canada">查看更多+</a>
-									</div>
-								</li>
-							</c:when>
-							<c:when test="${status.count == 3}">
-								<li style="display: none" id="s33">
-									<div class="index_landscape_img">
-										<img src="${item.titleImg}">
-									</div>
-									<div class="index_landscape_in">
-										<h4>${item.title}</h4>
-										<hr color="#eaeaea" />
-										<p>${item.summary}</p>
-										<a href="front/humanity/information">查看更多+</a>
-									</div>
-								</li>
-							</c:when>
-							<c:otherwise>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</ul> --%>
 			</div>
 			<div class="index_banner">
 				<img src="upload/images/banner.png">

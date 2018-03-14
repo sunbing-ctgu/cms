@@ -15,8 +15,7 @@ import com.jiantong.bean.ColumnTree;
 import com.jiantong.entity.CarouselFigure;
 import com.jiantong.entity.Column;
 import com.jiantong.pojo.ArticleSummary;
-import com.jiantong.pojo.HumanitySummary;
-import com.jiantong.pojo.NewsSummary;
+import com.jiantong.pojo.ColumnSummary;
 import com.jiantong.service.ArticleService;
 import com.jiantong.service.CarouselFigureService;
 import com.jiantong.service.ColumnService;
@@ -61,9 +60,9 @@ public class IndexController extends BaseHandler{
 		request.setAttribute("noticeList", noticeList);
 		//新闻动态
 		Column newsColumn = columnService.getColumnByPath("front/news", channel);
-		List<NewsSummary> newsSummaryList = new ArrayList<>();
+		List<ColumnSummary> newsSummaryList = new ArrayList<>();
 		for(Column column : newsColumn.getChildColumn()) {
-			NewsSummary newsSummary = new NewsSummary();
+			ColumnSummary newsSummary = new ColumnSummary();
 			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
 			newsSummary.setColumnName(column.getName());
 			newsSummary.setColumnPath(column.getPath());
@@ -73,7 +72,17 @@ public class IndexController extends BaseHandler{
 		request.setAttribute("newsSummaryList", newsSummaryList);
 		//人文风光
 		Column humanityColumn = columnService.getColumnByPath("front/humanity", channel);
-		HumanitySummary humanitySummary = new HumanitySummary();
+		List<ColumnSummary> humanitySummaryList = new ArrayList<>();
+		for(Column column : humanityColumn.getChildColumn()) {
+			ColumnSummary humanitySummary = new ColumnSummary();
+			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+			humanitySummary.setColumnName(column.getName());
+			humanitySummary.setColumnPath(column.getPath());
+			humanitySummary.setArticleList(articleList);
+			humanitySummaryList.add(humanitySummary);
+		}
+		request.setAttribute("humanitySummaryList", humanitySummaryList);
+		/*HumanitySummary humanitySummary = new HumanitySummary();
 		List<String> columnNameList = new ArrayList<>();
 		List<ArticleSummary> humanityArticleList  = new ArrayList<>();
 		for(Column column : humanityColumn.getChildColumn()) {
@@ -83,7 +92,7 @@ public class IndexController extends BaseHandler{
 		}
 		humanitySummary.setColumnNameList(columnNameList);
 		humanitySummary.setArticleList(humanityArticleList);
-		request.setAttribute("humanitySummary", humanitySummary);
+		request.setAttribute("humanitySummary", humanitySummary);*/
 		//加拿大潮人
 		List<ArticleSummary> chaorenList = articleService.getArticleListByColumnId(4);
 		request.setAttribute("chaorenList", chaorenList);
