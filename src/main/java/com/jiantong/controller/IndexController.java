@@ -56,7 +56,8 @@ public class IndexController extends BaseHandler{
 		List<ArticleSummary> topArticleList = articleService.getArticleListByColumnId(chamberColumn.getId());
 		request.setAttribute("topArticleList", topArticleList);
 		//公告
-		List<ArticleSummary> noticeList = articleService.getArticleListByColumnId(26);
+		Column noticeColumn = columnService.getColumnByPath("front/notice", channel);
+		List<ArticleSummary> noticeList = articleService.getArticleListByColumnId(noticeColumn.getId());
 		request.setAttribute("noticeList", noticeList);
 		//新闻动态
 		Column newsColumn = columnService.getColumnByPath("front/news", channel);
