@@ -71,7 +71,15 @@ public interface ArticleService {
 	 * @param columnId
 	 * @return
 	 */
-	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
+	public PageInfo<ArticleSummary> getArticleListByColumnId(Integer columnId);
+	
+	/**
+	 * 获取文章概要列表 分页
+	 * @param columnId
+	 * @param pageNum
+	 * @return
+	 */
+	public PageInfo<ArticleSummary> getArticleListByColumnId(Integer columnId, Integer pageNum);
 	
 	/**
 	 * 获取文章概要列表Top4
@@ -79,4 +87,11 @@ public interface ArticleService {
 	 * @return
 	 */
 	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId);
+	
+	/**
+	 * 获取文章概要列表All
+	 * @param columnId
+	 * @return
+	 */
+	public List<ArticleSummary> getArticleListAllByColumnId(Integer columnId);
 }

@@ -19,7 +19,7 @@
            </div>
 
            <ul class="introduce_r_contact">
-           		<c:forEach  items="${articleList}" var="item">
+           		<c:forEach  items="${pageInfo.list}" var="item">
            			<li class="news_li">
                        <div class="news_time">
                            <div class="news_time_day">${item.date}</div>
@@ -33,13 +33,14 @@
            		</c:forEach>	
                </ul>
            <div class="page">
-               <div value="1 0"></div>
+               <div value="10"></div>
                <div id="page" class="page_div"></div>
            </div>
        </div>
    </div>
 <jsp:include page="common/foot.jsp"></jsp:include>
 </div>
+<script type="text/javascript" src="js/paging.js"></script>
 <script id="jsID" type="text/javascript">
     jQuery(".nav").slide({
         type:"menu",// 效果类型，针对菜单/导航而引入的参数（默认slide）
@@ -52,9 +53,9 @@
     });
   	//分页
     $("#page").paging({
-        pageNo:5,
-        totalPage: 9,
-        totalSize: 300,
+        pageNo:parseInt("${pageInfo.pageNum}"),
+        totalPage:parseInt("${pageInfo.pages}"),
+        totalSize: parseInt("${pageInfo.total}"),
         callback: function(num) {
             alert(num)
         }

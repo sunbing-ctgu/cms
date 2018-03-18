@@ -21,6 +21,7 @@
 		},
 		creatHtml: function() {
 			var me = this;
+			me.element.html('');
 			var content = "";
 			var current = me.options.pageNo;
 			var total = me.options.totalPage;
@@ -66,7 +67,8 @@
 				}
 				//页面总数小于6的时候
 			} else {
-				for(var i = 1; i < total + 1; i++) {
+				let max = total+1;
+				for(let i = 1; i < max; i++) {
 					if(current == i) {
 						content += "<a class='current'>" + i + "</a>";
 					} else {

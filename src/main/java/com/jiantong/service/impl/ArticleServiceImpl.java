@@ -70,15 +70,39 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<ArticleSummary> getArticleListByColumnId(Integer columnId) {
-		// TODO Auto-generated method stub
-		return articleDao.getArticleListByColumnId(columnId);
-	}
-
-	@Override
 	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId) {
 		// TODO Auto-generated method stub
 		return articleDao.getArticleListTopByColumnId(columnId);
+	}
+
+	@Override
+	public PageInfo<ArticleSummary> getArticleListByColumnId(Integer columnId) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(1, 10);
+		List<ArticleSummary> articleList = articleDao.getArticleListByColumnId(columnId);
+		PageInfo<ArticleSummary> result = null;
+		if (null != articleList) {
+			result = new PageInfo<ArticleSummary>(articleList);
+		}
+		return result;
+	}
+
+	@Override
+	public PageInfo<ArticleSummary> getArticleListByColumnId(Integer columnId, Integer pageNum) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(pageNum, 10);
+		List<ArticleSummary> articleList = articleDao.getArticleListByColumnId(columnId);
+		PageInfo<ArticleSummary> result = null;
+		if (null != articleList) {
+			result = new PageInfo<ArticleSummary>(articleList);
+		}
+		return result;
+	}
+
+	@Override
+	public List<ArticleSummary> getArticleListAllByColumnId(Integer columnId) {
+		// TODO Auto-generated method stub
+		return articleDao.getArticleListByColumnId(columnId);
 	}
 
 }

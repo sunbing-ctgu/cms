@@ -52,18 +52,18 @@ public class IndexController extends BaseHandler{
 		List<CarouselFigure> frontCarouselFigureList = carouselFigureService.getFrontCarouselFigureList();
 		request.setAttribute("frontCarouselFigureList", frontCarouselFigureList);
 		Column chamberColumn = columnService.getColumnByPath("front/news/chamber", channel);
-		List<ArticleSummary> topArticleList = articleService.getArticleListByColumnId(chamberColumn.getId());
+		List<ArticleSummary> topArticleList = articleService.getArticleListAllByColumnId(chamberColumn.getId());
 		request.setAttribute("topArticleList", topArticleList);
 		//公告
 		Column noticeColumn = columnService.getColumnByPath("front/notice", channel);
-		List<ArticleSummary> noticeList = articleService.getArticleListByColumnId(noticeColumn.getId());
+		List<ArticleSummary> noticeList = articleService.getArticleListAllByColumnId(noticeColumn.getId());
 		request.setAttribute("noticeList", noticeList);
 		//新闻动态
 		Column newsColumn = columnService.getColumnByPath("front/news", channel);
 		List<ColumnSummary> newsSummaryList = new ArrayList<>();
 		for(Column column : newsColumn.getChildColumn()) {
 			ColumnSummary newsSummary = new ColumnSummary();
-			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+			List<ArticleSummary> articleList = articleService.getArticleListAllByColumnId(column.getId());
 			newsSummary.setColumnName(column.getName());
 			newsSummary.setColumnPath(column.getPath());
 			newsSummary.setArticleList(articleList);
@@ -75,7 +75,7 @@ public class IndexController extends BaseHandler{
 		List<ColumnSummary> humanitySummaryList = new ArrayList<>();
 		for(Column column : humanityColumn.getChildColumn()) {
 			ColumnSummary humanitySummary = new ColumnSummary();
-			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+			List<ArticleSummary> articleList = articleService.getArticleListAllByColumnId(column.getId());
 			humanitySummary.setColumnName(column.getName());
 			humanitySummary.setColumnPath(column.getPath());
 			humanitySummary.setArticleList(articleList);
@@ -94,7 +94,7 @@ public class IndexController extends BaseHandler{
 		humanitySummary.setArticleList(humanityArticleList);
 		request.setAttribute("humanitySummary", humanitySummary);*/
 		//加拿大潮人
-		List<ArticleSummary> chaorenList = articleService.getArticleListByColumnId(4);
+		List<ArticleSummary> chaorenList = articleService.getArticleListAllByColumnId(4);
 		request.setAttribute("chaorenList", chaorenList);
 		return "index";
 	}

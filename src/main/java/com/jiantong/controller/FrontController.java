@@ -8,12 +8,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
+import com.jiantong.bean.base.PageBean;
+import com.jiantong.common.ResponseJsonData;
 import com.jiantong.entity.Article;
 import com.jiantong.entity.Column;
 import com.jiantong.pojo.ArticleSummary;
@@ -24,6 +31,9 @@ import com.jiantong.service.ColumnService;
 @Controller
 @RequestMapping(value = "/front")
 public class FrontController extends BaseHandler{
+	
+	private static final Logger logger = LoggerFactory.getLogger(FrontController.class);
+	
 	private static final String BASEPATH = "front/";
 	
 	@Autowired
@@ -55,7 +65,8 @@ public class FrontController extends BaseHandler{
 		}
 		Integer type = rootColumn.getType();
 		Article article = null;
-		List<ArticleSummary> articleList = null;
+		PageInfo<ArticleSummary> articleList = null;
+		List<ArticleSummary> articleListAll = null;
 		switch (type) {
 		//简介类
 		case 0:
@@ -68,27 +79,27 @@ public class FrontController extends BaseHandler{
 		case 1:
 			result = "news";
 			articleList = articleService.getArticleListByColumnId(column.getId());
-			request.setAttribute("articleList", articleList);
+			request.setAttribute("pageInfo", articleList);
 			break;
 		//展示类
 		case 2:
 			result = "imageTextDisplay";
-			articleList = articleService.getArticleListByColumnId(column.getId());
-			request.setAttribute("articleList", articleList);
+			articleListAll = articleService.getArticleListAllByColumnId(column.getId());
+			request.setAttribute("articleList", articleListAll);
 			break;
 		//图片一览类
 		case 3:
 			result = "imageDisplay";
-			articleList = articleService.getArticleListByColumnId(column.getId());
-			request.setAttribute("articleList", articleList);
+			articleListAll = articleService.getArticleListAllByColumnId(column.getId());
+			request.setAttribute("articleList", articleListAll);
 			break;
 		//超链接类
 		case 4:
 			Map<String,List<LinksSummary>> linksMap = new LinkedHashMap<>();
 			for(Column childColumn : rootColumn.getChildColumn()) {
 				List<LinksSummary> linksSummaryList = new ArrayList<>();
-				articleList = articleService.getArticleListByColumnId(childColumn.getId());
-				for(ArticleSummary articleSummary : articleList) {
+				articleListAll = articleService.getArticleListAllByColumnId(childColumn.getId());
+				for(ArticleSummary articleSummary : articleListAll) {
 					LinksSummary linksSummary = new LinksSummary();
 					linksSummary.setTitle(articleSummary.getTitle());
 					linksSummary.setHref(articleSummary.getHref());
@@ -102,11 +113,47 @@ public class FrontController extends BaseHandler{
 		case 5:
 			//公告类
 			result = "notice";
-			articleList = articleService.getArticleListByColumnId(column.getId());
+			articleListAll = articleService.getArticleListAllByColumnId(column.getId());
 			request.setAttribute("articleList", articleList);
 			break;
 		default:
 			break;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/{rootColumnPath}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonData getArticleList(HttpServletRequest request, @PathVariable String rootColumnPath, @RequestBody PageBean data) {
+		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
+		HttpSession session = getSession(request);
+		Integer channel = getChannel(request);
+		String path = BASEPATH + rootColumnPath;
+		session.setAttribute(CURRENT_PATH_SESSION, path);
+		Column rootColumn = columnService.getColumnByPath(path, channel);
+		request.setAttribute("rootColumn", rootColumn);
+		Column column = null;
+		if(null != rootColumn.getChildColumn() && rootColumn.getChildColumn().size() > 0) {
+			column = rootColumn.getChildColumn().get(0);
+			request.setAttribute("column", column);
+		}else {
+			column = rootColumn;
+		}
+		PageInfo<ArticleSummary> articleList = null;
+		try {
+			articleList = articleService.getArticleListByColumnId(column.getId(), data.getPageNum());
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("getArticleList Exception", e);
+		}
+		if (flag) {
+			result.setRetcode(SUCCESS);
+			result.setPageInfo(articleList);
+		} else {
+			result.setRetcode(FAIL);
+			result.setMsg("获取文章列表失败");
 		}
 		return result;
 	}
@@ -140,8 +187,8 @@ public class FrontController extends BaseHandler{
 			break;
 		case 1:
 			result = "news";
-			List<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
-			request.setAttribute("articleList", articleList);
+			PageInfo<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+			request.setAttribute("pageInfo", articleList);
 			break;
 		case 2:
 			break;

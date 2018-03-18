@@ -104,14 +104,14 @@
 		SELECT id, title, title_img, summary, href, year(publish_time) _year, DATE_FORMAT(publish_time, '%m-%d') _date
 		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
 		AND column_id = #{columnId}
-		ORDER BY is_top desc, sort asc
+		ORDER BY is_top desc, sort asc, publish_time desc
 	</select>
 	
 	<select id="getArticleListTopByColumnId" parameterType="Integer" resultMap="SummaryResultMap">
 		SELECT id, title, title_img, summary, href, year(publish_time) _year, DATE_FORMAT(publish_time, '%m-%d') _date
 		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
 		AND column_id = #{columnId}
-		ORDER BY is_top desc, sort asc limit 4
+		ORDER BY is_top desc, sort asc, publish_time desc limit 4
 	</select>
 	
 </mapper>
