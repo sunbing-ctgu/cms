@@ -48,7 +48,7 @@ public class FrontController extends BaseHandler{
 	 * @return
 	 */
 	@RequestMapping(value = "/{rootColumnPath}", method = RequestMethod.GET)
-	public String getArticleList(HttpServletRequest request, @PathVariable String rootColumnPath) {
+	public String getRootColumnArticleList(HttpServletRequest request, @PathVariable String rootColumnPath) {
 		String result = rootColumnPath;
 		HttpSession session = getSession(request);
 		Integer channel = getChannel(request);
@@ -124,7 +124,7 @@ public class FrontController extends BaseHandler{
 	
 	@RequestMapping(value = "/{rootColumnPath}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonData getArticleList(HttpServletRequest request, @PathVariable String rootColumnPath, @RequestBody PageBean data) {
+	public ResponseJsonData getRootColumnArticleList(HttpServletRequest request, @PathVariable String rootColumnPath, @RequestBody PageBean data) {
 		ResponseJsonData result = new ResponseJsonData();
 		boolean flag = false;
 		HttpSession session = getSession(request);
@@ -166,7 +166,7 @@ public class FrontController extends BaseHandler{
 	 * @return
 	 */
 	@RequestMapping(value = "/{rootColumnPath}/{columnPath}", method = RequestMethod.GET)
-	public String getArticleDetail(HttpServletRequest request, @PathVariable String rootColumnPath, @PathVariable String columnPath) {
+	public String getColumnArticleList(HttpServletRequest request, @PathVariable String rootColumnPath, @PathVariable String columnPath) {
 		HttpSession session = getSession(request);
 		Integer channel = getChannel(request);
 		String rootPath = BASEPATH + rootColumnPath;
@@ -195,6 +195,38 @@ public class FrontController extends BaseHandler{
 
 		default:
 			break;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/{rootColumnPath}/{columnPath}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonData getColumnArticleList(HttpServletRequest request, @PathVariable String rootColumnPath, @PathVariable String columnPath, @RequestBody PageBean data) {
+		ResponseJsonData result = new ResponseJsonData();
+		boolean flag = false;
+		HttpSession session = getSession(request);
+		Integer channel = getChannel(request);
+		String rootPath = BASEPATH + rootColumnPath;
+		String path = BASEPATH + rootColumnPath + "/" + columnPath;
+		session.setAttribute(CURRENT_PATH_SESSION, rootPath);
+		Column rootColumn = columnService.getColumnByPath(rootPath, channel);
+		Column column = columnService.getColumnByPath(path, channel);
+		request.setAttribute("rootColumn", rootColumn);
+		request.setAttribute("column", column);
+		PageInfo<ArticleSummary> articleList = null;
+		try {
+			articleList = articleService.getArticleListByColumnId(column.getId(), data.getPageNum());
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("getArticleList Exception", e);
+		}
+		if (flag) {
+			result.setRetcode(SUCCESS);
+			result.setPageInfo(articleList);
+		} else {
+			result.setRetcode(FAIL);
+			result.setMsg("获取文章列表失败");
 		}
 		return result;
 	}

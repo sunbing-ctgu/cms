@@ -56,9 +56,42 @@
         pageNo:parseInt("${pageInfo.pageNum}"),
         totalPage:parseInt("${pageInfo.pages}"),
         totalSize: parseInt("${pageInfo.total}"),
-        callback: function(num) {
-            alert(num)
+        callback: function(pageNum) {
+        	queryData(pageNum);
         }
-    })
+    });
+  	
+  	function queryData(pageNum) {
+  		$.ajax({
+  			url: '${column.path}',
+  			type: 'POST',
+			async: true,
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify({'pageNum':pageNum}),
+            dataType: 'json',
+            success: function(data) {
+            	console.log(data);
+             	$(".introduce_r_contact").html('');
+             	var res = data.pageInfo;
+             	for(var i = 0; i< res.list.length; i++){
+             		var article = res.list[i];
+             		var htmlValue ="<li class='news_li'><div class='news_time'><div class='news_time_day'>"+article.date+"</div><div class='news_time_year'>"+article.year+"</div></div><dl class='news_con'><dt><a href='${column.path}/"+article.id+"'> "+article.title+"</a></dt><dd>"+isNull(article.summary)+"</dd></dl></li>"
+	             	$(".introduce_r_contact").append(htmlValue);
+             	}
+            	$("#page").paging({
+                    pageNo:parseInt(res.pageNum),
+                    totalPage:parseInt(res.pages),
+                    totalSize: parseInt(res.total),
+                    callback: function(pageNum) {
+                    	queryData(pageNum);
+                    }
+                });
+            }
+  		});
+  	}
+  	
+  	function isNull(data){ 
+  		return (data == undefined || data == null) ? "" : data; 
+  	}
 </script>
 </html>
