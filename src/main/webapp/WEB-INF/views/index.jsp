@@ -34,7 +34,7 @@
 				<div class="index_new_r">
 						<c:forEach  items="${topArticleList}" var="item">
 							<li>
-		                        <img src="${item.titleImg}"/>
+		                        <a href="front/news/chamber/${item.id}"><img src="${item.titleImg}"/></a>
 		                        <dl>
 		                            <dt><a href="front/news/chamber/${item.id}" id="index_news01">${item.title}</a></dt>
 		                            <dd>${item.summary}</dd>

@@ -82,11 +82,11 @@ public interface ArticleService {
 	public PageInfo<ArticleSummary> getArticleListByColumnId(Integer columnId, Integer pageNum);
 	
 	/**
-	 * 获取文章概要列表Top4
+	 * 获取文章概要列表Top10
 	 * @param columnId
 	 * @return
 	 */
-	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId);
+	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId, Integer top);
 	
 	/**
 	 * 获取文章概要列表All

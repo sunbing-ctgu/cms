@@ -2,6 +2,8 @@ package com.jiantong.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jiantong.bean.ArticleBean;
 import com.jiantong.entity.Article;
 import com.jiantong.pojo.ArticleSummary;
@@ -61,5 +63,5 @@ public interface ArticleDao {
 	
 	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
 	
-	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId);
+	public List<ArticleSummary> getArticleListTopByColumnId(@Param("columnId")Integer columnId, @Param("top")Integer top);
 }

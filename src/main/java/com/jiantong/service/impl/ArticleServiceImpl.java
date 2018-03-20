@@ -70,9 +70,9 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId) {
+	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId, Integer top) {
 		// TODO Auto-generated method stub
-		return articleDao.getArticleListTopByColumnId(columnId);
+		return articleDao.getArticleListTopByColumnId(columnId, top);
 	}
 
 	@Override
