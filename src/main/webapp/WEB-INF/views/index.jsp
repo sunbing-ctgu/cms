@@ -199,7 +199,7 @@
 				<div class="index_stars">
 					<div class="news_l_tittle">
 						<h4>加拿大潮人</h4>
-
+						<a href="front/chaosan">更多&gt;</a>
 					</div>
 					<ul class="index_stars_con">
 						<c:forEach  items="${chaorenList}" var="item" varStatus="status">
@@ -231,23 +231,18 @@
 		<div class="index_link rolling_new">
                 <div class="news_l_tittle">
                     <h4>友情鏈接</h4>
-                    <a href="#">更多></a>
+                    <a href="front/links">更多></a>
                 </div>
                 <div class="index_link_con">
-                    <ul>
-                        <li><a href="#">加拿大溫哥華潮州同鄉會</a> </li>
-                        <li><a href="#">新加坡潮州八邑会馆 </a> </li>
-                        <li><a href="#">深圳市揭陽商會</a> </li>
-                        <li><a href="#"> 深圳市汕尾商會</a> </li>
-                        <li><a href="#">深圳潮汕商會</a> </li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">深圳市汕頭商會</a> </li>
-                        <li><a href="#">國際潮青聯合會</a> </li>
-                        <li><a href="#">國際潮青聯合會 </a> </li>
-                        <li><a href="#">國際潮團聯誼年會</a> </li>
-                        <li><a href="#">香港潮州商會</a> </li>
-                    </ul>
+                	<c:forEach  items="${linksList}" var="item" varStatus="status">
+                		<c:if test="${status.count eq 1 || (status.count-1) % 5 eq 0}">
+                			<ul>
+                		</c:if>
+						<li><a href="${item.href}">${item.title}</a>
+						<c:if test="${status.count % 5 eq 0 || status.count % 5 eq 5}">
+                			</ul>
+                		</c:if>
+	           		</c:forEach>
                 </div>
             </div>
 		<jsp:include page="common/foot.jsp"></jsp:include>

@@ -13,23 +13,23 @@
 		<jsp:include page="common/columnHead.jsp"></jsp:include>
         <div class="introduce_position">
            <div class="introduce_r_tittle" style="margin-bottom: 0; display: block; overflow: hidden">
-               <h3>${column.name}</h3>
+               <h3>${rootColumn.name}</h3>
                <span></span>
            </div>
 
            <ul class="celebrity">
            		<c:forEach  items="${articleList}" var="item" varStatus="status">
            			<li>
-                        <img src="${item.titleImg}">
+                        <a href="${rootColumn.path}/${item.id}"><img src="${item.titleImg}"></a>
                         <dl>
-                            <dt>${item.title}</dt>
+                            <a href="${rootColumn.path}/${item.id}"><dt>${item.title}</dt></a>
                             <dd>${item.summary}</dd>
                         </dl>
                     </li>
            		</c:forEach>	
                </ul>
            <div class="page">
-               <div value="1 0"></div>
+               <div value="10"></div>
                <div id="page" class="page_div"></div>
            </div>
        </div>

@@ -105,4 +105,10 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDao.getArticleListByColumnId(columnId);
 	}
 
+	@Override
+	public List<ArticleSummary> getArticleListTopByRootColumnId(Integer columnId, Integer top) {
+		// TODO Auto-generated method stub
+		return articleDao.getArticleListTopByRootColumnId(columnId, top);
+	}
+
 }

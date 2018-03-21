@@ -89,6 +89,14 @@ public interface ArticleService {
 	public List<ArticleSummary> getArticleListTopByColumnId(Integer columnId, Integer top);
 	
 	/**
+	 * 通过根栏目获取文章概要列表Top
+	 * @param columnId
+	 * @param top
+	 * @return
+	 */
+	public List<ArticleSummary> getArticleListTopByRootColumnId(Integer columnId, Integer top);
+	
+	/**
 	 * 获取文章概要列表All
 	 * @param columnId
 	 * @return

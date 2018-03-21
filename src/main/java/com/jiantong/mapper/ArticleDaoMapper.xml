@@ -114,4 +114,11 @@
 		ORDER BY is_top desc, sort asc, publish_time desc limit #{top}
 	</select>
 	
+	<select id="getArticleListTopByRootColumnId" parameterType="Integer" resultMap="SummaryResultMap">
+		SELECT a.id, a.title, a.title_img, a.summary, a.href, year(a.publish_time) _year, DATE_FORMAT(a.publish_time, '%m-%d') _date
+		FROM cms_article as a LEFT JOIN cms_column as c ON a.column_id = c.id WHERE <![CDATA[ a.status <> 0 ]]>
+		AND c.parent_id = #{columnId}
+		ORDER BY a.is_top desc, a.sort asc, a.publish_time desc limit #{top}
+	</select>
+	
 </mapper>

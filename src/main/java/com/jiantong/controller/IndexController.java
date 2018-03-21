@@ -86,6 +86,10 @@ public class IndexController extends BaseHandler{
 		Column chaorenColumn = columnService.getColumnByPath("front/chaosan", channel);
 		List<ArticleSummary> chaorenList = articleService.getArticleListTopByColumnId(chaorenColumn.getId(), 4);
 		request.setAttribute("chaorenList", chaorenList);
+		//友情链接Top10
+		Column linksColumn = columnService.getColumnByPath("front/links", channel);
+		List<ArticleSummary> linksList = articleService.getArticleListTopByRootColumnId(linksColumn.getId(), 10);
+		request.setAttribute("linksList", linksList);
 		return "index";
 	}
 	

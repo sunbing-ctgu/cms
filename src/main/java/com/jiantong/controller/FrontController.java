@@ -170,31 +170,34 @@ public class FrontController extends BaseHandler{
 		HttpSession session = getSession(request);
 		Integer channel = getChannel(request);
 		String rootPath = BASEPATH + rootColumnPath;
-		String path = BASEPATH + rootColumnPath + "/" + columnPath;
 		session.setAttribute(CURRENT_PATH_SESSION, rootPath);
 		Column rootColumn = columnService.getColumnByPath(rootPath, channel);
-		Column column = columnService.getColumnByPath(path, channel);
 		request.setAttribute("rootColumn", rootColumn);
-		request.setAttribute("column", column);
 		Integer type = rootColumn.getType();
 		String result = rootColumnPath;
-		switch (type) {
-		case 0:
-			result = "about";
-			//获取展示内容
-			Article article = articleService.getArticleByColumnId(column.getId());
+		if (type == 2) {
+			result = "imageTextDisplayDetail";
+			Article article = articleService.getArticleByKey(Integer.valueOf(columnPath));
 			request.setAttribute("article", article);
-			break;
-		case 1:
-			result = "news";
-			PageInfo<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
-			request.setAttribute("pageInfo", articleList);
-			break;
-		case 2:
-			break;
-
-		default:
-			break;
+		}else {
+			String path = BASEPATH + rootColumnPath + "/" + columnPath;
+			Column column = columnService.getColumnByPath(path, channel);
+			request.setAttribute("column", column);
+			switch (type) {
+			case 0:
+				result = "about";
+				//获取展示内容
+				Article article = articleService.getArticleByColumnId(column.getId());
+				request.setAttribute("article", article);
+				break;
+			case 1:
+				result = "news";
+				PageInfo<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+				request.setAttribute("pageInfo", articleList);
+				break;
+			default:
+				break;
+			}
 		}
 		return result;
 	}

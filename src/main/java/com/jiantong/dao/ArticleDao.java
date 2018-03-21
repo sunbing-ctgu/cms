@@ -64,4 +64,6 @@ public interface ArticleDao {
 	public List<ArticleSummary> getArticleListByColumnId(Integer columnId);
 	
 	public List<ArticleSummary> getArticleListTopByColumnId(@Param("columnId")Integer columnId, @Param("top")Integer top);
+	
+	public List<ArticleSummary> getArticleListTopByRootColumnId(@Param("columnId")Integer columnId, @Param("top")Integer top);
 }
