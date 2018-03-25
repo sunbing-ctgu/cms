@@ -1,6 +1,7 @@
 package com.jiantong.common;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
 
@@ -10,6 +11,9 @@ public class ResponseJsonData {
 	 * 状态
 	 */
 	private int retcode;
+	
+	/**Map结果集*/
+	private Map<String, Object> dataMap;
 	
 	/**
 	 * 普通数据结果集
@@ -32,6 +36,14 @@ public class ResponseJsonData {
 
 	public void setRetcode(int retcode) {
 		this.retcode = retcode;
+	}
+
+	public Map<String, Object> getDataMap() {
+		return dataMap;
+	}
+
+	public void setDataMap(Map<String, Object> dataMap) {
+		this.dataMap = dataMap;
 	}
 
 	public List<?> getDataList() {

@@ -2,6 +2,7 @@ package com.jiantong.controller.admin;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,6 +68,31 @@ public class ArticleController extends BaseController {
 			result.setRetcode(SUCCESS);
 			result.setPageInfo(articleList);
 		} else {
+			result.setRetcode(FAIL);
+			result.setMsg("获取文章列表失败");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/getDetailArticle/{articleId}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseJsonData getDetailArticle(HttpServletRequest request, @PathVariable Integer articleId) {
+		ResponseJsonData result = new ResponseJsonData();
+		Map<String, Object> data = new HashMap<>();
+		boolean flag = false;
+		Article article = null;
+		try {
+			article = articleService.getArticleByKey(articleId);
+			data.put("article", article);
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("getDetailArticle Exception", e);
+		}
+		if(flag) {
+			result.setRetcode(SUCCESS);
+			result.setDataMap(data);
+		}else {
 			result.setRetcode(FAIL);
 			result.setMsg("获取文章列表失败");
 		}

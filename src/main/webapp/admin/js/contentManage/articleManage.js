@@ -105,6 +105,21 @@ class QueryArticle {
 	}
 }
 
+class QueryArticleDetail {
+	static query(articleId) {
+		return new Promise((resolve) => {
+			$.ajax({
+				url: 'admin/articleManage/getDetailArticle/'+articleId,
+				type: 'GET',
+				async: true,
+				contentType: "application/json; charset=utf-8"
+			}).then((result) => {
+				resolve(result)
+			});
+		});
+	}
+}
+
 class OperationArticle {
 	static operation(data, type) {
 		let url = "admin/articleManage/" + type;
@@ -156,8 +171,8 @@ class DrawTable {
 				<td>${result[i].createTime}</td>
 				<td>
 					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-primary view-article" data-toggle="modal" data-id="${i}" data-type="0" data-target="#article-modal">查看</button>
-						<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="${i}" data-type="2" data-target="#article-modal">修改</button>
+						<button class="btn btn-minier btn-primary view-article" data-toggle="modal" data-id="${result[i].id}" data-type="0" data-target="#article-modal">查看</button>
+						<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="${result[i].id}" data-type="2" data-target="#article-modal">修改</button>
 						<button class="btn btn-minier btn-danger delete-article" data-id="${result[i].id}">删除</button>
 					</div>
 				</td>
@@ -491,12 +506,17 @@ $(function(){
 	
 	$('#article-modal').on('show.bs.modal', function (event) {
 		let btn = $(event.relatedTarget);
-		let index = btn.data("id"); 
+		let articleId = btn.data("id"); 
 		let type = btn.data("type"); 
-		if(index != -1) {
-			let articleInfo = resultCache[index];
-			currentUpdateArticle = articleInfo;
-			openArticleModal(articleInfo, type);
+		if(articleId) {
+			QueryArticleDetail.query(articleId).then((result) => {
+				 console.log(result);
+				 if(result.retcode == 1){
+					 let articleInfo = result.dataMap.article;
+					 currentUpdateArticle = articleInfo;
+					 openArticleModal(articleInfo, type);
+				 } 
+			});
 		}else {
 			openArticleModal(null, 1);
 		}

@@ -70,7 +70,7 @@
 											<c:choose>
 												<c:when test="${status.count == 1}">
 													<c:forEach  items="${item.articleList}" var="article">
-														<td align=center><a href='${item.columnPath}/${article.id}'><img src="${article.titleImg}"  width=230  border=0><br>...</a></td>
+														<td align=center><a href='${item.columnPath}/${article.id}'><img src="${article.titleImg}"  width=230 height=178  border=0><br>...</a></td>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
@@ -527,6 +527,20 @@
             $('#s22').css('display','none');
             $('#s2').removeClass('current');
         });
+    </script>
+    <script type="text/javascript">
+        var speed=50
+        marquePic2.innerHTML=marquePic1.innerHTML
+        function Marquee(){
+            if(demo.scrollLeft>=marquePic1.scrollWidth){
+                demo.scrollLeft=0
+            }else{
+                demo.scrollLeft++
+            }
+        }
+        var MyMar=setInterval(Marquee,speed)
+        demo.onmouseover=function() {clearInterval(MyMar)}
+        demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
     </script>
 </body>
 </html>
