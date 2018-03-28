@@ -61,16 +61,16 @@
                     <a href="front/news/chamber">更多></a>
                 </div>
                 <div class="rolling_new_con">
-                    <div id=demo style="overflow:hidden;width:96%; margin: 10px 2%;" align=center>
-                        <table border=0 align=center cellpadding=1 cellspacing=1 cellspace=0 >
-                            <tr><td valign=top bgcolor=ffffff id=marquePic1>
-                                <table width='100%' border='0' cellspacing='0'>
+                    <div id=demo style="overflow:hidden;width:96%; margin: 10px 2%;" align="center">
+                        <table border="0" align="center" cellpadding="1" cellspacing="1 cellspace="0" >
+                            <tr><td valign="top" bgcolor="ffffff" id="marquePic1">
+                                <table width="100%" border="0" cellspacing="0">
                                     <tr>
                                     	<c:forEach  items="${newsSummaryList}" var="item" varStatus="status">
 											<c:choose>
 												<c:when test="${status.count == 1}">
 													<c:forEach  items="${item.articleList}" var="article">
-														<td align=center><a href='${item.columnPath}/${article.id}'><img src="${article.titleImg}"  width=230 height=178  border=0><br>...</a></td>
+														<td align="center"><a href="${item.columnPath}/${article.id}"><img src="${article.titleImg}"  width=230 height=178  border=0><br>...</a></td>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
@@ -79,7 +79,7 @@
 										</c:forEach>
                                     </tr>
                                 </table>
-                            </td><td id=marquePic2 valign=top></td></tr>
+                            </td><td id="marquePic2" bgcolor="ffffff" valign="top"></td></tr>
                         </table>
                     </div>
                 </div>
