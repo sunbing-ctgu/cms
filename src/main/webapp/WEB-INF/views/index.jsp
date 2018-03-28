@@ -70,7 +70,7 @@
 											<c:choose>
 												<c:when test="${status.count == 1}">
 													<c:forEach  items="${item.articleList}" var="article">
-														<td align="center"><a href="${item.columnPath}/${article.id}"><img src="${article.titleImg}"  width=230 height=178  border=0><br>...</a></td>
+														<td align="center"><a href="${item.columnPath}/${article.id}"><img src="${article.titleImg}"  width=230 height=178  border=0><br>${article.title}</a></td>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
