@@ -34,7 +34,7 @@ a{outline:none;}
 .index_new_l{ width: 840px; height: 430px; float: left}
 .index_new_r{width: 360px; height: 430px;  float: right; }
 
-/*------bannerÂÖ²¥--------*/
+/*------bannerï¿½Ö²ï¿½--------*/
 .turn{ width:840px; height:430px; position:relative; overflow:hidden;}
 .turn-loading{ width:840px; height:430px; position:absolute; z-index:4; overflow:hidden; background:#202f42;}
 .turn-loading img{ width:32px; height:32px; margin:51px 0 0 135px;}
@@ -70,7 +70,7 @@ a{outline:none;}
 
 /*---------news--------*/
 .news{ display: block; overflow: hidden}
-.news_l,.news_c,.news_r{ width: 382px; margin-right: 24px; float: left; border: 1px solid #f1f1f1;}
+.news_l,.news_c,.news_r{ width: 382px; margin-right: 24px; float: left; border: 1px solid #f1f1f1; height: 383px;}
 .news_l_tittle,.news_l_tittle_j{ height:40px; border-top: 3px solid #E94034; background: #fff; line-height: 40px; border-left: 1px solid #f1f1f1; border-right: 1px solid #f1f1f1  }
 .news_l_tittle_j{ border: none}
 .news_l_tittle h4,.news_l_tittle_j h4{  padding: 0 20px; color: #E94034; float: left; font-size: 16px;}
@@ -96,7 +96,7 @@ a{outline:none;}
 #news_l_t_img dl dd,#news_l_t_img_r dl dd{ line-height: 20px; margin-top: 8px;overflow: hidden;
     text-overflow:ellipsis;white-space: nowrap }
 
-.news_l_t,.news_r_t{ width: 586px; float: left; margin-right: 24px; border: 1px solid #f1f1f1; }
+.news_l_t,.news_r_t{ width: 586px; float: left; margin-right: 24px; border: 1px solid #f1f1f1; height: 455px;}
 
 
 /*---------------landscape---------------*/
@@ -108,8 +108,8 @@ a{outline:none;}
 
 .rolling_new_con{ border: 1px solid #f1f1f1;
 
-    background:-moz-linear-gradient(top,#f1f1f1,#ffffff);/*»ðºü*/
-    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#f1f1f1), to(#ffffff));/*¹È¸è*/
+    background:-moz-linear-gradient(top,#f1f1f1,#ffffff);/*ï¿½ï¿½ï¿½*/
+    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#f1f1f1), to(#ffffff));/*ï¿½È¸ï¿½*/
 
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f1f1f1', endColorstr='#ffffff'); /*IE6 & IE7*/
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f1f1f1', endColorstr='#ffffff')"; /* IE8 */ }
@@ -136,8 +136,8 @@ a{outline:none;}
 .index_stars{ width: 792px; float: left; border: 1px solid #F5F5F5; height: 330px;}
 .index_cantact_us{ width: 382px; float: right;border: 1px solid #F5F5F5; height: 330px;}
 .index_stars_con,.index_cantact_us_con{ border-top:1px solid #f1f1f1}
-.index_stars_con li{ width: 140px; padding:24px 0 24px 46px; float: left; text-align: center}
-.index_stars_con li img{ width: 140px;}
+.index_stars_con li{ width: 130px; padding:30px 0 24px 54px; float: left; text-align: center}
+.index_stars_con li img{ width: 130px; height: 180px;}
 .index_stars_con li span{ line-height: 40px; color: #333; font-size: 16px;}
 .index_cantact_us_con{ padding:24px;}
 .index_cantact_us_con dl{ line-height: 30px; font-size: 16px; margin-bottom: 12px;}
@@ -163,8 +163,8 @@ a{outline:none;}
 .introduce_banner{ margin: 24px auto; position: relative; width: 1200px; height: 230px;}
 .introduce_banner img{ width: 100%; height: 100%;}
 .banner_introduce_text{ width: 180px; height: 100px;background:#E93C2F; position: absolute; bottom: 30px; padding-left:24px;color: #fff; filter:alpha(opacity:90); opacity:0.9;  -moz-opacity:0.9;-khtml-opacity: 0.9 }
-.banner_introduce_text hr{ width: 50px;  margin-top: 20px; border: 1px solid #fff; margin-left: 0}
-.banner_introduce_text h2{ font-size: 20px; line-height: 40px;  letter-spacing: 2px;}
+.banner_introduce_text hr{ width: 50px;  margin-top: 20px; border: 1px solid #fff; margin-left: 0; display: none}
+.banner_introduce_text h2{ font-size: 20px; line-height: 100px;  letter-spacing: 2px; letter-spacing: 16px;}
 .banner_introduce_text p{text-transform:uppercase; font-size: 0.8em;}
 .introduce_position{ margin: 24px 0}
 .introduce_position a{ padding-left: 24px; background:url("../upload/images/icon_triangle.jpg") no-repeat center left; margin-right: 12px; color: #999 }
@@ -277,7 +277,8 @@ a{outline:none;}
 .news_contact span{display: block; overflow: hidden; text-align: center; margin-bottom: 36px}
 .news_contact span small{ padding: 0 20px; color: #999}
 .news_contact p{ margin-bottom: 24px; line-height: 28px;}
-.news_contact img{ margin: 24px 0;}
+.news_contact p span{ text-align: left}
+.news_contact img{ margin: 24px auto; vertical-align:middle; display: table-cell;  }
 
 
 /*---------------------------------celebrity------------------------------*/
