@@ -274,11 +274,11 @@ a{outline:none;}
 /*---------------------------------news_contact------------------------------*/
 .news_contact{ margin-bottom: 100px;}
 .news_contact h4{ text-align: center; margin: 40px auto 10px; font-size: 20px;}
-.news_contact span{display: block; overflow: hidden; text-align: center; margin-bottom: 36px}
+.news_contact span{ display: block; overflow: hidden; text-align: center;}
 .news_contact span small{ padding: 0 20px; color: #999}
-.news_contact p{ margin-bottom: 24px; line-height: 28px;}
-.news_contact p span{ text-align: left}
-.news_contact img{ margin: 24px auto; vertical-align:middle; display: table-cell;  }
+.news_content p{ margin-bottom: 24px; line-height: 28px;}
+.news_content p span{ text-align: left}
+.news_content img{ margin: 24px auto; vertical-align:middle; display: table-cell;  }
 
 
 /*---------------------------------celebrity------------------------------*/

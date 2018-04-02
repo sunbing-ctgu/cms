@@ -20,7 +20,7 @@
             <div class="news_contact">
                <h4>${article.title}</h4>
                <span><small>作者：${article.author}</small><small>时间：<fmt:formatDate value="${article.publishTime}" pattern="yyyy-MM-dd"/></small></span>
-                ${article.content}
+               <div class="news_content">${article.content}</div>
             </div>
         </div>
    </div>
