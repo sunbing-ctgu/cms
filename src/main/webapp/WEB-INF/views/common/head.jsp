@@ -19,6 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="js/breakingnews.js"></script>
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/breakingnews.css">
+<script src="<c:url value="js/uaredirect.js"/>" type="text/javascript"></script>
+<script type="text/javascript">
+uaredirect("wap");
+</script>
 </head>
 <div class="index_wap">
 	<div class="index_top_tip">
