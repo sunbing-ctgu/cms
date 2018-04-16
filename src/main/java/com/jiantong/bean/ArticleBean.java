@@ -1,21 +1,19 @@
 package com.jiantong.bean;
 
-import java.util.List;
-
 import com.jiantong.bean.base.PageBean;
 
 public class ArticleBean extends PageBean {
 
-	private List<Integer> columnIds;
+	private Integer columnId;
 	
 	private String title;
 
-	public List<Integer> getColumnIds() {
-		return columnIds;
+	public Integer getColumnId() {
+		return columnId;
 	}
 
-	public void setColumnIds(List<Integer> columnIds) {
-		this.columnIds = columnIds;
+	public void setColumnId(Integer columnId) {
+		this.columnId = columnId;
 	}
 
 	public String getTitle() {

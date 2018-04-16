@@ -79,6 +79,7 @@ let resultCache;
 let currentUpdateColumn;
 let selectedArr = new Array();
 let columnModalSubmitType;
+let columnIdCache;
 
 class QueryColumn {
 	static query(data) {
@@ -267,7 +268,7 @@ function onSearch(parentId) {
 	if(parentId) {
 		param.parentId = parentId;
 	}else {
-		param.parentId = '';
+		param.parentId = columnIdCache;
 	}
 	query(param);
 }
@@ -427,10 +428,12 @@ $(function(){
 	   		data: treeCache,
 	   		onNodeSelected: function(event, node) {
 	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+	   			columnIdCache = node.id;
 	   			onSearch(node.id);
 	   		},
 	   		onNodeUnselected: function(event, node) {
-	   			onSearch();
+	   			columnIdCache = '';
+	   			//onSearch();
 	   		}
 	   	});
 		$('#tree').treeview('collapseAll', { silent: true });
@@ -506,10 +509,12 @@ function refreshTree() {
 	   		data: treeCache,
 	   		onNodeSelected: function(event, node) {
 	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+	   			columnIdCache = node.id;
 	   			onSearch(node.id);
 	   		},
 	   		onNodeUnselected: function(event, node) {
-	   			onSearch();
+	   			columnIdCache = '';
+	   			//onSearch();
 	   		}
 	   	});
 		$('#tree').treeview('collapseAll', { silent: true });

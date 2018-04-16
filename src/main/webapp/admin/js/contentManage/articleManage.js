@@ -87,6 +87,7 @@ let resultCache;
 let currentUpdateArticle;
 let selectedArr = new Array();
 let articleModalSubmitType;
+let columnIdCache;
 
 class QueryArticle {
 	static query(data) {
@@ -259,10 +260,14 @@ function doOperation(articleInfo, type) {
     });
 }
 
-function onSearch() {
+function onSearch(columnId) {
 	param.pageNum = 1;
-	param.columnId = $('#userNameSearch').val();
 	param.title = $('#titleSearch').val();
+	if(columnId) {
+		param.columnId = columnId;
+	}else {
+		param.columnId = columnIdCache;
+	}
 	query(param);
 }
 
@@ -564,6 +569,13 @@ $(function(){
 	   		data: treeCache,
 	   		onNodeSelected: function(event, node) {
 	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+	   			columnIdCache = node.id;
+	   			onSearch(node.id);
+	   		},
+	   		onNodeUnselected: function(event, node) {
+	   			console.log('onNodeUnselected');
+	   			columnIdCache = '';
+	   			//onSearch();
 	   		}
 	   	});
 		$('#tree').treeview('collapseAll', { silent: true });
