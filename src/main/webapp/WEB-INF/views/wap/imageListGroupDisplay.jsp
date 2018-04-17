@@ -36,7 +36,7 @@
 								<li>
 									<ul>
 										<c:forEach items="${item.value}" var="article">
-											<li><a href="${column.path}/${article.id}"><img
+											<li><a href="wap/${column.path}/${article.id}"><img
 													style="width: 210px; height: 252px"
 													src="${article.titleImg}" /><b>${article.title}</b></a></li>
 										</c:forEach>
