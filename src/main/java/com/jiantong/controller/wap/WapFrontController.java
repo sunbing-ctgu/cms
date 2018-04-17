@@ -1,6 +1,7 @@
 package com.jiantong.controller.wap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -186,20 +187,35 @@ public class WapFrontController extends BaseHandler{
 			String path = BASEPATH + rootColumnPath + "/" + columnPath;
 			Column column = columnService.getColumnByPath(path, channel);
 			request.setAttribute("column", column);
-			switch (type) {
-			case 0:
-				result = "wap/about";
-				//获取展示内容
-				Article article = articleService.getArticleByColumnId(column.getId());
-				request.setAttribute("article", article);
-				break;
-			case 1:
-				result = "wap/news";
-				PageInfo<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
-				request.setAttribute("pageInfo", articleList);
-				break;
-			default:
-				break;
+			//理事会名录
+			if(column.getType() == 6) {
+				List<ArticleSummary> articleListAll = null;
+				Map<String,List<ArticleSummary>> articleGroupMap = new HashMap<>();
+				result = "wap/imageListGroupDisplay";
+				List<Column> childColumn = column.getChildColumn();
+				if(null != childColumn && childColumn.size() > 0) {
+					for(Column child : childColumn) {
+						articleListAll = articleService.getArticleListAllByColumnId(child.getId());
+						articleGroupMap.put(child.getName(), articleListAll);
+					}
+				}
+				request.setAttribute("articleGroup", articleGroupMap);
+			}else {
+				switch (type) {
+					case 0:
+						result = "wap/about";
+						//获取展示内容
+						Article article = articleService.getArticleByColumnId(column.getId());
+						request.setAttribute("article", article);
+						break;
+					case 1:
+						result = "wap/news";
+						PageInfo<ArticleSummary> articleList = articleService.getArticleListByColumnId(column.getId());
+						request.setAttribute("pageInfo", articleList);
+						break;
+					default:
+						break;
+				}
 			}
 		}
 		return result;
