@@ -187,7 +187,7 @@ public class FrontController extends BaseHandler{
 			//理事会名录
 			if(column.getType() == 6) {
 				List<ArticleSummary> articleListAll = null;
-				Map<String,List<ArticleSummary>> articleGroupMap = new HashMap<>();
+				Map<String,List<ArticleSummary>> articleGroupMap = new LinkedHashMap<>();
 				result = "imageListGroupDisplay";
 				List<Column> childColumn = column.getChildColumn();
 				if(null != childColumn && childColumn.size() > 0) {
