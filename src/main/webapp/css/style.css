@@ -277,7 +277,7 @@ a{outline:none;}
 .news_contact span{ display: block; overflow: hidden; text-align: center;}
 .news_contact span small{ padding: 0 20px; color: #999}
 .news_content p{ margin-bottom: 24px; line-height: 28px;}
-.news_content p span{ text-align: left}
+.news_content p span{ display: inline; text-align: left}
 .news_content img{ margin: 24px auto; vertical-align:middle; display: table-cell;  }
 
 
