@@ -49,22 +49,18 @@ $('#file-selector').on('fileuploaderror', function (event, id) {
     $('.kv-upload-progress').css('display', 'none');
 });
 
-class QueryParam {
-	constructor() {
-		this.title;
-		this.pageSize = 10;
-		this.pageNum = 1;
-	}
+function QueryParam() {
+	this.title;
+	this.pageSize = 10;
+	this.pageNum = 1;
 }
 
-class CarouselFigure {
-	constructor() {
-		this.id,
-		this.title;
-		this.imgPath;
-		this.href;
-		this.sort;
-	}
+function CarouselFigure() {
+	this.id,
+	this.title;
+	this.imgPath;
+	this.href;
+	this.sort;
 }
 
 let param = new QueryParam();
@@ -74,114 +70,109 @@ let resultCache;
 let currentUpdateCarouselFigure;
 let selectedArr = new Array();
 let modalSubmitType;
-class QueryCarouselFigure {
-	static query(data) {
-	    return new Promise((resolve) => {
-	        $.ajax({
-	            url: 'admin/carouselFigureManage/getCarouselFigureList',
-	            type: 'POST',
-	            async: true,
-	            contentType: "application/json; charset=utf-8",
-	            data: JSON.stringify(data),
-	            dataType: 'json'
-	        }).then((result) => {
-	            resolve(result);
-	        });
-	    });
-	}
-}
-class OperationCarouselFigure{
-	static operation(data, type) {
-		let url = "admin/carouselFigureManage/" + type;
-		return new Promise((resolve) => {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                async: true,
-                contentType: "application/json; charset=utf-8",
-                data: data,
-                dataType: 'json'
-            }).then((result) => {
-                resolve(result);
-            });
-        });
-	}
-}
-class DrawTable {
-	static fillData(result) {
-        let htmlValue = '';
-        for (let i = 0; i < result.length; i++) {
-        	
-        	htmlValue +=
-        	`<tr>
-				<td class="center"><label class="position-relative">
-						<input type="checkbox" class="ace checkbox-carouselFigure" data-id="${result[i].id}"/> <span class="lbl"></span>
-				</label></td>
-
-				<td>${result[i].title}</td>
-				<td><img src="${result[i].imgPath}" width="338px" height="128px"></td>
-				<td>${result[i].href}</td>
-				<td>${result[i].sort}</td>
-				<td>${result[i].createTime}</td>
-				<td>${result[i].updateTime}</td>
-				<td>
-					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-primary update-carouselFigure" data-toggle="modal" data-id="${i}" data-target="#carouselFigure-modal">修改</button>
-						<button class="btn btn-minier btn-danger delete-carouselFigure" data-id="${result[i].id}">删除</button>
-					</div>
-				</td>
-			</tr>`;
-        }
-        $('#table-tbody').append(htmlValue);
-	}
+function operation(data, type) {
+	let url = "admin/carouselFigureManage/" + type;
+	 $.ajax({
+         url: url,
+         type: 'POST',
+         async: true,
+         contentType: "application/json; charset=utf-8",
+         data: data,
+         dataType: 'json',
+         success: function(result) {
+        	 if (result.retcode == 1) {
+                 $('.loading-gif').attr('src', 'admin/img/submit_success.png');
+                 $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
+                 queryDefault();
+             } else {
+                 $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
+                 $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
+             }
+             setTimeout(function () {
+                 $('.submit-loading').fadeOut(600);
+                 $('.upload-video-btn').removeAttr('disabled');
+             }, 1500);
+         }
+     });
 }
 
-class PageInfo {
-    static drawPageController(result) {
-        let pageInfo = result.pageInfo;
-        let currentPage = pageInfo.pageNum;
-        let totalPages = pageInfo.navigatepageNums.length;
-        let options = {
-            bootstrapMajorVersion: 3,
-            currentPage: currentPage,
-            totalPages: totalPages,
-            numberOfPages: 10,
-            itemTexts: function (type, page, current) {
-                switch (type) {
-                    case "first":
-                        return "首页";
-                    case "prev":
-                        return "上一页";
-                    case "next":
-                        return "下一页";
-                    case "last":
-                        return "末页";
-                    case "page":
-                        return page;
-                }
-            },
-            onPageClicked: function (event, originalEvent, type, page) {
-            	param.pageNum = page;
-            	query(param);
-            }
-        }
-        $('#page').bootstrapPaginator(options);
+function fillData(result) {
+    let htmlValue = '';
+    for (let i = 0; i < result.length; i++) {
+    	
+    	htmlValue +=
+    	'<tr>'
+			+'<td class="center"><label class="position-relative">'
+			+		'<input type="checkbox" class="ace checkbox-carouselFigure" data-id="'+result[i].id+'"/> <span class="lbl"></span>'
+			+'</label></td>'
+			+'<td>'+result[i].title+'</td>'
+			+'<td><img src="'+result[i].imgPath+'" width="338px" height="128px"></td>'
+			+'<td>'+result[i].href+'</td>'
+			+'<td>'+result[i].sort+'</td>'
+			+'<td>'+result[i].createTime+'</td>'
+			+'<td>'+result[i].updateTime+'</td>'
+			+'<td>'
+			+	'<div class="hidden-sm hidden-xs action-buttons">'
+			+		'<button class="btn btn-minier btn-primary update-carouselFigure" data-toggle="modal" data-id="'+i+'" data-target="#carouselFigure-modal">修改</button>'
+			+		'<button class="btn btn-minier btn-danger delete-carouselFigure" data-id="'+result[i].id+'">删除</button>'
+			+	'</div>'
+			+'</td>'
+		+'</tr>';
     }
+    $('#table-tbody').append(htmlValue);
+}
 
+function drawPage(result) {
+    let pageInfo = result.pageInfo;
+    let currentPage = pageInfo.pageNum;
+    let totalPages = pageInfo.navigatepageNums.length;
+    let options = {
+        bootstrapMajorVersion: 3,
+        currentPage: currentPage,
+        totalPages: totalPages,
+        numberOfPages: 10,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        },
+        onPageClicked: function (event, originalEvent, type, page) {
+        	param.pageNum = page;
+        	query(param);
+        }
+    }
+    $('#page').bootstrapPaginator(options);
 }
 
 function query(data) {
 	$('#table-tbody').html('');
 	$('.loading').css('display', 'block');
-	QueryCarouselFigure.query(data).then((result) => {
-		$('.loading').css('display', 'none');
-        console.log(result.pageInfo);
-        selectedArr = new Array();
-        if (result.pageInfo.list.length > 0) {
-        	resultCache = result.pageInfo.list;
-        	DrawTable.fillData(resultCache);
-        	PageInfo.drawPageController(result);
-        	$('#total-count').html(result.pageInfo.total);
+	$.ajax({
+        url: 'admin/carouselFigureManage/getCarouselFigureList',
+        type: 'POST',
+        async: true,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function(result) {
+        	$('.loading').css('display', 'none');
+        	console.log(result.pageInfo);
+        	selectedArr = new Array();
+        	if (result.pageInfo.list.length > 0) {
+            	resultCache = result.pageInfo.list;
+            	fillData(resultCache);
+            	drawPage(result);
+            	$('#total-count').html(result.pageInfo.total);
+            }
         }
     });
 }
@@ -199,20 +190,7 @@ function doOperation(carouselFigureInfo, type) {
     $("#file-selector").fileinput('clear');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
-    OperationCarouselFigure.operation(JSON.stringify(carouselFigureInfo), type).then((result) => {
-        if (result.retcode == 1) {
-            $('.loading-gif').attr('src', 'admin/img/submit_success.png');
-            $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
-            queryDefault();
-        } else {
-            $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
-            $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
-        }
-        setTimeout(function () {
-            $('.submit-loading').fadeOut(600);
-            $('.upload-video-btn').removeAttr('disabled');
-        }, 1500);
-    });
+    operation(JSON.stringify(carouselFigureInfo), type)
 }
 
 function onSearch() {

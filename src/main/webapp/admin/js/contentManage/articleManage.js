@@ -53,30 +53,26 @@ ue.ready(function() {
 
 let treeCache;
 
-class QueryParam {
-	constructor() {
-		this.columnId;
-		this.title;
-		this.pageSize = 10;
-		this.pageNum = 1;
-	}
+function QueryParam() {
+	this.columnId;
+	this.title;
+	this.pageSize = 10;
+	this.pageNum = 1;
 }
-class Article {
-	constructor() {
-		this.id,
-		this.columnId;
-		this.title;
-		this.titleImg;
-		this.author;
-		this.summary;
-		this.href;
-		this.keyWord;
-		this.content;
-		this.publishTime;
-		this.isType;
-		this.isRecommend;
-		this.sort;
-	}
+function Article() {
+	this.id;
+	this.columnId;
+	this.title;
+	this.titleImg;
+	this.author;
+	this.summary;
+	this.href;
+	this.keyWord;
+	this.content;
+	this.publishTime;
+	this.isType;
+	this.isRecommend;
+	this.sort;
 }
 
 let param = new QueryParam();
@@ -89,148 +85,101 @@ let selectedArr = new Array();
 let articleModalSubmitType;
 let columnIdCache;
 
-class QueryArticle {
-	static query(data) {
-		return new Promise((resolve) => {
-			$.ajax({
-				url: 'admin/articleManage/getArticleList',
-				type: 'POST',
-				async: true,
-				contentType: "application/json; charset=utf-8",
-	            data: JSON.stringify(data),
-	            dataType: 'json'
-			}).then((result) => {
-				resolve(result)
-			});
-		});
-	}
-}
-
-class QueryArticleDetail {
-	static query(articleId) {
-		return new Promise((resolve) => {
-			$.ajax({
-				url: 'admin/articleManage/getDetailArticle/'+articleId,
-				type: 'GET',
-				async: true,
-				contentType: "application/json; charset=utf-8"
-			}).then((result) => {
-				resolve(result)
-			});
-		});
-	}
-}
-
-class OperationArticle {
-	static operation(data, type) {
-		let url = "admin/articleManage/" + type;
-		return new Promise((resolve) => {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                async: true,
-                contentType: "application/json; charset=utf-8",
-                data: data,
-                dataType: 'json'
-            }).then((result) => {
-                resolve(result);
-            });
-        });
-	}
-}
-
-class DrawTable {
-	static fillData(result) {
-		let htmlValue = '';
-		function getRecommend(val) {
-            if (val == 1) {
-                return '是';
-            } else {
-                return '否';
-            }
+function fillData(result) {
+	let htmlValue = '';
+	function getRecommend(val) {
+        if (val == 1) {
+            return '是';
+        } else {
+            return '否';
         }
-		
-		function getTop(val) {
-            if (val == 1) {
-                return '是';
-            } else {
-                return '否';
-            }
-        }
-		for (let i = 0; i < result.length; i++) {
-        	
-        	htmlValue +=
-        	`<tr>
-				<td class="center"><label class="position-relative">
-						<input type="checkbox" class="ace checkbox-article" data-id="${result[i].id}"/> <span class="lbl"></span>
-				</label></td>
-        		<td>${result[i].title}</td>
-				<td>${getTop(result[i].isTop)}</td>
-				<td>${getRecommend(result[i].isRecommend)}</td>
-        		<td>${result[i].viewCount}</td>
-				<td>${result[i].sort}</td>
-				<td>${result[i].createTime}</td>
-				<td>
-					<div class="hidden-sm hidden-xs action-buttons">
-						<button class="btn btn-minier btn-primary view-article" data-toggle="modal" data-id="${result[i].id}" data-type="0" data-target="#article-modal">查看</button>
-						<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="${result[i].id}" data-type="2" data-target="#article-modal">修改</button>
-						<button class="btn btn-minier btn-danger delete-article" data-id="${result[i].id}">删除</button>
-					</div>
-				</td>
-			</tr>`;
-        }
-        $('#table-tbody').append(htmlValue);
-	}
-}
-
-class PageInfo {
-    static drawPageController(result) {
-        let pageInfo = result.pageInfo;
-        let currentPage = pageInfo.pageNum;
-        let totalPages = pageInfo.navigatepageNums.length;
-        let options = {
-            bootstrapMajorVersion: 3,
-            currentPage: currentPage,
-            totalPages: totalPages,
-            numberOfPages: 10,
-            itemTexts: function (type, page, current) {
-                switch (type) {
-                    case "first":
-                        return "首页";
-                    case "prev":
-                        return "上一页";
-                    case "next":
-                        return "下一页";
-                    case "last":
-                        return "末页";
-                    case "page":
-                        return page;
-                }
-            },
-            onPageClicked: function (event, originalEvent, type, page) {
-            	param.pageNum = page;
-            	query(param);
-            }
-        }
-        $('#page').bootstrapPaginator(options);
     }
+	
+	function getTop(val) {
+        if (val == 1) {
+            return '是';
+        } else {
+            return '否';
+        }
+    }
+	for (let i = 0; i < result.length; i++) {
+    	
+    	htmlValue +=
+    	'<tr>'
+			+'<td class="center"><label class="position-relative">'
+			+		'<input type="checkbox" class="ace checkbox-article" data-id="'+result[i].id+'"/> <span class="lbl"></span>'
+			+'</label></td>'
+    		+'<td>'+result[i].title+'</td>'
+			+'<td>'+getTop(result[i].isTop)+'</td>'
+			+'<td>'+getRecommend(result[i].isRecommend)+'</td>'
+    		+'<td>'+result[i].viewCount+'</td>'
+			+'<td>'+result[i].sort+'</td>'
+			+'<td>'+result[i].createTime+'</td>'
+			+'<td>'
+			+	'<div class="hidden-sm hidden-xs action-buttons">'
+			+		'<button class="btn btn-minier btn-primary view-article" data-toggle="modal" data-id="'+result[i].id+'" data-type="0" data-target="#article-modal">查看</button>'
+			+		'<button class="btn btn-minier btn-primary update-article" data-toggle="modal" data-id="'+result[i].id+'" data-type="2" data-target="#article-modal">修改</button>'
+			+		'<button class="btn btn-minier btn-danger delete-article" data-id="'+result[i].id+'">删除</button>'
+			+	'</div>'
+			+'</td>'
+		+'</tr>';
+    }
+    $('#table-tbody').append(htmlValue);
+}
 
+function drawPage(result) {
+    let pageInfo = result.pageInfo;
+    let currentPage = pageInfo.pageNum;
+    let totalPages = pageInfo.navigatepageNums.length;
+    let options = {
+        bootstrapMajorVersion: 3,
+        currentPage: currentPage,
+        totalPages: totalPages,
+        numberOfPages: 10,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        },
+        onPageClicked: function (event, originalEvent, type, page) {
+        	param.pageNum = page;
+        	query(param);
+        }
+    }
+    $('#page').bootstrapPaginator(options);
 }
 
 function query(data) {
 	$('#table-tbody').html('');
 	$('.loading').css('display', 'block');
-	QueryArticle.query(data).then((result) => {
-		$('.loading').css('display', 'none');
-        console.log(result.pageInfo);
-        selectedArr = new Array();
-        if (result.pageInfo.list.length > 0) {
-        	resultCache = result.pageInfo.list;
-        	DrawTable.fillData(resultCache);
-        	PageInfo.drawPageController(result);
-        	$('#total-count').html(result.pageInfo.total);
+	$.ajax({
+		url: 'admin/articleManage/getArticleList',
+		type: 'POST',
+		async: true,
+		contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function(result) {
+        	$('.loading').css('display', 'none');
+            console.log(result.pageInfo);
+            selectedArr = new Array();
+            if (result.pageInfo.list.length > 0) {
+            	resultCache = result.pageInfo.list;
+            	fillData(resultCache);
+            	drawPage(result);
+            	$('#total-count').html(result.pageInfo.total);
+            }
         }
-    });
+	});
 }
 
 function queryDefault() {
@@ -244,20 +193,30 @@ function doOperation(articleInfo, type) {
     $('#article-modal').modal('hide');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
-    OperationArticle.operation(JSON.stringify(articleInfo), type).then((result) => {
-        if (result.retcode == 1) {
-            $('.loading-gif').attr('src', 'admin/img/submit_success.png');
-            $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
-            queryDefault();
-        } else {
-            $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
-            $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
+    let data = JSON.stringify(articleInfo);
+    let url = "admin/articleManage/" + type;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: true,
+        contentType: "application/json; charset=utf-8",
+        data: data,
+        dataType: 'json',
+        success: function(result) {
+        	if (result.retcode == 1) {
+                $('.loading-gif').attr('src', 'admin/img/submit_success.png');
+                $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
+                queryDefault();
+            } else {
+                $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
+                $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
+            }
+            setTimeout(function () {
+                $('.submit-loading').fadeOut(600);
+                $('.upload-video-btn').removeAttr('disabled');
+            }, 1500);
         }
-        setTimeout(function () {
-            $('.submit-loading').fadeOut(600);
-            $('.upload-video-btn').removeAttr('disabled');
-        }, 1500);
-    });
+    })
 }
 
 function onSearch(columnId) {
@@ -371,11 +330,13 @@ function openArticleModal(articleInfo, type) {
         }
         $('#sort').val(articleInfo.sort);
         if(articleInfo.content) {
-        	ue.setContent(articleInfo.content, true);
+        	ue.setContent(articleInfo.content);
+        }else{
+        	ue.setContent('');
         }
         $('.article-modal-submit').html('关闭');
         setDisabled();
-        articleModalSubmitType = 1;
+        articleModalSubmitType = 0;
     }else if(type == 1) {
     	 $('#article-modal-title').html('新增新闻');
          $('#columnName').val('');
@@ -389,7 +350,7 @@ function openArticleModal(articleInfo, type) {
          $("input:radio[name='is-top'][value=0]").attr('checked','true');
          $("input:radio[name='is-recommend'][value=0]").attr('checked','true');
          $('#sort').val('');
-         ue.setContent('', true);
+         ue.setContent('');
          $('.article-modal-submit').html('确认添加');
          $("#preview-img").hide();
          setEnabled();
@@ -421,7 +382,9 @@ function openArticleModal(articleInfo, type) {
         }
         $('#sort').val(articleInfo.sort);
         if(articleInfo.content) {
-        	ue.setContent(articleInfo.content, true);
+        	ue.setContent(articleInfo.content);
+        }else{
+        	ue.setContent('');
         }
         $('.article-modal-submit').html('确认修改');
         setEnabled();
@@ -506,6 +469,8 @@ $(function(){
 	        addArticle();
 	    } else if (articleModalSubmitType == 2) {
 	        updateArticle();
+	    }else {
+	    	$('#article-modal').modal('hide');
 	    }
 	});
 	
@@ -514,72 +479,80 @@ $(function(){
 		let articleId = btn.data("id"); 
 		let type = btn.data("type"); 
 		if(articleId) {
-			QueryArticleDetail.query(articleId).then((result) => {
-				 console.log(result);
-				 if(result.retcode == 1){
-					 let articleInfo = result.dataMap.article;
-					 currentUpdateArticle = articleInfo;
-					 openArticleModal(articleInfo, type);
-				 } 
-			});
+			$.ajax({
+				url: 'admin/articleManage/getDetailArticle/'+articleId,
+				type: 'GET',
+				async: true,
+				contentType: "application/json; charset=utf-8",
+				success: function(result) {
+					console.log(result);
+					 if(result.retcode == 1){
+						 let articleInfo = result.dataMap.article;
+						 currentUpdateArticle = articleInfo;
+						 openArticleModal(articleInfo, type);
+					 } 
+				}
+			})
 		}else {
 			openArticleModal(null, 1);
 		}
 	});
 	
 	$("#columnName").click(function() {
-		QueryTree.getColumnTree().then((result) => {
-			$('#columnTreeView').treeview({
-		   		data: result,
-		   		onNodeSelected: function(event, node) {
-		   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
-		   			$("#columnName").val(node.text);
-		   			$("#columnId").val(node.id);
-		   			$('#columnTreeView').hide();
-		   		}
-		   	});
-			$('#columnTreeView').treeview('collapseAll', { silent: true });
-			$("#columnTreeView>ul").css("margin-left", "0px");
-		});
+		$.ajax({
+	        url: 'admin/columnManage/getColumnTree',
+	        type: 'GET',
+	        async: true,
+	        contentType: "application/json; charset=utf-8",
+	        dataType: 'json',
+	        success: function(result) {
+	        	$('#columnTreeView').treeview({
+			   		data: result,
+			   		onNodeSelected: function(event, node) {
+			   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+			   			$("#columnName").val(node.text);
+			   			$("#columnId").val(node.id);
+			   			$('#columnTreeView').hide();
+			   		}
+			   	});
+				$('#columnTreeView').treeview('collapseAll', { silent: true });
+				$("#columnTreeView>ul").css("margin-left", "0px");
+	        }
+	    });
 	})/*.blur(function() {
 		$('#columnTreeView').hide();
 	})*/;
 });
 
-class QueryTree {
-	static getColumnTree() {
-		return new Promise((resolve) => {
-			$.ajax({
-	            url: 'admin/columnManage/getColumnTree',
-	            type: 'GET',
-	            async: true,
-	            contentType: "application/json; charset=utf-8",
-	            dataType: 'json'
-	        }).then((result) => {
-	            resolve(result);
-	        });
-		});
-	}
+function getColumnTree() {
+	$.ajax({
+        url: 'admin/columnManage/getColumnTree',
+        type: 'GET',
+        async: true,
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function(result) {
+        	treeCache = result;
+    		$('#tree').treeview({
+    	   		data: treeCache,
+    	   		onNodeSelected: function(event, node) {
+    	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
+    	   			columnIdCache = node.id;
+    	   			onSearch(node.id);
+    	   		},
+    	   		onNodeUnselected: function(event, node) {
+    	   			console.log('onNodeUnselected');
+    	   			columnIdCache = '';
+    	   			//onSearch();
+    	   		}
+    	   	});
+    		$('#tree').treeview('collapseAll', { silent: true });
+        }
+    });
 }
 
 $(function(){
-	QueryTree.getColumnTree().then((result) => {
-		treeCache = result;
-		$('#tree').treeview({
-	   		data: treeCache,
-	   		onNodeSelected: function(event, node) {
-	   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
-	   			columnIdCache = node.id;
-	   			onSearch(node.id);
-	   		},
-	   		onNodeUnselected: function(event, node) {
-	   			console.log('onNodeUnselected');
-	   			columnIdCache = '';
-	   			//onSearch();
-	   		}
-	   	});
-		$('#tree').treeview('collapseAll', { silent: true });
-	});
+	getColumnTree();
 });
 
 function traverseTree(nodes, id) {

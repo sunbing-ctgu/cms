@@ -271,7 +271,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$(document).keyup(function(e) {
 					if (e.keyCode == 13) {//按键信息对象以参数的形式传递进来了  
 						//此处编写用户敲回车后的代码  
-						$('#formLogin').submit();
+						var username = $('#username').val().replace(/(^\s*)|(\s*$)/g, "");
+						var password = $('#password').val().replace(/(^\s*)|(\s*$)/g, "");
+						var jcaptchaCode = $('#jcaptchaCode').val().replace(/(^\s*)|(\s*$)/g, "");
+						if(username != '' && password != '' && jcaptchaCode != '') {
+							$('#formLogin').submit();
+						}
 					}
 				});
 			});

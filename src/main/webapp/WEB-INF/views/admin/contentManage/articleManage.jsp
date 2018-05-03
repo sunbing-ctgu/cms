@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div style="margin-top: -10px">
 							<h5 class="bigger lighter">
 								<a id="add-article-btn" class="btn btn-xs btn-primary"
-									data-toggle="modal" data-id="-1" data-target="#article-modal">
+									data-toggle="modal" data-target="#article-modal">
 									<i class="glyphicon glyphicon-plus"></i>新增
 								</a> <a id="del-article-btn" class="btn btn-xs btn-danger"> <i
 									class="glyphicon glyphicon-trash"></i>删除

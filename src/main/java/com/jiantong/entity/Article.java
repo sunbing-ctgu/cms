@@ -40,6 +40,7 @@ public class Article {
 	private String keyWord;
 	
 	/**发布时间*/
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date publishTime;
 	
 	/**置顶属性(0:否1:是)*/

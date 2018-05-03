@@ -1,24 +1,21 @@
 /**
  * 用户管理
  */
-class QueryParam {
-	constructor() {
-		this.username;
-		this.realname;
-		this.pageSize = 10;
-		this.pageNum = 1;
-	}
+function QueryParam() {
+	this.username;
+	this.realname;
+	this.pageSize = 10;
+	this.pageNum = 1;
 }
 
-class User {
-	constructor() {
-		this.username;
-		this.realname;
-		this.password;
-		this.sex;
-		this.tel;
-		this.locked;
-	}
+function User() {
+	this.id;
+	this.username;
+	this.realname;
+	this.password;
+	this.sex;
+	this.tel;
+	this.locked;
 }
 let param = new QueryParam();
 let user = new User();
@@ -28,137 +25,104 @@ let currentUpdateUser;
 let selectedArr = new Array();
 let userModalSubmitType;
 
-class QueryUser {
-	static query(data) {
-	    return new Promise((resolve) => {
-	        $.ajax({
-	            url: 'admin/userManage/getUserList',
-	            type: 'POST',
-	            async: true,
-	            contentType: "application/json; charset=utf-8",
-	            data: JSON.stringify(data),
-	            dataType: 'json'
-	        }).then((result) => {
-	            resolve(result);
-	        });
-	    });
-	}
-}
-
-class OperationUser {
-	static operation(data, type) {
-		let url = "admin/userManage/" + type;
-		return new Promise((resolve) => {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                async: true,
-                contentType: "application/json; charset=utf-8",
-                data: data,
-                dataType: 'json'
-            }).then((result) => {
-                resolve(result);
-            });
-        });
-	}
-}
-
-class DrawTable {
-	static fillData(result) {
-        let htmlValue = '';
-        function getSex(val) {
-            if (val == 0) {
-                return '男';
-            } else {
-                return '女';
-            }
+function fillData(result) {
+    let htmlValue = '';
+    function getSex(val) {
+        if (val == 0) {
+            return '男';
+        } else {
+            return '女';
         }
-        function getLocked(val) {
-            if (val == 0) {
-                return '<span class="text-green">已启用</span>';
-            } else {
-                return '<span class="text-red">已停用</span>';
-            }
-        }
-        function getLockedBtn(val, index) {
-            if (val == 0) {
-                return `<button class="btn btn-minier btn-yellow lock-user" data-id="${index}">停用</button>`;
-            } else {
-                return `<button class="btn btn-minier btn-green lock-user" data-id="${index}">启用</button>`;
-            }
-        }
-        for (let i = 0; i < result.length; i++) {
-        	
-        	htmlValue +=
-        	`<tr>
-				<td class="center"><label class="position-relative">
-						<input type="checkbox" class="ace checkbox-user" data-id="${result[i].id}"/> <span class="lbl"></span>
-				</label></td>
-
-				<td>${result[i].username}</td>
-				<td>${result[i].realname}</td>
-				<td>${getSex(result[i].sex)}</td>
-				<td>${result[i].tel}</td>
-				<td>${getLocked(result[i].locked)}</td>
-				<td>
-					<div class="hidden-sm hidden-xs action-buttons">
-						${getLockedBtn(result[i].locked, i)}
-						<button class="btn btn-minier btn-primary update-user" data-toggle="modal" data-id="${i}" data-target="#user-modal">修改</button>
-						<button class="btn btn-minier btn-danger delete-user" data-id="${result[i].id}">删除</button>
-					</div>
-				</td>
-			</tr>`;
-        }
-        $('#table-tbody').append(htmlValue);
-	}
-}
-
-class PageInfo {
-    static drawPageController(result) {
-        let pageInfo = result.pageInfo;
-        let currentPage = pageInfo.pageNum;
-        let totalPages = pageInfo.navigatepageNums.length;
-        let options = {
-            bootstrapMajorVersion: 3,
-            currentPage: currentPage,
-            totalPages: totalPages,
-            numberOfPages: 10,
-            itemTexts: function (type, page, current) {
-                switch (type) {
-                    case "first":
-                        return "首页";
-                    case "prev":
-                        return "上一页";
-                    case "next":
-                        return "下一页";
-                    case "last":
-                        return "末页";
-                    case "page":
-                        return page;
-                }
-            },
-            onPageClicked: function (event, originalEvent, type, page) {
-            	param.pageNum = page;
-            	query(param);
-            }
-        }
-        $('#page').bootstrapPaginator(options);
     }
+    function getLocked(val) {
+        if (val == 0) {
+            return '<span class="text-green">已启用</span>';
+        } else {
+            return '<span class="text-red">已停用</span>';
+        }
+    }
+    function getLockedBtn(val, index) {
+        if (val == 0) {
+            return '<button class="btn btn-minier btn-yellow lock-user" data-id="'+index+'">停用</button>';
+        } else {
+            return '<button class="btn btn-minier btn-green lock-user" data-id="'+index+'">启用</button>';
+        }
+    }
+    for (let i = 0; i < result.length; i++) {
+    	
+    	htmlValue +=
+    	'<tr>'
+			+'<td class="center"><label class="position-relative">'
+			+		'<input type="checkbox" class="ace checkbox-user" data-id="'+result[i].id+'"/> <span class="lbl"></span>'
+			+'</label></td>'
+			+'<td>'+result[i].username+'</td>'
+			+'<td>'+result[i].realname+'</td>'
+			+'<td>'+getSex(result[i].sex)+'</td>'
+			+'<td>'+result[i].tel+'</td>'
+			+'<td>'+getLocked(result[i].locked)+'</td>'
+			+'<td>'
+			+	'<div class="hidden-sm hidden-xs action-buttons">'
+			+		getLockedBtn(result[i].locked, i)
+			+		'<button class="btn btn-minier btn-primary update-user" data-toggle="modal" data-id="'+i+'" data-target="#user-modal">修改</button>'
+			+		'<button class="btn btn-minier btn-danger delete-user" data-id="'+result[i].id+'">删除</button>'
+			+	'</div>'
+			+'</td>'
+		+'</tr>';
+    }
+    $('#table-tbody').append(htmlValue);
+}
 
+function drawPage(result) {
+    let pageInfo = result.pageInfo;
+    let currentPage = pageInfo.pageNum;
+    let totalPages = pageInfo.navigatepageNums.length;
+    let options = {
+        bootstrapMajorVersion: 3,
+        currentPage: currentPage,
+        totalPages: totalPages,
+        numberOfPages: 10,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        },
+        onPageClicked: function (event, originalEvent, type, page) {
+        	param.pageNum = page;
+        	query(param);
+        }
+    }
+    $('#page').bootstrapPaginator(options);
 }
 
 function query(data) {
 	$('#table-tbody').html('');
 	$('.loading').css('display', 'block');
-	QueryUser.query(data).then((result) => {
-		$('.loading').css('display', 'none');
-        console.log(result.pageInfo);
-        selectedArr = new Array();
-        if (result.pageInfo.list.length > 0) {
-        	resultCache = result.pageInfo.list;
-        	DrawTable.fillData(resultCache);
-        	PageInfo.drawPageController(result);
-        	$('#total-count').html(result.pageInfo.total);
+	$.ajax({
+        url: 'admin/userManage/getUserList',
+        type: 'POST',
+        async: true,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function(result) {
+        	$('.loading').css('display', 'none');
+            console.log(result.pageInfo);
+            selectedArr = new Array();
+            if (result.pageInfo.list.length > 0) {
+            	resultCache = result.pageInfo.list;
+            	fillData(resultCache);
+            	drawPage(result);
+            	$('#total-count').html(result.pageInfo.total);
+            }
         }
     });
 }
@@ -175,20 +139,30 @@ function doOperation(userInfo, type) {
     $('#user-modal').modal('hide');
     $('.loading-word').html('正在提交...')
     $('.submit-loading').css('display', 'block');
-    OperationUser.operation(JSON.stringify(userInfo), type).then((result) => {
-        if (result.retcode == 1) {
-            $('.loading-gif').attr('src', 'admin/img/submit_success.png');
-            $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
-            queryDefault();
-        } else {
-            $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
-            $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
+    let url = "admin/userManage/" + type;
+    let data = JSON.stringify(userInfo);
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: true,
+        contentType: "application/json; charset=utf-8",
+        data: data,
+        dataType: 'json',
+        success: function(result) {
+        	if (result.retcode == 1) {
+                $('.loading-gif').attr('src', 'admin/img/submit_success.png');
+                $('.loading-word').html('<span style="color: rgb(10, 180, 0)">' + '操作成功</span>');
+                queryDefault();
+            } else {
+                $('.loading-gif').attr('src', 'admin/img/submit_fail.png');
+                $('.loading-word').html('<span style="color: rgb(255, 120, 120);">' + '操作失败</span>');
+            }
+            setTimeout(function () {
+                $('.submit-loading').fadeOut(600);
+                $('.upload-video-btn').removeAttr('disabled');
+            }, 1500);
         }
-        setTimeout(function () {
-            $('.submit-loading').fadeOut(600);
-            $('.upload-video-btn').removeAttr('disabled');
-        }, 1500);
-    });
+    })
 }
 
 function onSearch() {
@@ -209,6 +183,12 @@ function batchDel() {
 	
 }
 function addUser() {
+	let password = $('#password').val();
+	let repassword = $('#repassword').val();
+	if(password != repassword) {
+		alert('两次密码输入不一致');
+		return;
+	}
     let userInfo = new User();//
     userInfo.username = $('#username').val().replace(/(^\s*)|(\s*$)/g, "");
     userInfo.password = $('#password').val();
@@ -223,7 +203,15 @@ function addUser() {
 }
 
 function updateUser() {//currentUpdateUser
-    let userInfo = currentUpdateUser;
+	let password = $('#password').val();
+    let repassword = $('#repassword').val();
+    if(password != repassword) {
+    	 alert('两次密码输入不一致');
+    	 return;
+    }
+    let userInfo = new User();
+    userInfo.id = currentUpdateUser.id;
+    userInfo.username = currentUpdateUser.username;
     userInfo.realname = $('#realname').val().replace(/(^\s*)|(\s*$)/g, "");
     userInfo.password = $('#password').val();
     userInfo.tel = $('#tel').val().replace(/(^\s*)|(\s*$)/g, "");
@@ -266,8 +254,9 @@ function openUserModal(userInfo, type) {
         $('#realname').val('');
         $('#tel').val('');
         $('#sex').html('&nbsp;');
-        $('#password').css('display', '');
-        $('#username-input').removeAttr('disabled');
+        $('#password').val('').css('display', '');
+        $('#repassword').val('').css('display', '');
+        $('#username').removeAttr('disabled');
         $('.user-modal-submit').html('确认添加');
         userModalSubmitType = 1;
     } else {
@@ -350,14 +339,16 @@ $(function(){
 });*/
 /* 停用*/
 $(document).on('click', '.lock-user', function () {
+	let user = new User();
 	let index = $(this).data('id');
     let userInfo = resultCache[index];
+    user.id = userInfo.id;
     if (userInfo.locked == 0) {
-        userInfo.locked = 1;
-        confirmModal('lockUser', '是否停用', userInfo);
+    	user.locked = 1;
+        confirmModal('lockUser', '是否停用', user);
     } else {
-        userInfo.locked = 0;
-        confirmModal('lockUser', '是否启用', userInfo);
+    	user.locked = 0;
+        confirmModal('lockUser', '是否启用', user);
     }
 });
 
