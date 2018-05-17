@@ -330,7 +330,7 @@ function queryRootColumn() {
     		if(rootCoulumList.length > 0) {
     			let optionValue = '';
     			for (let i = 0; i < rootCoulumList.length; i++) {
-    				optionValue += '<option value="'+rootCoulumList[i].id+'">'+rootCoulumList[i].name+'</option>';
+    				optionValue += '<option value="'+rootCoulumList[i].id+';'+rootCoulumList[i].path+'">'+rootCoulumList[i].name+'</option>';
     	        }
     	        $('#root-column-select').append(optionValue);
     		}
@@ -424,11 +424,17 @@ function batchDel() {
 
 function addColumn() {
     let column = new Column();//
+    let prePath = 'front/';
+    let idPath = $('#root-column-select option:selected').val();
+    if(idPath.indexOf(';') > 0) {
+    	column.parentId =  idPath.split(';')[0];
+    	prePath =  idPath.split(';')[1];
+    }
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
     let urlPath = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
     if(urlPath) {
-    	urlPath = 'front/' + urlPath;
+    	urlPath = prePath + '/' + urlPath;
     }
     column.path = urlPath;
     if(null != isUploaded) {
@@ -438,7 +444,7 @@ function addColumn() {
     column.type = $('#type-select option:selected').val();
     column.channel = $("input[name='channel']:checked").val();
     column.isShow = $("input[name='isShow']:checked").val();
-    column.parentId =  $('#root-column-select option:selected').val();
+    
     column.sort = $('#sort').val();
     if (column.name != '' && column.path != '' && column.level != '' && column.channel != '' && column.parentId != '') {
     	doOperation(column, 'addColumn', '添加');
@@ -449,12 +455,18 @@ function addColumn() {
 
 function updateColumn() {//currentUpdateUser
     let column = new Column();
+    let prePath = 'front/';
+    let idPath = $('#root-column-select option:selected').val();
+    if(idPath.indexOf(';') > 0) {
+    	column.parentId =  idPath.split(';')[0];
+    	prePath =  idPath.split(';')[1];
+    }
     column.id = currentUpdateColumn.id;
     column.name = $('#name').val().replace(/(^\s*)|(\s*$)/g, "");
     column.rename = $('#rename').val().replace(/(^\s*)|(\s*$)/g, "");
     let urlPath = $('#path').val().replace(/(^\s*)|(\s*$)/g, "");
     if(urlPath) {
-    	urlPath = 'front/' + urlPath;
+    	urlPath = prePath + '/' + urlPath;
     }
     if(null != isUploaded) {
     	column.img = isUploaded.response.data.path;
@@ -465,7 +477,7 @@ function updateColumn() {//currentUpdateUser
     column.type = $('#type-select option:selected').val();
     column.channel = $("input[name='channel']:checked").val();
     column.isShow = $("input[name='isShow']:checked").val();
-    column.parentId =  $('#root-column-select option:selected').val();
+    //column.parentId =  $('#root-column-select option:selected').val();
     column.sort = $('#sort').val();
     doOperation(column, 'updateColumn', '修改');
 }
@@ -684,3 +696,12 @@ function refreshTree() {
 		$('#tree').treeview('collapseAll', { silent: true });
 	});*/
 }
+$('#root-column-select').change(function(){
+	let prePath = '/front/';
+	let idPath = this.value;
+	if(idPath.indexOf(';') > 0) {
+		prePath = '/' + idPath.split(';')[1] + '/';
+	}
+	console.log(prePath);
+	$(".pre-path").html(prePath); 
+})

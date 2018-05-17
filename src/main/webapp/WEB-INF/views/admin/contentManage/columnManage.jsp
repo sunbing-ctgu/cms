@@ -248,8 +248,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="path">访问路径</label>
 							<div class="col-sm-9">
-								<label class="col-sm-2 control-label" for="path">/front/</label>
-								<input type="text" id="path" class="col-xs-8 col-sm-6">
+								<label class="col-sm-4 control-label pre-path" for="path">/front/</label>
+								<input type="text" id="path" class="col-xs-6 col-sm-4">
 							</div> 
 						</div>
 						<div class="form-group">
@@ -287,7 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 </body>
-<script src='admin/js/contentManage/columnManage.js'></script>
+<script src='admin/js/contentManage/columnManage.js?v=1.0'></script>
 <script type="text/javascript">
    	$('#tree').treeview({
    		color: "#428bca",
