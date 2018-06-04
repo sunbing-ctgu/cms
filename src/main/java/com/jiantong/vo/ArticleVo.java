@@ -22,7 +22,7 @@ public class ArticleVo {
 	
 	private String keyWord;
 	
-	private String publishTime;
+	private Date publishTime;
 	
 	private Integer isTop;
 	
@@ -114,11 +114,11 @@ public class ArticleVo {
 		this.keyWord = keyWord;
 	}
 
-	public String getPublishTime() {
+	public Date getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublishTime(String publishTime) {
+	public void setPublishTime(Date publishTime) {
 		this.publishTime = publishTime;
 	}
 

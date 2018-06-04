@@ -54,10 +54,10 @@
 	</select>
 	
 	<insert id="addArticle" parameterType="com.jiantong.vo.ArticleVo">
-		INSERT INTO cms_article(column_id, title, title_img, author
+		INSERT INTO cms_article(column_id, title, title_img, author,
 		content, summary, href, key_word, publish_time, is_top, is_recommend, 
 		sort, status, creater_id, create_time, updater_id, update_time ) 
-		VALUES(#{columnId}, #{title}, #{titleImg}, #{author}
+		VALUES(#{columnId}, #{title}, #{titleImg}, #{author},
 		#{content}, #{summary}, #{href}, #{keyWord}, 
 		#{publishTime}, #{isTop}, #{isRecommend}, #{sort}, 
 		#{status}, #{createrId}, #{createTime}, #{updaterId}, #{updateTime})

@@ -107,6 +107,9 @@ public class ArticleController extends BaseController {
 		User user = getUser(request);
 		try {
 			Date date = new Date();
+			if(null == data.getPublishTime()) {
+				data.setPublishTime(date);
+			}
 			data.setStatus(1);
 			data.setCreaterId(user.getId());
 			data.setCreateTime(date);
