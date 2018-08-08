@@ -74,7 +74,7 @@
 			<if test="null != summary and '' != summary">summary=#{summary},</if>
 			<if test="null != href and '' != href">href=#{href},</if>
 			<if test="null != keyWord and '' != keyWord">key_word=#{keyWord},</if>
-			<if test="null != publishTime and '' != publishTime">publish_time=#{publishTime},</if>
+			<if test="null != publishTime">publish_time=#{publishTime},</if>
 			<if test="null != isTop and '' != isTop">is_top=#{isTop},</if>
 			<if test="null != isRecommend and '' != isRecommend">is_recommend=#{isRecommend},</if>
 			<if test="null != sort and '' != sort">sort=#{sort},</if>
