@@ -110,6 +110,7 @@ function fillData(result) {
 			+		'<input type="checkbox" class="ace checkbox-article" data-id="'+result[i].id+'"/> <span class="lbl"></span>'
 			+'</label></td>'
     		+'<td>'+result[i].title+'</td>'
+    		+'<td>'+result[i].columnName+'</td>'
 			+'<td>'+getTop(result[i].isTop)+'</td>'
 			+'<td>'+getRecommend(result[i].isRecommend)+'</td>'
     		+'<td>'+result[i].viewCount+'</td>'
@@ -498,27 +499,72 @@ $(function(){
 		}
 	});
 	
+	var selectColumnTreeData = null;
+	var columnTreeShow = false;
 	$("#columnName").click(function() {
-		$.ajax({
-	        url: 'admin/columnManage/getColumnTree',
-	        type: 'GET',
-	        async: true,
-	        contentType: "application/json; charset=utf-8",
-	        dataType: 'json',
-	        success: function(result) {
-	        	$('#columnTreeView').treeview({
-			   		data: result,
-			   		onNodeSelected: function(event, node) {
-			   			console.log("id:" + node.id + "text:" + node.text + 'was selected');
-			   			$("#columnName").val(node.text);
-			   			$("#columnId").val(node.id);
-			   			$('#columnTreeView').hide();
-			   		}
-			   	});
+		if(!columnTreeShow) {
+			if(treeCache) {
+				selectColumnTreeData = treeCache;
+				for(let i = 0 ; i < selectColumnTreeData.length; i++) {
+					let nodes = selectColumnTreeData[i].nodes;
+					if(nodes && nodes.length > 0) {
+						selectColumnTreeData[i].selectable = false;
+					}else {
+						selectColumnTreeData[i].selectable = true;
+					}
+				}
+				$('#columnTreeView').treeview({
+					data: selectColumnTreeData,
+					onNodeSelected: function(event, node) {
+						console.log("id:" + node.id + "text:" + node.text + 'was selected');
+						$("#columnName").val(node.text);
+						$("#columnId").val(node.id);
+						$('#columnTreeView').hide();
+						columnTreeShow = false;
+					}
+				});
 				$('#columnTreeView').treeview('collapseAll', { silent: true });
 				$("#columnTreeView>ul").css("margin-left", "0px");
-	        }
-	    });
+				$('#columnTreeView').show();
+				columnTreeShow = true;
+			}else {
+				$.ajax({
+					url: 'admin/columnManage/getColumnTree',
+					type: 'GET',
+					async: true,
+					contentType: "application/json; charset=utf-8",
+					dataType: 'json',
+					success: function(result) {
+						selectColumnTreeData = result;
+						for(let i = 0 ; i < selectColumnTreeData.length; i++) {
+							let nodes = selectColumnTreeData[i].nodes;
+							if(nodes && nodes.length > 0) {
+								selectColumnTreeData[i].selectable = false;
+							}else {
+								selectColumnTreeData[i].selectable = true;
+							}
+						}
+						$('#columnTreeView').treeview({
+							data: selectColumnTreeData,
+							onNodeSelected: function(event, node) {
+								console.log("id:" + node.id + "text:" + node.text + 'was selected');
+								$("#columnName").val(node.text);
+								$("#columnId").val(node.id);
+								$('#columnTreeView').hide();
+								columnTreeShow = false;
+							}
+						});
+						$('#columnTreeView').treeview('collapseAll', { silent: true });
+						$("#columnTreeView>ul").css("margin-left", "0px");
+						$('#columnTreeView').show();
+						columnTreeShow = true;
+					}
+				});
+			}
+		}else {
+			$('#columnTreeView').hide();
+			columnTreeShow = false;
+		}
 	})/*.blur(function() {
 		$('#columnTreeView').hide();
 	})*/;

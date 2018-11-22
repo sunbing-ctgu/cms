@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.jiantong.entity.Article">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="column_id" property="columnId" jdbcType="INTEGER" />
+		<result column="column_name" property="columnName" jdbcType="VARCHAR" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="title_img" property="titleImg" jdbcType="VARCHAR" />
 		<result column="is_top" property="isTop" jdbcType="INTEGER" />
@@ -37,7 +38,7 @@
 	</resultMap>
 	
 	<select id="getArticleList" parameterType="com.jiantong.bean.ArticleBean" resultMap="BaseResultMap">
-		SELECT a.id, a.column_id, a.title, a.title_img, a.is_top, a.is_recommend, a.sort, a.view_count, a.create_time
+		SELECT a.id, a.column_id, c.name as column_name, a.title, a.title_img, a.is_top, a.is_recommend, a.sort, a.view_count, a.create_time
 		FROM cms_article a LEFT JOIN cms_column c ON a.column_id = c.id
 		WHERE <![CDATA[ a.status <> 0 ]]>
 		<if test="title !=null and title != ''">

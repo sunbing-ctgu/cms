@@ -107,7 +107,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												class="position-relative"> <input type="checkbox"
 													class="ace checkbox-article-all" /> <span class="lbl"></span>
 											</label></th>
-											<th class="col-md-3">标题</th>
+											<th class="col-md-2">标题</th>
+											<th class="col-md-1">所属栏目</th>
 											<th class="col-md-1">置顶</th>
 											<th class="col-md-1">推荐</th>
 											<th class="col-md-1">点击数</th>
@@ -178,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="columnId">所属栏目</label>
 									<div class="col-sm-5">
-										<input type="text" id="columnName" class="col-xs-10 col-sm-8 form-control" value="" onclick="$('#columnTreeView').show()">
+										<input type="text" id="columnName" class="col-xs-10 col-sm-8 form-control" value="" onclick="" readonly="readonly">
 										<input type="hidden" id="columnId" value=""/>
 										<div id="columnTreeView" style="margin-top:34px; display:none;"></div>
 									</div> 
