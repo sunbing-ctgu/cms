@@ -310,6 +310,7 @@ a{outline:none;}
 .news_contact span{display: block; overflow: hidden; text-align: center; margin-bottom: 5%}
 .news_contact span small{ padding: 0 20px; color: #999}
 .news_contact p{ margin-bottom: 24px; line-height: 28px; font-size: 1.2em}
+.news_contact p img{width:100%}
 .news_contact_img{ margin: 24px 0;}
 .news_contact_img img{ }
 
