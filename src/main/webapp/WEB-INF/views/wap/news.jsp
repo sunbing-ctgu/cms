@@ -111,7 +111,7 @@
              	var res = data.pageInfo;
              	for(var i = 0; i< res.list.length; i++){
              		var article = res.list[i];
-             		var htmlValue ="<li class='news_li'><div class='news_time'><div class='news_time_day'>"+article.date+"</div><div class='news_time_year'>"+article.year+"</div></div><dl class='news_con'><dt><a href='${column.path}/"+article.id+"'> "+article.title+"</a></dt><dd>"+isNull(article.summary)+"</dd></dl></li>"
+             		var htmlValue ="<li class='news_li'><div class='news_time'><div class='news_time_day'>"+article.date+"</div><div class='news_time_year'>"+article.year+"</div></div><dl class='news_con'><dt><a href='wap/${column.path}/"+article.id+"'> "+article.title+"</a></dt><dd>"+isNull(article.summary)+"</dd></dl></li>"
 	             	$(".introduce_r_contact").append(htmlValue);
              	}
             	$("#page").paging({
