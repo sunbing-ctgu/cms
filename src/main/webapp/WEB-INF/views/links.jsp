@@ -22,7 +22,7 @@
                         <h4>${item.key}</h4>
                         <ul>
                         	<c:forEach items="${item.value}" var="article">
-                        		<li><a href="${article.href}">${article.title}</a> </li>
+                        		<li><a href="${article.href}" target="_blank">${article.title}</a> </li>
                         	</c:forEach>
                         </ul>
                     </li>

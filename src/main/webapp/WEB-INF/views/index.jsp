@@ -238,7 +238,7 @@
                 		<c:if test="${status.count eq 1 || (status.count-1) % 5 eq 0}">
                 			<ul>
                 		</c:if>
-						<li><a href="${item.href}">${item.title}</a>
+						<li><a href="${item.href}" target="_blank">${item.title}</a>
 						<c:if test="${status.count % 5 eq 0 || status.count % 5 eq 5}">
                 			</ul>
                 		</c:if>
