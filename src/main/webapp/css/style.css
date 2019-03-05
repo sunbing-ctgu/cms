@@ -34,7 +34,7 @@ a{outline:none;}
 .index_new_l{ width: 840px; height: 430px; float: left}
 .index_new_r{width: 360px; height: 430px;  float: right; }
 
-/*------banner�ֲ�--------*/
+/*------banner锟街诧拷--------*/
 .turn{ width:840px; height:430px; position:relative; overflow:hidden;}
 .turn-loading{ width:840px; height:430px; position:absolute; z-index:4; overflow:hidden; background:#202f42;}
 .turn-loading img{ width:32px; height:32px; margin:51px 0 0 135px;}
@@ -108,8 +108,8 @@ a{outline:none;}
 
 .rolling_new_con{ border: 1px solid #f1f1f1;
 
-    background:-moz-linear-gradient(top,#f1f1f1,#ffffff);/*���*/
-    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#f1f1f1), to(#ffffff));/*�ȸ�*/
+    background:-moz-linear-gradient(top,#f1f1f1,#ffffff);/*锟斤拷锟�*/
+    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#f1f1f1), to(#ffffff));/*锟饺革拷*/
 
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f1f1f1', endColorstr='#ffffff'); /*IE6 & IE7*/
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f1f1f1', endColorstr='#ffffff')"; /* IE8 */ }
@@ -276,7 +276,8 @@ a{outline:none;}
 .news_contact h4{ text-align: center; margin: 40px auto 10px; font-size: 20px;}
 .news_contact span{ display: block; overflow: hidden; text-align: center;}
 .news_contact span small{ padding: 0 20px; color: #999}
-.news_content p{ margin-bottom: 24px; line-height: 28px;}
+/*.news_content p{ margin-bottom: 24px; line-height: 28px;}*/
+.news_content p{ line-height: 28px;}
 .news_content p span{ display: inline; text-align: left}
 .news_content img{ margin: 24px auto; vertical-align:middle; display: table-cell;}
 .news_contact p img{width: 100%}
