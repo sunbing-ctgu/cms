@@ -19,7 +19,7 @@
 				</c:otherwise>
 			</c:choose>
 				<h3>
-					<a href="${item.path}"><b>${item.text}</b></a>
+					<a href="${item.path}" target="_blank"><b>${item.text}</b></a>
 				</h3>
 				<ul class="sub">
 					<c:if test="${not empty item.nodes}">

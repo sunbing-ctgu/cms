@@ -26,7 +26,7 @@
 						</div>
 						<ul class="turn-pic">
 							<c:forEach  items="${frontCarouselFigureList}" var="item">
-								<li><a href="${item.href}"><img src="${item.imgPath}" title="${item.title}"/></a></li>
+								<li><a href="${item.href}" target="_blank"><img src="${item.imgPath}" title="${item.title}"/></a></li>
 							</c:forEach>	
 						</ul>
 					</div>
@@ -34,9 +34,9 @@
 				<div class="index_new_r">
 						<c:forEach  items="${topArticleList}" var="item">
 							<li>
-		                        <a href="front/news/chamber/${item.id}"><img src="${item.titleImg}"/></a>
+		                        <a href="front/news/chamber/${item.id}" target="_blank"><img src="${item.titleImg}"/></a>
 		                        <dl>
-		                            <dt><a href="front/news/chamber/${item.id}" id="index_news01">${item.title}</a></dt>
+		                            <dt><a href="front/news/chamber/${item.id}" target="_blank" id="index_news01">${item.title}</a></dt>
 		                            <dd>${item.summary}</dd>
 		                        </dl>
 		                    </li>
