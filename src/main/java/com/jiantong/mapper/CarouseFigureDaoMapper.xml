@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	<select id="getFrontCarouselFigureList" resultMap="FrontResultMap">
-		SELECT id, title, img_path, href FROM cms_carousel_figure WHERE <![CDATA[ status <> 0 ]]> ORDER BY sort limit 4
+		SELECT id, title, img_path, href FROM cms_carousel_figure WHERE <![CDATA[ status <> 0 ]]> ORDER BY sort limit 6
 	</select>
 	
 	<select id="getCarouselFigureList" resultMap="BaseResultMap">
