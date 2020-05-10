@@ -214,7 +214,7 @@
 					<div class="index_cantact_us_con">
 						<dl>
 							<dt>Address:</dt>
-							<dd>250-8260 Granville Avenue,Richmond BC V6Y 1P3</dd>
+							<dd>8836 Selkirk Street,Vancouver V6P 4J8</dd>
 						</dl>
 						<dl>
 							<dt>TEL:</dt>

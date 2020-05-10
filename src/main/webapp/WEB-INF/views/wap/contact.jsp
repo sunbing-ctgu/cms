@@ -37,7 +37,7 @@
                         <div class="contact_add">
                             <h4>加拿大潮商會</h4>
                             <p style=" margin-bottom: 20px">Canada Chaoshan Business Association</p>
-                            <p>地址：250-8260 Granville Avenue, Richmond BC V6Y 1P3</p>
+                            <p>地址：8836 Selkirk Street,Vancouver V6P 4J8</p>
                             <p>電話：001-604-370-1828</p>
                             <p>郵箱：canadachaoshang@gmail.com</p>
                             <div class="contact_img"><img src="upload/images/map.png"></div>
