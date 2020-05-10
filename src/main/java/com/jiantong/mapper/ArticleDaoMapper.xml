@@ -97,28 +97,28 @@
 	</update>
 	
 	<select id="getArticleByColumnId" parameterType="Integer" resultMap="DetailResultMap">
-		SELECT * FROM cms_article WHERE column_id = #{columnId} ORDER BY is_top desc, sort asc LIMIT 1;
+		SELECT * FROM cms_article WHERE column_id = #{columnId} ORDER BY is_top desc, sort desc LIMIT 1;
 	</select>
 	
 	<select id="getArticleListByColumnId" parameterType="Integer" resultMap="SummaryResultMap">
 		SELECT id, title, title_img, summary, href, year(publish_time) _year, DATE_FORMAT(publish_time, '%m-%d') _date
 		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
 		AND column_id = #{columnId}
-		ORDER BY is_top desc, sort asc, publish_time desc
+		ORDER BY is_top desc, sort desc, publish_time desc
 	</select>
 	
 	<select id="getArticleListTopByColumnId" parameterType="Integer" resultMap="SummaryResultMap">
 		SELECT id, title, title_img, summary, href, year(publish_time) _year, DATE_FORMAT(publish_time, '%m-%d') _date
 		FROM cms_article WHERE <![CDATA[ status <> 0 ]]>
 		AND column_id = #{columnId}
-		ORDER BY is_top desc, sort asc, publish_time desc limit #{top}
+		ORDER BY is_top desc, sort desc, publish_time desc limit #{top}
 	</select>
 	
 	<select id="getArticleListTopByRootColumnId" parameterType="Integer" resultMap="SummaryResultMap">
 		SELECT a.id, a.title, a.title_img, a.summary, a.href, year(a.publish_time) _year, DATE_FORMAT(a.publish_time, '%m-%d') _date
 		FROM cms_article as a LEFT JOIN cms_column as c ON a.column_id = c.id WHERE <![CDATA[ a.status <> 0 ]]>
 		AND c.parent_id = #{columnId}
-		ORDER BY a.is_top desc, a.sort asc, a.publish_time desc limit #{top}
+		ORDER BY a.is_top desc, a.sort desc, a.publish_time desc limit #{top}
 	</select>
 	
 </mapper>
