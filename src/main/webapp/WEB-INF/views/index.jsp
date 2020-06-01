@@ -146,7 +146,7 @@
 					</c:choose>
 				</c:forEach>
 			</ul>
-			<div class="index_landscape">
+			<%-- <div class="index_landscape">
 				<c:forEach  items="${humanitySummaryList}" var="item" varStatus="status">
 					<c:choose>
 						<c:when test="${status.count == 1}">
@@ -191,7 +191,7 @@
 					</c:choose>
 					
 				</c:forEach>
-			</div>
+			</div> --%>
 			<div class="index_banner">
 				<img src="upload/images/banner.png">
 			</div>
@@ -228,7 +228,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="index_link rolling_new">
+		<%-- <div class="index_link rolling_new">
                 <div class="news_l_tittle">
                     <h4>友情鏈接</h4>
                     <a href="front/links">更多></a>
@@ -244,7 +244,7 @@
                 		</c:if>
 	           		</c:forEach>
                 </div>
-            </div>
+            </div> --%>
 		<jsp:include page="common/foot.jsp"></jsp:include>
 	</div>
 	<script type="text/javascript">

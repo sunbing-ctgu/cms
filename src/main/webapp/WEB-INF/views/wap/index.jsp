@@ -152,7 +152,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="news">
+                <%-- <ul class="news">
                 	<c:forEach  items="${humanitySummaryList}" var="item" varStatus="status">
 						<c:choose>
 							<c:when test="${status.count == 1}">
@@ -196,7 +196,7 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-                </ul>
+                </ul> --%>
                 <div class="index_banner"><img src="upload/images/banner.png"> </div>
                 <div class="index_bottom">
                     <div class="index_stars">
@@ -231,7 +231,7 @@
                     </div>
                 </div>
 
-                <div class="index_link rolling_new">
+                <%-- <div class="index_link rolling_new">
                     <div class="news_l_tittle">
                         <h4>友情鏈接</h4>
                         <a href="wap/front/links">更多></a>
@@ -247,7 +247,7 @@
 	                		</c:if>
 		           		</c:forEach>
                     </div>
-                </div>
+                </div> --%>
  			<jsp:include page="common/menu.jsp"></jsp:include>
             </div>
             <jsp:include page="common/foot.jsp"></jsp:include>
