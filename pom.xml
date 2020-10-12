@@ -27,7 +27,7 @@
 		<ehcache.version>3.3.1</ehcache.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<jcaptcha.version>1.0-all</jcaptcha.version>
 		<alibabajson.version>1.2.39</alibabajson.version>
 		<quartz.version>2.3.0</quartz.version>
