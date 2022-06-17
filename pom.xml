@@ -29,7 +29,7 @@
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.12</junit.version>
 		<jcaptcha.version>1.0-all</jcaptcha.version>
-		<alibabajson.version>1.2.39</alibabajson.version>
+		<alibabajson.version>1.2.83</alibabajson.version>
 		<quartz.version>2.3.0</quartz.version>
 	</properties>
 	<dependencies>
